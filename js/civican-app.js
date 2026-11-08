@@ -1,10 +1,8 @@
 /**
- * CIVICAN: APLICACIÓN PRINCIPAL Y MÁQUINA DE ESTADOS
- * Controla el ciclo de vida, navegación y renderizado de los 4 juegos:
- * - Juego A: Transforma tu barrio (Simulación y Decisiones Comunitarias)
- * - Juego B: Detectives del clima (Trivial de Investigación y Fact-Checking)
- * - Juego C: ¿Verde de verdad? (Auditoría de Escaparate y Greenwashing)
- * - Juego D: Misión: romper la cadena (Escape Room Digital y Colaboración)
+ * CIVICAN: APLICACIÓN PRINCIPAL (VERSIÓN 2 - CONTRATO DE FIDELIDAD)
+ * Renderizado fiel de las 4 experiencias pedagógicas basadas en:
+ * P1 = "CIVICAN.pptx.pdf" (Andreu Escrivà)
+ * P2 = "Presentación CIVICAN.pdf" (Verificat / Desfake)
  */
 
 class CivicanApp {
@@ -13,19 +11,14 @@ class CivicanApp {
     this.currentGame = null;
     this.currentRoundIndex = 0;
     this.selectedOptionId = null;
-    this.currentCaseId = null; // Para Juego C
+    this.selectedSubOptionId = null;
 
-    // Puntuaciones y Sellos
-    this.earnedBadges = [];
-    this.gameDecisions = [];
-
-    // Referencias a contenedores del DOM
+    // Referencias al DOM
     this.landingView = document.getElementById('view-landing');
     this.gameView = document.getElementById('view-game');
     this.resultsView = document.getElementById('view-results');
-    this.selectorView = document.getElementById('view-selector');
 
-    // Inicializar Kiosk Manager
+    // Inicializar Quiosco
     this.kiosk = new CivicanKioskManager(this);
 
     this.initLanding();
@@ -34,7 +27,7 @@ class CivicanApp {
   }
 
   /* ==========================================================================
-     INICIALIZACIÓN DE LA PORTADA (LANDING)
+     PORTADA (LANDING)
      ========================================================================== */
   initLanding() {
     const gridEl = document.getElementById('landing-experiences-grid');
@@ -67,6 +60,10 @@ class CivicanApp {
         </div>
 
         <p class="card-summary">${exp.summary}</p>
+        
+        <div style="font-size:0.85rem; color:var(--texto-secundario); margin-bottom:16px;">
+          <i class="fa-solid fa-file-pdf"></i> ${exp.sourceRef}
+        </div>
 
         <div class="card-footer-action">
           <button class="btn-card-cta" aria-label="Iniciar ${exp.title}">
@@ -86,30 +83,20 @@ class CivicanApp {
     });
   }
 
-  /* ==========================================================================
-     MODAL DE FUENTES Y CRÉDITOS (ANDREU ESCRIVÀ Y VERIFICAT)
-     ========================================================================== */
   initSourcesModal() {
     const btnOpen = document.getElementById('btn-open-sources');
     const btnOpenLanding = document.getElementById('btn-open-sources-landing');
     const modal = document.getElementById('sources-modal');
     const btnClose = document.getElementById('btn-close-sources');
 
-    const openFn = () => {
-      if (modal) modal.classList.add('active');
-    };
-    const closeFn = () => {
-      if (modal) modal.classList.remove('active');
-    };
+    const openFn = () => { if (modal) modal.classList.add('active'); };
+    const closeFn = () => { if (modal) modal.classList.remove('active'); };
 
     if (btnOpen) btnOpen.addEventListener('click', openFn);
     if (btnOpenLanding) btnOpenLanding.addEventListener('click', openFn);
     if (btnClose) btnClose.addEventListener('click', closeFn);
   }
 
-  /* ==========================================================================
-     CONTROLES DE ACCESIBILIDAD
-     ========================================================================== */
   initAccessibilityControls() {
     const btnMotion = document.getElementById('btn-toggle-motion');
     if (btnMotion) {
@@ -123,9 +110,6 @@ class CivicanApp {
     }
   }
 
-  /* ==========================================================================
-     NAVEGACIÓN ENTRE VISTAS
-     ========================================================================== */
   showView(viewName) {
     this.currentView = viewName;
     document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
@@ -136,26 +120,19 @@ class CivicanApp {
       this.gameView.classList.add('active');
     } else if (viewName === 'results') {
       this.resultsView.classList.add('active');
-    } else if (viewName === 'selector') {
-      this.selectorView.classList.add('active');
     }
 
-    // Notificar al quiosco para gestionar tiempos de inactividad
     this.kiosk.restartIdleTimer();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  /* ==========================================================================
-     INICIO DE EXPERIENCIA
-     ========================================================================== */
   startExperience(expId) {
     this.currentGame = CIVICAN_DATA.experiences.find(e => e.id === expId);
     if (!this.currentGame) return;
 
     this.currentRoundIndex = 0;
     this.selectedOptionId = null;
-    this.earnedBadges = [];
-    this.gameDecisions = [];
+    this.selectedSubOptionId = null;
 
     this.showView('game');
     this.renderCurrentGameStep();
@@ -179,7 +156,7 @@ class CivicanApp {
   }
 
   /* ==========================================================================
-     JUEGO A: TRANSFORMA TU BARRIO (Simulación y Decisiones)
+     JUEGO A: TRANSFORMA TU BARRIO (P1 - Andreu Escrivà)
      ========================================================================== */
   renderGameA(container) {
     const round = this.currentGame.rounds[this.currentRoundIndex];
@@ -189,6 +166,7 @@ class CivicanApp {
     }
 
     this.selectedOptionId = null;
+    this.selectedSubOptionId = null;
 
     container.innerHTML = `
       <div class="game-top-nav">
@@ -198,41 +176,63 @@ class CivicanApp {
           </span>
           <h2 style="font-size:1.4rem; font-weight:800;">${this.currentGame.title}</h2>
         </div>
-        <div class="step-indicator">
-          Reto ${round.stepNumber}
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:0.85rem; font-weight:700; color:var(--texto-secundario); background:var(--fondo-calido); padding:4px 10px; border-radius:var(--radius-pill);">
+            <i class="fa-solid fa-bookmark"></i> ${round.sourceRef}
+          </span>
+          <div class="step-indicator">Reto ${round.stepNumber}</div>
         </div>
       </div>
 
       <div class="game-layout-split">
-        <!-- Escena SVG Ilustrada del Barrio -->
+        <!-- Visual Ilustrado P1 -->
         <div class="visual-scene-box">
-          ${this.getNeighborhoodSvg(round.illustrationType, this.currentRoundIndex)}
-          <div style="margin-top:16px; font-weight:700; color:var(--verde-barrio); font-size:1.05rem;">
-            <i class="fa-solid fa-layer-group"></i> Escenario Comunitario: ${round.badge}
+          ${this.getSceneSvgA(round.illustrationType)}
+          <div style="margin-top:16px; font-weight:800; color:var(--verde-barrio); font-size:1.05rem;">
+            <i class="fa-solid fa-lightbulb"></i> ${round.badge}
+          </div>
+          <div style="font-size:0.88rem; color:var(--texto-secundario); font-style:italic; margin-top:4px;">
+            «${round.originalQuestion}»
           </div>
         </div>
 
-        <!-- Panel de Decisión -->
+        <!-- Panel de Elección y Reflexión -->
         <div class="decision-panel">
           <div>
             <h3 class="situation-heading">${round.situation}</h3>
+            ${round.disclaimer ? `<p style="font-size:0.9rem; color:var(--texto-secundario); font-style:italic; margin-bottom:12px;">${round.disclaimer}</p>` : ''}
             
-            <div class="options-list" id="options-list-a">
+            <div class="options-list">
               ${round.options.map((opt, idx) => `
                 <div class="option-card-touch" data-id="${opt.id}">
                   <div class="option-indicator">${idx + 1}</div>
                   <div class="option-text-group">
-                    <h4 class="option-title">${opt.title}</h4>
-                    <p class="option-desc">${opt.desc}</p>
+                    <h4 class="option-title">${opt.text}</h4>
+                    ${opt.desc ? `<p class="option-desc">${opt.desc}</p>` : ''}
                   </div>
                 </div>
               `).join('')}
             </div>
+
+            ${round.subQuestion ? `
+              <div style="margin-top:16px; border-top:1px solid var(--borde-suave); padding-top:12px;">
+                <h4 style="font-size:1.05rem; font-weight:800; color:var(--azul-tinta); margin-bottom:10px;">
+                  ${round.subQuestion}
+                </h4>
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                  ${round.subOptions.map(sub => `
+                    <button class="header-btn sub-opt-btn" data-subid="${sub.id}" style="font-size:0.9rem; padding:8px 14px;">
+                      ${sub.label}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
           </div>
 
           <div class="action-bottom-bar">
             <button class="btn-confirm-choice" id="btn-confirm-a" disabled>
-              <span>Confirmar elección</span>
+              <span>Confirmar reflexión</span>
               <i class="fa-solid fa-check"></i>
             </button>
           </div>
@@ -240,16 +240,26 @@ class CivicanApp {
       </div>
     `;
 
-    // Selección de opciones
+    // Selección de opciones principales
     const optionCards = container.querySelectorAll('.option-card-touch');
     const confirmBtn = container.querySelector('#btn-confirm-a');
-
     optionCards.forEach(card => {
       card.addEventListener('click', () => {
         optionCards.forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         this.selectedOptionId = card.dataset.id;
         confirmBtn.disabled = false;
+      });
+    });
+
+    // Selección de sub-opciones
+    const subBtns = container.querySelectorAll('.sub-opt-btn');
+    subBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        subBtns.forEach(b => b.style.background = 'var(--superficie)');
+        btn.style.background = 'var(--verde-suave)';
+        btn.style.borderColor = 'var(--verde-barrio)';
+        this.selectedSubOptionId = btn.dataset.subid;
       });
     });
 
@@ -261,52 +271,29 @@ class CivicanApp {
   }
 
   handleChoiceGameA(round) {
-    const chosenOption = round.options.find(o => o.id === this.selectedOptionId);
-    if (!chosenOption) return;
-
-    this.gameDecisions.push({ roundTitle: round.situation, chosen: chosenOption });
-
     const container = document.getElementById('game-dynamic-content');
     const decisionPanel = container.querySelector('.decision-panel');
 
     decisionPanel.innerHTML = `
       <div class="explanation-card">
         <h3 class="explanation-title">
-          <i class="fa-solid fa-lightbulb" style="color:var(--verde-barrio);"></i>
-          Impacto de la decisión
+          <i class="fa-solid fa-seedling" style="color:var(--verde-barrio);"></i>
+          ${round.feedbackTitle}
         </h3>
-        <p class="explanation-body">${chosenOption.feedback}</p>
+        <p class="explanation-body">${round.feedbackBody}</p>
         
-        <div class="tags-opportunity-condition">
-          <div class="opp-tag">
-            <i class="fa-solid fa-arrow-up-right-dots"></i> <strong>Oportunidad:</strong> ${chosenOption.opportunity}
-          </div>
-          <div class="cond-tag">
-            <i class="fa-solid fa-circle-exclamation"></i> <strong>Condición:</strong> ${chosenOption.condition}
-          </div>
-        </div>
-
-        <!-- Micro-Reto de Alfabetización Mediática -->
-        <div style="background:var(--fondo-calido); border-radius:var(--radius-sm); padding:16px; margin-bottom:16px;">
-          <h4 style="color:var(--azul-tinta); font-weight:800; margin-bottom:6px;">
-            <i class="fa-solid fa-magnifying-glass"></i> ${round.microChallenge.title}
+        <div style="background:var(--verde-suave); padding:16px; border-radius:var(--radius-md); margin-bottom:20px; border-left:5px solid var(--verde-barrio);">
+          <h4 style="font-weight:800; color:var(--verde-barrio); margin-bottom:4px;">
+            <i class="fa-solid fa-quote-left"></i> Conclusión de la Ponencia (Andreu Escrivà):
           </h4>
-          <p style="font-style:italic; margin-bottom:10px; font-weight:600; color:var(--texto-secundario);">
-            ${round.microChallenge.claim}
+          <p style="font-size:1.02rem; color:var(--azul-tinta); line-height:1.4;">
+            ${round.takeaway}
           </p>
-          <p style="font-size:0.95rem; margin-bottom:8px;">${round.microChallenge.question}</p>
-          <div style="display:flex; flex-direction:column; gap:8px;">
-            ${round.microChallenge.options.map(mcOpt => `
-              <button class="header-btn" style="text-align:left; justify-content:flex-start; width:100%; border-radius:var(--radius-sm); font-size:0.92rem;" onclick="this.style.background='var(--verde-suave)'; this.nextElementSibling ? this.nextElementSibling.style.display='block' : null;">
-                <i class="fa-regular fa-circle-check"></i> ${mcOpt.text}
-              </button>
-            `).join('')}
-          </div>
         </div>
 
         <div style="display:flex; justify-content:flex-end;">
           <button class="btn-confirm-choice" id="btn-next-step-a">
-            <span>${this.currentRoundIndex === this.currentGame.rounds.length - 1 ? 'Ver resultado' : 'Continuar al siguiente reto'}</span>
+            <span>${this.currentRoundIndex === this.currentGame.rounds.length - 1 ? 'Ver conclusiones' : 'Continuar al siguiente reto'}</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -326,7 +313,7 @@ class CivicanApp {
   }
 
   /* ==========================================================================
-     JUEGO B: DETECTIVES DEL CLIMA (Trivial / Fact-Checking)
+     JUEGO B: DETECTIVES DEL CLIMA (P2 - Verificat)
      ========================================================================== */
   renderGameB(container) {
     const currentCase = this.currentGame.cases[this.currentRoundIndex];
@@ -337,6 +324,11 @@ class CivicanApp {
 
     this.selectedOptionId = null;
 
+    if (currentCase.isMethodBuilder) {
+      this.renderMethodBuilderB(container, currentCase);
+      return;
+    }
+
     container.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
@@ -345,60 +337,62 @@ class CivicanApp {
           </span>
           <h2 style="font-size:1.4rem; font-weight:800;">${this.currentGame.title}</h2>
         </div>
-        <div class="step-indicator">
-          ${currentCase.stepNumber}
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:0.85rem; font-weight:700; color:var(--texto-secundario); background:var(--fondo-calido); padding:4px 10px; border-radius:var(--radius-pill);">
+            <i class="fa-solid fa-bookmark"></i> ${currentCase.sourceRef}
+          </span>
+          <div class="step-indicator">Caso ${currentCase.stepNumber}</div>
         </div>
       </div>
 
       <div class="game-layout-split">
-        <!-- Publicación Editorial Simulada con Herramientas de Verificación -->
+        <!-- Tarjeta del Caso Original P2 -->
         <div class="visual-scene-box" style="justify-content:flex-start;">
           <div class="news-mock-card">
             <div class="news-mock-header">
               <div class="news-avatar">
-                <i class="fa-solid fa-newspaper"></i>
+                <i class="fa-solid fa-file-lines"></i>
               </div>
               <div>
-                <strong style="color:var(--azul-tinta);">${currentCase.sourceAuthor}</strong>
-                <div style="font-size:0.85rem; color:var(--texto-secundario);">${currentCase.publishedTime}</div>
+                <strong style="color:var(--azul-tinta);">${currentCase.badge}</strong>
+                <div style="font-size:0.85rem; color:var(--texto-secundario);">${currentCase.contextText}</div>
               </div>
             </div>
 
             <h3 class="news-claim-headline">${currentCase.headline}</h3>
-
-            <!-- Gráfica o Visual Reconstruido -->
-            ${this.getDetectiveVisual(currentCase.chartPreviewType)}
           </div>
 
-          <!-- 3 Herramientas de Investigación Táctiles -->
+          <!-- 3 Pistas Metodológicas: Qué veo, Qué puedo comprobar, Qué falta saber -->
           <div class="detective-tools-bar">
-            <button class="btn-tool" data-tool="fuente">
-              <i class="fa-solid fa-user-check"></i> Fuente
+            <button class="btn-tool" data-tool="queVeo">
+              <i class="fa-solid fa-eye"></i> Qué veo
             </button>
-            <button class="btn-tool" data-tool="pruebas">
-              <i class="fa-solid fa-chart-line"></i> Pruebas
+            <button class="btn-tool" data-tool="quePuedoComprobar">
+              <i class="fa-solid fa-magnifying-glass"></i> Qué comprobar
             </button>
-            <button class="btn-tool" data-tool="contexto">
-              <i class="fa-solid fa-scale-balanced"></i> Contexto
+            <button class="btn-tool" data-tool="queFaltaSaber">
+              <i class="fa-solid fa-question"></i> Qué falta saber
             </button>
           </div>
 
           <div class="tool-preview-content" id="tool-content-display">
-            <i class="fa-solid fa-hand-pointer"></i> Toca una herramienta para auditar el mensaje antes de decidir.
+            <i class="fa-solid fa-hand-pointer"></i> Toca una pista para auditar las pruebas antes de responder.
           </div>
         </div>
 
-        <!-- Panel de Pregunta de Verificación -->
+        <!-- Panel de Pregunta Original "¿Te lo crees?" -->
         <div class="decision-panel">
           <div>
-            <h3 class="situation-heading">${currentCase.question}</h3>
+            <h3 class="situation-heading" style="font-size:1.8rem; text-align:center; margin-bottom:24px;">
+              «${currentCase.question}»
+            </h3>
             
             <div class="options-list">
               ${currentCase.options.map((opt, idx) => `
-                <div class="option-card-touch" data-id="${opt.id}">
+                <div class="option-card-touch" data-id="${opt.id}" style="align-items:center; min-height:74px;">
                   <div class="option-indicator">${idx + 1}</div>
                   <div class="option-text-group">
-                    <p style="font-weight:700; color:var(--azul-tinta);">${opt.text}</p>
+                    <h4 class="option-title" style="font-size:1.3rem;">${opt.text}</h4>
                   </div>
                 </div>
               `).join('')}
@@ -415,15 +409,15 @@ class CivicanApp {
       </div>
     `;
 
-    // Herramientas
+    // Herramientas de pistas
     const toolBtns = container.querySelectorAll('.btn-tool');
     const toolDisplay = container.querySelector('#tool-content-display');
     toolBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         toolBtns.forEach(b => b.classList.remove('opened'));
         btn.classList.add('opened');
-        const toolKey = btn.dataset.tool;
-        toolDisplay.innerHTML = `<strong>${btn.innerText}:</strong> ${currentCase.tools[toolKey]}`;
+        const key = btn.dataset.tool;
+        toolDisplay.innerHTML = `<strong>${btn.innerText}:</strong> ${currentCase.tools[key]}`;
       });
     });
 
@@ -447,32 +441,38 @@ class CivicanApp {
   }
 
   handleChoiceGameB(currentCase) {
-    const chosenOption = currentCase.options.find(o => o.id === this.selectedOptionId);
-    if (!chosenOption) return;
-
     const container = document.getElementById('game-dynamic-content');
     const decisionPanel = container.querySelector('.decision-panel');
 
     decisionPanel.innerHTML = `
-      <div class="explanation-card" style="border-color:${chosenOption.isCorrect ? 'var(--verde-barrio)' : 'var(--ambar-pista)'}">
-        <h3 class="explanation-title">
-          <i class="fa-solid ${chosenOption.isCorrect ? 'fa-circle-check' : 'fa-circle-info'}" style="color:${chosenOption.isCorrect ? 'var(--verde-barrio)' : 'var(--ambar-pista)'};"></i>
-          ${chosenOption.isCorrect ? '¡Bien visto! Criterio certero' : 'Hay un matiz esencial'}
-        </h3>
-        <p class="explanation-body">${chosenOption.feedback}</p>
-        
-        <div style="background:var(--azul-suave); padding:14px; border-radius:var(--radius-sm); margin-bottom:20px;">
-          <h4 style="font-weight:800; color:var(--azul-detectives); margin-bottom:4px;">
-            <i class="fa-solid fa-shield-halved"></i> Clave de Verificación:
-          </h4>
-          <p style="font-size:0.95rem; color:var(--azul-tinta);">
-            Auditar quién comunica, qué pruebas aporta y qué contexto omite es el antídoto contra el engaño.
-          </p>
+      <div class="explanation-card">
+        <div style="display:inline-block; background:${currentCase.verdictInSlide === 'VERDADERO' ? 'var(--verde-barrio)' : 'var(--terracota)'}; color:#FFF; font-weight:900; padding:6px 16px; border-radius:var(--radius-pill); font-size:1.1rem; margin-bottom:12px;">
+          ${currentCase.feedbackTitle}
         </div>
+        <p class="explanation-body">${currentCase.feedbackBody}</p>
+
+        ${currentCase.methodNote ? `
+          <div style="background:var(--azul-suave); padding:14px; border-radius:var(--radius-sm); margin-bottom:18px;">
+            <p style="font-size:0.95rem; color:var(--azul-tinta);">
+              <i class="fa-solid fa-circle-check" style="color:var(--azul-detectives);"></i> ${currentCase.methodNote}
+            </p>
+          </div>
+        ` : ''}
+
+        ${currentCase.methodPills ? `
+          <div style="background:var(--fondo-calido); padding:14px; border-radius:var(--radius-sm); margin-bottom:18px;">
+            <h4 style="font-weight:800; font-size:0.95rem; margin-bottom:8px;">${currentCase.methodQuestion}</h4>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              ${currentCase.methodPills.map(p => `
+                <span class="typology-tag" style="background:#FFF;"><i class="fa-solid fa-check"></i> ${p}</span>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
 
         <div style="display:flex; justify-content:flex-end;">
           <button class="btn-confirm-choice" id="btn-next-step-b">
-            <span>${this.currentRoundIndex === this.currentGame.cases.length - 1 ? 'Ver resultado' : 'Siguiente caso'}</span>
+            <span>Siguiente paso</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -491,16 +491,62 @@ class CivicanApp {
     });
   }
 
+  renderMethodBuilderB(container, currentCase) {
+    container.innerHTML = `
+      <div class="game-top-nav">
+        <div class="game-title-group">
+          <span class="game-typology-badge" style="color:var(--azul-detectives);">
+            <i class="fa-solid fa-shield-halved"></i> ${currentCase.badge}
+          </span>
+          <h2 style="font-size:1.4rem; font-weight:800;">${currentCase.headline}</h2>
+        </div>
+        <div class="step-indicator">Paso 3 de 3</div>
+      </div>
+
+      <div style="background:var(--superficie); border-radius:var(--radius-lg); padding:28px; border:2px solid var(--borde-suave); margin-top:20px;">
+        <p style="font-size:1.25rem; font-weight:700; color:var(--azul-tinta); margin-bottom:20px; text-align:center;">
+          Toca las 4 preguntas esenciales de Verificat (P2 p.22) para incorporarlas a tu caja de herramientas crítica:
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:24px;">
+          ${currentCase.questions.map(q => `
+            <div class="option-card-touch method-card" style="flex-direction:column; align-items:flex-start; min-height:120px;">
+              <div style="display:flex; justify-content:space-between; width:100%; margin-bottom:8px;">
+                <span style="font-weight:900; color:var(--azul-detectives); font-size:1.2rem;">#${q.number}</span>
+                <span class="typology-tag">${q.focus}</span>
+              </div>
+              <h4 style="font-size:1.2rem; font-weight:800; color:var(--azul-tinta); margin-bottom:6px;">${q.text}</h4>
+              <p style="font-size:0.95rem; color:var(--texto-secundario);">${q.desc}</p>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="display:flex; justify-content:center;">
+          <button class="btn-confirm-choice" id="btn-finish-method-b" style="padding:0 48px;">
+            <span>Completar método y ver conclusiones</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    `;
+
+    container.querySelector('#btn-finish-method-b').addEventListener('click', () => {
+      this.kiosk.withTransitionLock(() => {
+        this.showResults();
+      });
+    });
+  }
+
   /* ==========================================================================
-     JUEGO C: ¿VERDE DE VERDAD? (Auditoría de Escaparate)
+     JUEGO C: ¿VERDE DE VERDAD? (P2 - Caso H&M)
      ========================================================================== */
   renderGameC(container) {
-    const objects = this.currentGame.objects;
-    if (!this.currentCaseId) {
-      this.currentCaseId = objects[0].id;
+    const layer = this.currentGame.layers[this.currentRoundIndex];
+    if (!layer) {
+      this.showResults();
+      return;
     }
 
-    const currentObj = objects.find(o => o.id === this.currentCaseId) || objects[0];
     this.selectedOptionId = null;
 
     container.innerHTML = `
@@ -511,60 +557,50 @@ class CivicanApp {
           </span>
           <h2 style="font-size:1.4rem; font-weight:800;">${this.currentGame.title}</h2>
         </div>
-        <div class="step-indicator">
-          Escaparate de Productos
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:0.85rem; font-weight:700; color:var(--texto-secundario); background:var(--fondo-calido); padding:4px 10px; border-radius:var(--radius-pill);">
+            <i class="fa-solid fa-bookmark"></i> ${layer.sourceRef}
+          </span>
+          <div class="step-indicator">${layer.stepNumber}</div>
         </div>
       </div>
 
       <div class="game-layout-split">
-        <!-- Escaparate con los 3 Objetos -->
+        <!-- Ficha de la Campaña Analizada -->
         <div class="visual-scene-box" style="justify-content:flex-start;">
-          <div class="escaparate-grid">
-            ${objects.map(obj => `
-              <div class="escaparate-item-btn ${obj.id === currentObj.id ? 'active-target' : ''}" data-id="${obj.id}">
-                <i class="fa-solid ${obj.icon}" style="font-size:2.2rem; color:var(--terracota);"></i>
-                <strong style="font-size:1rem; color:var(--azul-tinta);">${obj.name}</strong>
-                <span style="font-size:0.8rem; color:var(--texto-secundario);">${obj.tag}</span>
-              </div>
-            `).join('')}
+          <div style="background:var(--terracota-suave); border-radius:var(--radius-md); padding:16px; width:100%; margin-bottom:16px; border-left:6px solid var(--terracota);">
+            <span style="font-size:0.85rem; font-weight:800; color:var(--terracota); text-transform:uppercase;">Caso de Estudio Real</span>
+            <h3 style="font-size:1.3rem; font-weight:800; color:var(--azul-tinta); margin-top:2px;">${layer.subtitle}</h3>
           </div>
 
-          <!-- Ficha de Auditoría por Capas -->
-          <div style="background:var(--superficie); border:2px solid var(--borde-funcional); border-radius:var(--radius-md); padding:18px; width:100%;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <h4 style="font-size:1.2rem; font-weight:800;">${currentObj.name}</h4>
-              <span class="typology-tag">${currentObj.tag}</span>
+          ${layer.claimPresented ? `
+            <div style="background:#FFF; border:2px dashed var(--terracota); border-radius:var(--radius-md); padding:18px; width:100%; margin-bottom:16px;">
+              <span style="font-size:0.85rem; font-weight:800; color:var(--texto-secundario);"><i class="fa-solid fa-bullhorn"></i> Mensaje del Anuncio:</span>
+              <p style="font-size:1.15rem; font-weight:700; color:var(--azul-tinta); margin-top:6px; font-style:italic;">
+                ${layer.claimPresented}
+              </p>
             </div>
+          ` : ''}
 
-            <p style="font-weight:700; font-size:1.15rem; color:var(--terracota); margin-bottom:14px; background:var(--terracota-suave); padding:10px; border-radius:var(--radius-sm);">
-              ${currentObj.claim}
+          <div style="text-align:center; padding:20px; width:100%;">
+            <i class="fa-solid fa-shirt" style="font-size:4rem; color:var(--terracota); opacity:0.85; margin-bottom:10px;"></i>
+            <p style="font-size:0.95rem; font-weight:700; color:var(--azul-tinta);">
+              Investigación sobre recogida de prendas y trazabilidad de materiales
             </p>
-
-            <!-- Pestañas de Capas -->
-            <div class="escaparate-layers-tabbar">
-              <button class="layer-tab-btn active" data-layer="promesa">La Promesa</button>
-              <button class="layer-tab-btn" data-layer="pruebas">Las Pruebas</button>
-              <button class="layer-tab-btn" data-layer="loQueFalta">Lo que falta</button>
-            </div>
-
-            <div class="tool-preview-content" id="layer-content-display">
-              ${currentObj.layers.promesa}
-            </div>
           </div>
         </div>
 
-        <!-- Panel de Clasificación -->
+        <!-- Panel de Pregunta y Opciones -->
         <div class="decision-panel">
           <div>
-            <h3 class="situation-heading">${currentObj.question}</h3>
+            <h3 class="situation-heading">${layer.question}</h3>
             
             <div class="options-list">
-              ${currentObj.options.map(opt => `
+              ${layer.options.map((opt, idx) => `
                 <div class="option-card-touch" data-id="${opt.id}">
-                  <div class="option-indicator"><i class="fa-solid fa-check"></i></div>
+                  <div class="option-indicator">${idx + 1}</div>
                   <div class="option-text-group">
-                    <h4 class="option-title">${opt.label}</h4>
-                    <p class="option-desc">${opt.desc}</p>
+                    <h4 class="option-title">${opt.text}</h4>
                   </div>
                 </div>
               `).join('')}
@@ -573,33 +609,13 @@ class CivicanApp {
 
           <div class="action-bottom-bar">
             <button class="btn-confirm-choice" id="btn-confirm-c" disabled>
-              <span>Clasificar promesa</span>
-              <i class="fa-solid fa-award"></i>
+              <span>Confirmar respuesta</span>
+              <i class="fa-solid fa-check"></i>
             </button>
           </div>
         </div>
       </div>
     `;
-
-    // Selección de objetos del escaparate
-    container.querySelectorAll('.escaparate-item-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.currentCaseId = btn.dataset.id;
-        this.renderGameC(container);
-      });
-    });
-
-    // Pestañas de capas
-    const layerTabs = container.querySelectorAll('.layer-tab-btn');
-    const layerDisplay = container.querySelector('#layer-content-display');
-    layerTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        layerTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const key = tab.dataset.layer;
-        layerDisplay.textContent = currentObj.layers[key];
-      });
-    });
 
     // Opciones
     const optionCards = container.querySelectorAll('.option-card-touch');
@@ -615,38 +631,35 @@ class CivicanApp {
 
     confirmBtn.addEventListener('click', () => {
       this.kiosk.withTransitionLock(() => {
-        this.handleChoiceGameC(currentObj);
+        this.handleChoiceGameC(layer);
       });
     });
   }
 
-  handleChoiceGameC(currentObj) {
-    const chosenOption = currentObj.options.find(o => o.id === this.selectedOptionId);
-    if (!chosenOption) return;
-
+  handleChoiceGameC(layer) {
     const container = document.getElementById('game-dynamic-content');
     const decisionPanel = container.querySelector('.decision-panel');
 
     decisionPanel.innerHTML = `
-      <div class="explanation-card" style="border-color:${chosenOption.isCorrect ? 'var(--verde-barrio)' : 'var(--terracota)'}">
-        <h3 class="explanation-title">
-          <i class="fa-solid ${chosenOption.isCorrect ? 'fa-certificate' : 'fa-info'}" style="color:${chosenOption.isCorrect ? 'var(--verde-barrio)' : 'var(--terracota)'};"></i>
-          ${chosenOption.isCorrect ? 'Veredicto fundamentado' : 'Observación editorial'}
+      <div class="explanation-card" style="border-color:var(--terracota);">
+        <h3 class="explanation-title" style="color:var(--terracota);">
+          <i class="fa-solid fa-magnifying-glass-location"></i>
+          ${layer.feedbackTitle}
         </h3>
-        <p class="explanation-body">${chosenOption.explanation}</p>
+        <p class="explanation-body">${layer.feedbackBody}</p>
         
         <div style="background:var(--terracota-suave); padding:14px; border-radius:var(--radius-sm); margin-bottom:20px;">
           <h4 style="font-weight:800; color:var(--terracota); margin-bottom:4px;">
-            <i class="fa-solid fa-bullseye"></i> Alcance de la afirmación:
+            <i class="fa-solid fa-compass"></i> Clave Crítica:
           </h4>
           <p style="font-size:0.95rem; color:var(--azul-tinta);">
-            No todo lo que se anuncia como ecológico es falso, pero debemos exigir pruebas que coincidan exactamente con la escala de lo prometido.
+            ${layer.insight || layer.takeaway}
           </p>
         </div>
 
         <div style="display:flex; justify-content:flex-end;">
           <button class="btn-confirm-choice" id="btn-next-step-c">
-            <span>Continuar exploración</span>
+            <span>${this.currentRoundIndex === this.currentGame.layers.length - 1 ? 'Ver conclusiones' : 'Siguiente capa'}</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -656,8 +669,7 @@ class CivicanApp {
     decisionPanel.querySelector('#btn-next-step-c').addEventListener('click', () => {
       this.kiosk.withTransitionLock(() => {
         this.currentRoundIndex++;
-        if (this.currentRoundIndex < this.currentGame.objects.length) {
-          this.currentCaseId = this.currentGame.objects[this.currentRoundIndex].id;
+        if (this.currentRoundIndex < this.currentGame.layers.length) {
           this.renderGameC(container);
         } else {
           this.showResults();
@@ -667,7 +679,7 @@ class CivicanApp {
   }
 
   /* ==========================================================================
-     JUEGO D: MISIÓN: ROMPER LA CADENA (Escape Room Digital)
+     JUEGO D: MISIÓN: ROMPER LA CADENA (P2 - EFECT y Retardismo)
      ========================================================================== */
   renderGameD(container) {
     const trial = this.currentGame.trials[this.currentRoundIndex];
@@ -686,60 +698,61 @@ class CivicanApp {
           </span>
           <h2 style="font-size:1.4rem; font-weight:800;">${this.currentGame.title}</h2>
         </div>
-        <div class="step-indicator">
-          ${trial.stepNumber}
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:0.85rem; font-weight:700; color:var(--texto-secundario); background:var(--fondo-calido); padding:4px 10px; border-radius:var(--radius-pill);">
+            <i class="fa-solid fa-bookmark"></i> ${trial.sourceRef}
+          </span>
+          <div class="step-indicator">${trial.stepNumber}</div>
         </div>
       </div>
 
       <div class="game-layout-split">
-        <!-- Visual de la Cadena / Red de Mensajes -->
+        <!-- Visual y Llaves del Escape Room -->
         <div class="visual-scene-box" style="justify-content:flex-start;">
-          <!-- Progreso de Llaves Desbloqueadas -->
           <div class="escape-keys-progress" style="width:100%;">
             <div class="escape-key-pill ${this.currentRoundIndex >= 1 ? 'unlocked' : ''}">
-              <i class="fa-solid fa-key"></i> Llave 1: Fuente
+              <i class="fa-solid fa-key"></i> 1. Pruebas
             </div>
             <div class="escape-key-pill ${this.currentRoundIndex >= 2 ? 'unlocked' : ''}">
-              <i class="fa-solid fa-key"></i> Llave 2: Contexto
+              <i class="fa-solid fa-key"></i> 2. Estrategias
             </div>
             <div class="escape-key-pill ${this.currentRoundIndex >= 3 ? 'unlocked' : ''}">
-              <i class="fa-solid fa-key"></i> Llave 3: Acción
+              <i class="fa-solid fa-key"></i> 3. Acción
             </div>
           </div>
 
-          <!-- Red Visual SVG -->
           <div style="background:#0F2032; border-radius:var(--radius-md); padding:20px; width:100%; color:#FFF; margin-bottom:16px;">
             <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
               <span style="background:var(--terracota); padding:4px 10px; border-radius:var(--radius-pill); font-size:0.8rem; font-weight:800;">
-                CADENA VIRAL ACTIVA
+                CADENA DE RETARDISMO
               </span>
-              <span style="font-size:0.85rem; color:#A0B2C6;">Propagación en redes</span>
+              <span style="font-size:0.85rem; color:#A0B2C6;">Discursos que frenan la acción</span>
             </div>
-            <p style="font-size:1.15rem; font-weight:700; color:#F2C14E; line-height:1.35;">
-              ${trial.claimViral}
+            <p style="font-size:1.12rem; font-weight:700; color:#F2C14E; line-height:1.35;">
+              ${trial.narrativeClaim || trial.pairingTask?.questionGiven || trial.efectChallenge?.definition}
             </p>
           </div>
 
           <div style="background:var(--fondo-calido); border-radius:var(--radius-md); padding:16px; width:100%;">
-            <h4 style="font-weight:800; margin-bottom:6px; color:var(--azul-tinta);">
-              <i class="fa-solid fa-puzzle-piece"></i> Desafío del Enigma:
+            <h4 style="font-weight:800; margin-bottom:4px; color:var(--azul-tinta);">
+              <i class="fa-solid fa-puzzle-piece"></i> Misión del Enigma:
             </h4>
             <p style="font-size:0.95rem; color:var(--texto-secundario);">${trial.situation}</p>
           </div>
         </div>
 
-        <!-- Panel de Elección del Enigma -->
+        <!-- Panel de Resolución del Enigma -->
         <div class="decision-panel">
           <div>
             <h3 class="situation-heading">${trial.title}</h3>
             
             <div class="options-list">
-              ${(trial.cards || trial.options).map((item, idx) => `
-                <div class="option-card-touch" data-id="${item.id}">
+              ${(trial.options || trial.pairingTask?.options || trial.efectChallenge?.options).map((opt, idx) => `
+                <div class="option-card-touch" data-id="${opt.id}">
                   <div class="option-indicator">${idx + 1}</div>
                   <div class="option-text-group">
-                    <h4 class="option-title">${item.name || item.text}</h4>
-                    ${item.desc ? `<p class="option-desc">${item.desc}</p>` : ''}
+                    <h4 class="option-title">${opt.name || opt.text}</h4>
+                    ${opt.desc ? `<p class="option-desc">${opt.desc}</p>` : ''}
                   </div>
                 </div>
               `).join('')}
@@ -749,7 +762,7 @@ class CivicanApp {
           <div class="action-bottom-bar">
             <button class="btn-confirm-choice" id="btn-confirm-d" disabled>
               <span>Desbloquear llave</span>
-              <i class="fa-solid fa-unlock-keyhole"></i>
+              <i class="fa-solid fa-unlock"></i>
             </button>
           </div>
         </div>
@@ -776,33 +789,31 @@ class CivicanApp {
   }
 
   handleChoiceGameD(trial) {
-    const list = trial.cards || trial.options;
-    const chosen = list.find(item => item.id === this.selectedOptionId);
-    if (!chosen) return;
-
     const container = document.getElementById('game-dynamic-content');
     const decisionPanel = container.querySelector('.decision-panel');
 
     decisionPanel.innerHTML = `
-      <div class="explanation-card" style="border-color:${chosen.isCorrect ? 'var(--verde-barrio)' : 'var(--ambar-pista)'}">
-        <h3 class="explanation-title">
-          <i class="fa-solid ${chosen.isCorrect ? 'fa-key' : 'fa-circle-exclamation'}" style="color:${chosen.isCorrect ? 'var(--verde-barrio)' : 'var(--ambar-pista)'};"></i>
-          ${chosen.isCorrect ? '¡Llave conseguida!' : 'Pista de ayuda'}
+      <div class="explanation-card" style="border-color:var(--azul-tinta);">
+        <h3 class="explanation-title" style="color:var(--azul-tinta);">
+          <i class="fa-solid fa-key" style="color:var(--verde-barrio);"></i>
+          ${trial.feedbackTitle}
         </h3>
-        <p class="explanation-body">${chosen.feedback}</p>
+        <p class="explanation-body">${trial.feedbackBody}</p>
         
-        <div style="background:var(--verde-suave); padding:14px; border-radius:var(--radius-sm); margin-bottom:20px;">
-          <h4 style="font-weight:800; color:var(--verde-barrio); margin-bottom:4px;">
-            <i class="fa-solid fa-users-rays"></i> Efecto Comunitario:
-          </h4>
-          <p style="font-size:0.95rem; color:var(--azul-tinta);">
-            Detener los bulos y el derrotismo permite conectar personas dispuestas a construir soluciones locales reales.
-          </p>
-        </div>
+        ${trial.takeaway ? `
+          <div style="background:var(--verde-suave); padding:14px; border-radius:var(--radius-sm); margin-bottom:20px;">
+            <h4 style="font-weight:800; color:var(--verde-barrio); margin-bottom:4px;">
+              <i class="fa-solid fa-users-rays"></i> Acción en Común (Andreu Escrivà):
+            </h4>
+            <p style="font-size:0.95rem; color:var(--azul-tinta);">
+              ${trial.takeaway}
+            </p>
+          </div>
+        ` : ''}
 
         <div style="display:flex; justify-content:flex-end;">
           <button class="btn-confirm-choice" id="btn-next-step-d">
-            <span>${this.currentRoundIndex === this.currentGame.trials.length - 1 ? 'Finalizar misión' : 'Siguiente enigma'}</span>
+            <span>${this.currentRoundIndex === this.currentGame.trials.length - 1 ? 'Misión completada' : 'Siguiente enigma'}</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -822,7 +833,7 @@ class CivicanApp {
   }
 
   /* ==========================================================================
-     PANTALLA DE RESULTADOS / CIERRE
+     PANTALLA DE RESULTADOS
      ========================================================================== */
   showResults() {
     this.showView('results');
@@ -842,7 +853,7 @@ class CivicanApp {
 
         <div class="takeaways-box">
           <h4 style="font-size:1.15rem; font-weight:800; margin-bottom:14px; color:var(--azul-tinta);">
-            <i class="fa-solid fa-seedling"></i> Aprendizajes clave para recordar:
+            <i class="fa-solid fa-seedling"></i> Aprendizajes documentados de la sesión:
           </h4>
           ${closing.takeaways.map(t => `
             <div class="takeaway-item">
@@ -856,7 +867,6 @@ class CivicanApp {
           <i class="fa-solid fa-bookmark"></i> ${closing.sourceNote}
         </p>
 
-        <!-- Barra de retorno automático por inactividad -->
         <div class="results-auto-timeout-bar">
           <i class="fa-regular fa-clock"></i>
           Esta pantalla volverá al inicio en <span id="results-timeout-counter">45</span> segundos.
@@ -887,7 +897,6 @@ class CivicanApp {
       });
     });
 
-    // Iniciar temporizador de resultados en Kiosk Manager
     this.kiosk.startResultsTimer();
   }
 
@@ -899,96 +908,51 @@ class CivicanApp {
     this.currentGame = null;
     this.currentRoundIndex = 0;
     this.selectedOptionId = null;
-    this.currentCaseId = null;
-    this.earnedBadges = [];
-    this.gameDecisions = [];
+    this.selectedSubOptionId = null;
     this.showLanding();
   }
 
-  /* ==========================================================================
-     GENERADORES DE SVG ILUSTRATIVO
-     ========================================================================== */
-  getNeighborhoodSvg(type, step) {
-    return `
-      <svg viewBox="0 0 500 320" width="100%" height="280" xmlns="http://www.w3.org/2000/svg" style="border-radius:12px; background:#F0F4F2;">
-        <!-- Cielo y Sol -->
-        <circle cx="420" cy="50" r="30" fill="#F2C14E" opacity="0.6"/>
-        <path d="M0,260 Q250,230 500,260 L500,320 L0,320 Z" fill="#DCE8E1"/>
-        
-        <!-- Edificios del Barrio -->
-        <rect x="50" y="100" width="80" height="160" rx="4" fill="#17324D"/>
-        <rect x="65" y="120" width="16" height="20" rx="2" fill="#EAF0FA"/>
-        <rect x="95" y="120" width="16" height="20" rx="2" fill="#EAF0FA"/>
-        <rect x="65" y="160" width="16" height="20" rx="2" fill="#EAF0FA"/>
-        <rect x="95" y="160" width="16" height="20" rx="2" fill="#EAF0FA"/>
-
-        <rect x="150" y="70" width="100" height="190" rx="4" fill="#2457A7"/>
-        <rect x="170" y="90" width="20" height="25" rx="2" fill="#FFF"/>
-        <rect x="210" y="90" width="20" height="25" rx="2" fill="#FFF"/>
-        <rect x="170" y="130" width="20" height="25" rx="2" fill="#FFF"/>
-        <rect x="210" y="130" width="20" height="25" rx="2" fill="#FFF"/>
-
-        <!-- Taller Comunal / Espacio Ciudadano -->
-        <rect x="270" y="140" width="120" height="120" rx="6" fill="#176B52"/>
-        <text x="330" y="170" fill="#FFF" font-size="12" font-weight="bold" text-anchor="middle">Taller &amp; Recursos</text>
-        <rect x="310" y="195" width="40" height="65" fill="#E7F2E9" rx="2"/>
-
-        <!-- Árboles y Vegetación Sostenible -->
-        <circle cx="430" cy="200" r="35" fill="#176B52" opacity="0.9"/>
-        <rect x="424" y="235" width="12" height="35" fill="#8B5A2B"/>
-
-        <circle cx="30" cy="220" r="28" fill="#176B52" opacity="0.8"/>
-        <rect x="26" y="248" width="8" height="25" fill="#8B5A2B"/>
-
-        <!-- Transporte Público / Movilidad Sostenible -->
-        <rect x="130" y="245" width="110" height="40" rx="6" fill="#F2C14E"/>
-        <circle cx="155" cy="285" r="10" fill="#17324D"/>
-        <circle cx="215" cy="285" r="10" fill="#17324D"/>
-        <rect x="145" y="252" width="20" height="15" rx="2" fill="#FFF"/>
-        <rect x="175" y="252" width="20" height="15" rx="2" fill="#FFF"/>
-        <rect x="205" y="252" width="20" height="15" rx="2" fill="#FFF"/>
-
-        <!-- Personas colaborando -->
-        <circle cx="380" cy="245" r="8" fill="#17324D"/>
-        <rect x="375" y="253" width="10" height="22" rx="3" fill="#A74332"/>
-        
-        <circle cx="400" cy="248" r="8" fill="#17324D"/>
-        <rect x="395" y="256" width="10" height="19" rx="3" fill="#2457A7"/>
-      </svg>
-    `;
-  }
-
-  getDetectiveVisual(type) {
-    if (type === 'truncated') {
+  getSceneSvgA(type) {
+    if (type === 'materials-cycle') {
       return `
-        <div style="background:#F7F5EE; border-radius:8px; padding:12px; margin-bottom:12px; text-align:center;">
-          <svg viewBox="0 0 300 120" width="100%" height="110">
-            <!-- Gráfica recortada -->
-            <line x1="20" y1="100" x2="280" y2="100" stroke="#6B7C85" stroke-width="2"/>
-            <polyline points="20,80 80,60 160,20 220,15 280,45" fill="none" stroke="#A74332" stroke-width="4"/>
-            <text x="220" y="10" fill="#A74332" font-size="10" font-weight="bold">130 pts</text>
-            <text x="280" y="60" fill="#176B52" font-size="10" font-weight="bold">125 pts (-4%)</text>
-            <rect x="200" y="5" width="90" height="60" fill="none" stroke="#2457A7" stroke-width="2" stroke-dasharray="4"/>
-          </svg>
-          <span style="font-size:0.8rem; color:var(--terracota); font-weight:700;">
-            Ventana seleccionada: destaca la bajada puntual omitiendo la tendencia previa.
-          </span>
-        </div>
+        <svg viewBox="0 0 460 260" width="100%" height="240" xmlns="http://www.w3.org/2000/svg" style="border-radius:12px; background:#F0F4F2;">
+          <circle cx="230" cy="130" r="85" fill="none" stroke="#6B7C85" stroke-width="14" stroke-dasharray="16 8"/>
+          <!-- 7.2% en verde -->
+          <circle cx="230" cy="130" r="85" fill="none" stroke="#176B52" stroke-width="18" stroke-dasharray="38 496" stroke-dashoffset="0"/>
+          <text x="230" y="125" font-size="28" font-weight="900" fill="#176B52" text-anchor="middle">7,2%</text>
+          <text x="230" y="150" font-size="12" font-weight="700" fill="#17324D" text-anchor="middle">Materiales reciclados (2023)</text>
+          <text x="230" y="170" font-size="10" fill="#4B5F6B" text-anchor="middle">92,8% extracción virgen</text>
+        </svg>
+      `;
+    } else if (type === 'pib-wellbeing') {
+      return `
+        <svg viewBox="0 0 460 260" width="100%" height="240" xmlns="http://www.w3.org/2000/svg" style="border-radius:12px; background:#F0F4F2;">
+          <rect x="50" y="60" width="160" height="150" rx="8" fill="#FFF" stroke="#2457A7" stroke-width="3"/>
+          <text x="130" y="95" font-size="14" font-weight="bold" fill="#2457A7" text-anchor="middle">PIB / Dinero</text>
+          <text x="130" y="130" font-size="11" fill="#4B5F6B" text-anchor="middle">Contabiliza gasto</text>
+          <text x="130" y="150" font-size="11" fill="#4B5F6B" text-anchor="middle">reconstrucción y</text>
+          <text x="130" y="170" font-size="11" fill="#4B5F6B" text-anchor="middle">contaminación</text>
+
+          <rect x="250" y="60" width="160" height="150" rx="8" fill="#FFF" stroke="#176B52" stroke-width="3"/>
+          <text x="330" y="95" font-size="14" font-weight="bold" fill="#176B52" text-anchor="middle">Bienestar Humano</text>
+          <text x="330" y="130" font-size="11" fill="#4B5F6B" text-anchor="middle">Salud, tiempo libre,</text>
+          <text x="330" y="150" font-size="11" fill="#4B5F6B" text-anchor="middle">redes comunitarias y</text>
+          <text x="330" y="170" font-size="11" fill="#4B5F6B" text-anchor="middle">entorno habitable</text>
+        </svg>
       `;
     } else {
       return `
-        <div style="background:#F7F5EE; border-radius:8px; padding:12px; margin-bottom:12px; text-align:center;">
-          <i class="fa-solid fa-shirt" style="font-size:3.5rem; color:var(--verde-barrio); margin-bottom:6px;"></i>
-          <div style="font-size:0.85rem; font-weight:700; color:var(--azul-tinta);">
-            Etiqueta ECO destacada en letras gigantes · Ficha de impacto oculta
-          </div>
-        </div>
+        <svg viewBox="0 0 460 260" width="100%" height="240" xmlns="http://www.w3.org/2000/svg" style="border-radius:12px; background:#F0F4F2;">
+          <circle cx="230" cy="130" r="70" fill="#E7F2E9"/>
+          <text x="230" y="125" font-size="32" font-weight="900" fill="#176B52" text-anchor="middle">69%</text>
+          <text x="230" y="150" font-size="12" font-weight="bold" fill="#17324D" text-anchor="middle">Dispuestos a actuar</text>
+          <text x="230" y="220" font-size="11" fill="#4B5F6B" text-anchor="middle">Estudio global (P1 p.26): subestimamos a los demás</text>
+        </svg>
       `;
     }
   }
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
   window.civicanApp = new CivicanApp();
 });

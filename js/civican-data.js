@@ -1,9 +1,8 @@
 /**
- * CIVICAN: TU IMPACTO EN JUEGO
- * Modelo de datos editorial estructurado para las 4 experiencias interactivas.
- * Fuentes teóricas y metodológicas:
- * 1. Andreu Escrivà (Límites materiales, acción colectiva y transición ecológica justa).
- * 2. Verificat / Desfake (Metodología de verificación, alfabetización mediática y detección de greenwashing).
+ * CIVICAN: TU IMPACTO EN JUEGO (VERSIÓN 2 - CONTRATO DE FIDELIDAD)
+ * Modelo de datos editorial estructurado fiel a las dos presentaciones originales:
+ * P1 = "CIVICAN.pptx.pdf" (Andreu Escrivà: Recursos, PIB/Bienestar, Acción colectiva)
+ * P2 = "Presentación CIVICAN.pdf" (Verificat / Desfake: Casos reales, EFECT, Campaña H&M, Retardismo)
  */
 
 const CIVICAN_DATA = {
@@ -11,571 +10,408 @@ const CIVICAN_DATA = {
     title: "Tu impacto en juego",
     subtitle: "Un futuro sostenible empieza por mirar y decidir",
     location: "CIVICAN - Fundación Caja Navarra",
-    version: "1.0.0",
+    version: "2.0.0",
     sources: [
       {
+        code: "P1",
         name: "Andreu Escrivà",
+        document: "CIVICAN.pptx.pdf (27 páginas)",
         role: "Ambientólogo, doctor en Biodiversidad y divulgador",
-        contribution: "Perspectiva sobre límites biofísicos del planeta, transición ecológica sin culpabilización individual, fomento de la acción colectiva y creación de infraestructuras comunitarias (reparación, sombras públicas, movilidad compartida)."
+        contribution: "Límites biofísicos de materiales (p.4, 14-15), debate PIB y bienestar (p.16-18), futuros y acción comunitaria (p.19-24), y estudio sobre la subestimación de la disposición colectiva a actuar (p.25-27)."
       },
       {
+        code: "P2",
         name: "Verificat / Desfake",
-        role: "Plataforma de periodismo de verificación y educación mediática",
-        contribution: "Estrategias de fact-checking climático (estrategia EFECT), formulación de preguntas críticas (quién respalda la información, qué fuentes se aportan, qué contexto falta) y análisis de greenwashing publicitario."
+        document: "Presentación CIVICAN.pdf (43 páginas)",
+        role: "Asociación de periodismo de verificación y educación mediática",
+        contribution: "Dinámica '¿Te lo crees?' de casos reales (p.2-17), las 4 preguntas de verificación (p.20-22), las estrategias de desinformación EFECT (p.23-28), caso de investigación publicitaria de H&M (p.30-34) y análisis del retardismo climático (p.35-42)."
       }
     ]
   },
 
   experiences: [
+    /* ==========================================================================
+       JUEGO A: TRANSFORMA TU BARRIO (P1 - Andreu Escrivà)
+       ========================================================================== */
     {
       id: "juego-a",
       title: "Transforma tu barrio",
-      typology: "Simulación Urbana / Toma de Decisiones",
+      typology: "Simulación Urbana / Reflexión y Comunidad",
       icon: "fa-city",
       badgeColor: "var(--verde-barrio)",
-      invitation: "Toma tres decisiones para vivir mejor utilizando menos recursos.",
+      invitation: "Explora recursos, bienestar y lo que podemos hacer en común.",
       duration: "3-4 min",
       cta: "Transformar el barrio",
-      summary: "Descubre cómo las decisiones compartidas en urbanismo, consumo y movilidad generan bienestar colectivo duradero.",
-      sourceRef: "Basado en la charla de Andreu Escrivà (acción colectiva y límites físicos) y criterios Verificat",
+      summary: "Tres escenas basadas en la ponencia de Andreu Escrivà para repensar los límites de los materiales, el sentido del bienestar y la fuerza de la acción vecinal.",
+      sourceRef: "CIVICAN.pptx.pdf (P1, p.4, 14-18, 25-27)",
       rounds: [
         {
           id: "a1",
           stepNumber: "1 de 3",
-          badge: "Consumo y Reparación",
-          situation: "Hay objetos que se dejan de usar y vecinos que necesitan herramientas. ¿Qué impulsarías?",
-          illustrationType: "neighborhood-repair",
+          badge: "Límites y Circularidad",
+          sourceRef: "P1 p.14-15 y p.4",
+          originalQuestion: "¿Cuántos materiales reciclados se consumen en el mundo?",
+          situation: "Según el dato global de 2023 mostrado en la presentación, ¿qué proporción de todos los materiales consumidos era secundaria (reciclada)?",
+          isEstimate: true,
           options: [
-            {
-              id: "a1-opt1",
-              title: "Taller de reparación y biblioteca de objetos",
-              desc: "Crear un espacio comunal para reparar averías y prestar herramientas de uso puntual.",
-              opportunity: "Alarga la vida útil de los objetos y evita compras innecesarias.",
-              condition: "Requiere organizar turnos vecinales, mantenimiento y normas de uso.",
-              feedback: "Reparar y compartir permite acceder a bienes sin multiplicar la extracción de materiales. Es un modelo colaborativo con impacto real.",
-              isOptimal: true
-            },
-            {
-              id: "a1-opt2",
-              title: "Campaña para sustituir objetos por modelos 'eco'",
-              desc: "Incentivar que cada vecino compre versiones nuevas catalogadas como ecológicas.",
-              opportunity: "Promueve tecnologías con menor consumo puntual.",
-              condition: "Fabricar nuevos objetos sigue requiriendo materias primas y energía.",
-              feedback: "Antes de reemplazar algo que funciona, conviene revisar su ciclo de vida: la etiqueta 'eco' no anula el impacto de producir un objeto nuevo.",
-              isOptimal: false
-            },
-            {
-              id: "a1-opt3",
-              title: "Mejorar solo la recogida de reciclaje",
-              desc: "Instalar más contenedores para facilitar el desecho selectivo en la acera.",
-              opportunity: "Facilita la gestión de residuos ya generados.",
-              condition: "El reciclaje no recupera el 100% ni evita la generación continua de residuos.",
-              feedback: "Reciclar es fundamental, pero insuficiente por sí solo: debe combinarse prioritariamente con reducir y reparar para disminuir la presión material.",
-              isOptimal: false
-            }
+            { id: "a1-opt1", text: "Menos del 10% (apenas un 7,2%)", isKey: true, desc: "Dato exacto del gráfico de la presentación: 7,2% en 2023." },
+            { id: "a1-opt2", text: "Del 10% al 30%", isKey: false, desc: "Cifra estimada superior a la realidad global documentada." },
+            { id: "a1-opt3", text: "Del 30% al 50%", isKey: false, desc: "Rango muy alejado de las estadísticas de materiales secundarios." },
+            { id: "a1-opt4", text: "Más del 50%", isKey: false, desc: "Supondría que la mayor parte de la economía es circular." },
+            { id: "a1-opt5", text: "No lo sé con certeza", isKey: false, desc: "Una respuesta prudente ante datos estadísticos complejos." }
           ],
-          microChallenge: {
-            title: "Mira este mensaje publicitario",
-            claim: "«Si un producto se recicla, comprarlo no tiene ningún impacto ambiental.»",
-            question: "¿Qué aspecto crucial se ignora en este mensaje?",
-            options: [
-              { id: "mc-1", text: "La energía, agua y materias primas empleadas en su fabricación y transporte.", correct: true },
-              { id: "mc-2", text: "Únicamente el color del contenedor donde se deposita.", correct: false },
-              { id: "mc-3", text: "Nada, la afirmación es totalmente correcta.", correct: false }
-            ],
-            feedback: "Fabricar y transportar cualquier objeto consume energía y recursos no renovables. El reciclaje mitiga el final de vida, pero no borra el ciclo previo."
-          }
+          feedbackTitle: "Circularidad no equivale a cerrar el ciclo material",
+          feedbackBody: "El gráfico original de la presentación (P1 p.14) muestra que en 2023 solo el 7,2% de los materiales consumidos a nivel mundial procedían del reciclaje (frente al 9,1% en 2018).",
+          takeaway: "Hablar más de circularidad no significa que hayamos cerrado el ciclo. También los servicios y la tecnología dependen de una base material finita: reciclar es necesario, pero reducir la extracción virgen es imprescindible.",
+          illustrationType: "materials-cycle"
         },
         {
           id: "a2",
           stepNumber: "2 de 3",
-          badge: "Movilidad Sostenible",
-          situation: "El barrio busca mejorar sus desplazamientos diarios y reducir humos y ruido. ¿Por dónde empezarías?",
-          illustrationType: "neighborhood-mobility",
+          badge: "Economía y Bienestar",
+          sourceRef: "P1 p.16-18",
+          originalQuestion: "¿El crecimiento del PIB es siempre positivo?",
+          situation: "¿El crecimiento del PIB (Producto Interior Bruto) es siempre sinónimo de mayor bienestar social?",
+          isReflection: true,
           options: [
-            {
-              id: "a2-opt1",
-              title: "Conectar transporte público y recorridos peatonales accesibles",
-              desc: "Mejorar frecuencias de bus, carriles seguros y aceras amplias con sombra.",
-              opportunity: "Garantiza movilidad accesible para todas las edades y reduce el tráfico.",
-              condition: "Exige inversión pública sostenida, coordinación municipal y seguridad vial.",
-              feedback: "El transporte colectivo y activo aprovecha mejor el espacio urbano y es inclusivo para jóvenes, mayores y personas con movilidad reducida.",
-              isOptimal: true
-            },
-            {
-              id: "a2-opt2",
-              title: "Ayudar a sustituir todos los coches por eléctricos",
-              desc: "Subvencionar la compra de vehículos privados eléctricos y puntos de recarga.",
-              opportunity: "Reduce las emisiones locales directas en tubo de escape.",
-              condition: "No soluciona atascos, espacio público ocupado ni la extracción masiva de minerales para baterías.",
-              feedback: "La electrificación del transporte es útil, pero mantener la misma flota de vehículos privados consume cantidades enormes de litio, cobre y espacio.",
-              isOptimal: false
-            },
-            {
-              id: "a2-opt3",
-              title: "Pedir únicamente que cada persona camine más",
-              desc: "Lanzar una campaña de concienciación individual para hacer deporte caminando.",
-              opportunity: "Fomenta hábitos saludables en quienes tienen trayectos cortos.",
-              condition: "No atiende a distancias largas, climatología adversa ni personas con movilidad reducida.",
-              feedback: "La voluntad individual no basta sin infraestructura: hacen falta rutas seguras, sombra y alternativas viables de transporte público.",
-              isOptimal: false
-            }
+            { id: "a2-opt1", text: "Creo que sí: más actividad económica siempre mejora la vida.", reaction: "postura tradicional" },
+            { id: "a2-opt2", text: "Depende de qué crezca y para quién.", reaction: "enfoque distributivo" },
+            { id: "a2-opt3", text: "Creo que no: puede crecer destruyendo recursos y salud.", reaction: "enfoque ecológico" },
+            { id: "a2-opt4", text: "No lo tengo claro / Prefiero reflexionar.", reaction: "duda abierta" }
           ],
-          microChallenge: {
-            title: "Mensaje en redes sobre tecnología",
-            claim: "«Una nueva tecnología resolverá la movilidad urbana sin que tengamos que cambiar nuestras ciudades.»",
-            question: "¿Cuál es la respuesta con mayor rigor crítico?",
-            options: [
-              { id: "mc-2-1", text: "Pedir datos contrastados de plazos y comparar con soluciones colectivas disponibles hoy.", correct: true },
-              { id: "mc-2-2", text: "Aceptar la promesa y no realizar ninguna mejora urbana hasta que llegue.", correct: false },
-              { id: "mc-2-3", text: "Rechazar de antemano cualquier innovación técnica.", correct: false }
-            ],
-            feedback: "La tecnología apoya la transición, pero confiar ciegamente en milagros futuros no debe retrasar medidas comprobadas que podemos aplicar hoy."
-          }
+          subQuestion: "¿Qué piensas cuando se habla de 'decrecimiento'?",
+          subOptions: [
+            { id: "sub-1", label: "Curiosidad por alternativas" },
+            { id: "sub-2", label: "Preocupación por el empleo" },
+            { id: "sub-3", label: "Rechazo o escepticismo" },
+            { id: "sub-4", label: "Esperanza de vivir con más tiempo y salud" },
+            { id: "sub-5", label: "Dudas sobre cómo se organizaría" }
+          ],
+          feedbackTitle: "Distinguir actividad económica de calidad de vida",
+          feedbackBody: "Como explica Andreu Escrivà en P1 p.16-18, el PIB contabiliza gastos de reconstrucción tras catástrofes o contaminación como 'crecimiento', pero eso no significa mayor bienestar humano.",
+          takeaway: "El debate clave no es crecer o no crecer en abstracto, sino qué actividades deben desarrollarse (sanidad, educación, transporte público, cuidados) y cuáles deben reducir su consumo de energía y materiales.",
+          illustrationType: "pib-wellbeing"
         },
         {
           id: "a3",
           stepNumber: "3 de 3",
-          badge: "Espacio Público y Convivencia",
-          situation: "La plaza central es una explanada de hormigón que en verano quema y no tiene vida. ¿Cómo organizarías la mejora?",
-          illustrationType: "neighborhood-square",
+          badge: "Comunidad y Acción Colectiva",
+          sourceRef: "P1 p.25-27 y p.3",
+          originalQuestion: "¿Aportarías el 1% de tu sueldo anual para políticas eficaces contra el cambio climático?",
+          situation: "¿Estarías dispuesto/a a aportar el 1% de tus ingresos anuales para financiar políticas públicas eficaces contra el cambio climático?",
+          disclaimer: "Nota: Es un ejercicio de reflexión personal inspirado en el estudio de la presentación, no una solicitud de dinero.",
+          isSurvey: true,
           options: [
-            {
-              id: "a3-opt1",
-              title: "Diseño colaborativo de arbolado, bancos y fuentes",
-              desc: "Reunir a vecinos, comerciantes y técnicos para crear zonas de sombra natural y encuentro.",
-              opportunity: "Baja la temperatura urbana, fomenta la vida de barrio y mitiga olas de calor.",
-              condition: "Requiere consenso entre vecinos, riego eficiente y mantenimiento de zonas verdes.",
-              feedback: "El espacio público verde es un refugio climático y un punto de unión comunitaria. La acción colectiva transforma el entorno cotidiano.",
-              isOptimal: true
-            },
-            {
-              id: "a3-opt2",
-              title: "Difundir consejos para que cada uno se proteja en casa",
-              desc: "Repartir folletos recomendando no salir en horas de sol y poner aire acondicionado.",
-              opportunity: "Aporta consejos prácticos inmediatos de autoprotección.",
-              condition: "Excluye a quienes no tienen climatización y abandona la vida en la calle.",
-              feedback: "Aislarse en casa con climatizadores individuales incrementa la factura eléctrica y calienta aún más el exterior. La solución debe ser comunitaria.",
-              isOptimal: false
-            },
-            {
-              id: "a3-opt3",
-              title: "Esperar a un proyecto arquitectónico futurista premiado",
-              desc: "Posponer la intervención hasta conseguir un diseño monumental de alta tecnología.",
-              opportunity: "Podría generar un edificio icónico a largo plazo.",
-              condition: "El barrio necesita sombra y salud ahora; los proyectos faraónicos suelen demorarse años.",
-              feedback: "Las mejoras ecológicas no necesitan esperar a megaproyectos: plantar árboles autóctonos y habilitar sombras es rápido, asequible y eficaz.",
-              isOptimal: false
-            }
+            { id: "a3-opt1", text: "Sí, estaría dispuesto/a" },
+            { id: "a3-opt2", text: "No, no estaría dispuesto/a" },
+            { id: "a3-opt3", text: "No lo sé" },
+            { id: "a3-opt4", text: "Prefiero no responder" }
           ],
-          microChallenge: {
-            title: "Reflexión colectiva",
-            claim: "«Como nuestras acciones vecinales son pequeñas, no merece la pena organizarse ni pedir cambios.»",
-            question: "¿Qué efecto produce esta afirmación?",
-            options: [
-              { id: "mc-3-1", text: "Paraliza y desanima la acción comunitaria, favoreciendo que nada mejore.", correct: true },
-              { id: "mc-3-2", text: "Estimula el debate científico riguroso.", correct: false },
-              { id: "mc-3-3", text: "Demuestra que la responsabilidad es 100% de los individuos aislados.", correct: false }
-            ],
-            feedback: "El discurso del derrotismo (retardismo) desmoviliza a la ciudadanía. Las grandes transformaciones sociales siempre han nacido de la cooperación local."
-          }
+          subQuestion: "¿Qué porcentaje de personas crees que responden afirmativamente a esta pregunta?",
+          subOptions: [
+            { id: "perc-1", label: "Menos del 25% (muy poca gente)" },
+            { id: "perc-2", label: "Entre el 25% y el 50%" },
+            { id: "perc-3", label: "Entre el 50% y el 75%" },
+            { id: "perc-4", label: "Más del 75% (la gran mayoría)" }
+          ],
+          feedbackTitle: "Subestimamos la voluntad de los demás",
+          feedbackBody: "El macroestudio global recogido en P1 p.26 demuestra un fenómeno psicológico sorprendente: la inmensa mayoría de la población mundial (el 69%) afirma estar dispuesta a contribuir, pero esa misma gente cree que en su país solo lo haría una minoría.",
+          takeaway: "Tendemos a creer que los demás son más egoístas e indiferentes de lo que realmente son. Superar ese aislamiento y conectar en redes vecinales y comunitarias es el primer paso para impulsar transformaciones reales.",
+          illustrationType: "community-network"
         }
       ],
       closing: {
-        title: "Un barrio sostenible se construye en común",
-        subtitle: "Has completado la transformación de tu entorno",
+        title: "Mirar los recursos, distinguir bienestar y actuar en común",
+        subtitle: "Has completado las tres reflexiones de 'Transforma tu barrio'",
         takeaways: [
-          "Aprovechar y reparar lo que ya existe reduce drásticamente la extracción de recursos.",
-          "La infraestructura compartida (transporte público, plazas verdes) beneficia a toda la comunidad.",
-          "La responsabilidad ecológica no es una carga individual solitaria: requiere organización colectiva e instituciones comprometidas."
+          "Límites materiales: La circularidad no es mágica; solo el 7,2% de materiales consumidos son secundarios.",
+          "Bienestar real: El aumento continuo del PIB no garantiza felicidad ni sostenibilidad.",
+          "Fuerza comunitaria: La sociedad está mucho más dispuesta a actuar de lo que creemos en soledad."
         ],
-        sourceNote: "Conceptos inspirados en las ponencias de Andreu Escrivà sobre urbanismo ecológico y decrecimiento material."
+        sourceNote: "Contenidos desarrollados fielmente a partir de la conferencia de Andreu Escrivà (CIVICAN.pptx.pdf, p.4, 14-18, 25-27)."
       }
     },
 
+    /* ==========================================================================
+       JUEGO B: DETECTIVES DEL CLIMA (P2 - Casos reales de Verificat)
+       ========================================================================== */
     {
       id: "juego-b",
       title: "Detectives del clima",
       typology: "Trivial de Investigación / Fact-Checking",
       icon: "fa-magnifying-glass-chart",
       badgeColor: "var(--azul-detectives)",
-      invitation: "Investiga tres mensajes antes de creerlos o compartirlos.",
+      invitation: "Pon a prueba dos casos y descubre cómo verificar.",
       duration: "3-4 min",
       cta: "Investigar mensajes",
-      summary: "Aprende a identificar sesgos gráficos, promesas vacías y argumentos retardistas utilizando herramientas reales de verificación.",
-      sourceRef: "Metodología Verificat / Desfake (Estrategia EFECT de verificación de fuentes e imágenes)",
+      summary: "Dos casos reales de la dinámica de Verificat (alimentación y mapas del tiempo) y la construcción de las 4 preguntas de comprobación.",
+      sourceRef: "Presentación CIVICAN.pdf (P2, p.2-17, 20-22)",
       cases: [
         {
           id: "b1",
-          stepNumber: "Caso 1 de 3",
-          title: "La gráfica recortada",
-          badge: "Datos y Estadísticas",
-          headline: "«El consumo de recursos y materiales ya está bajando a nivel global»",
-          sourceAuthor: "Canal Digital 'EcoTrend News'",
-          publishedTime: "Hace 2 horas · 15.4K visualizaciones",
-          chartPreviewType: "truncated",
-          tools: {
-            fuente: "La publicación proviene de un canal comercial que no enlaza el estudio original ni la base de datos completa.",
-            pruebas: "Al ampliar la serie temporal completa (2000-2025), el consumo subió de 100 a 130 puntos, y solo cayó 5 puntos en el último trimestre.",
-            contexto: "Recortar la ventana temporal (mostrar solo el descenso de 130 a 125) oculta que la tendencia general del siglo XXI sigue en máximos históricos."
-          },
-          question: "¿Qué conclusión está verdaderamente respaldada por los datos completos?",
+          stepNumber: "1 de 3",
+          badge: "Caso 2 Original: Clima y Alimentación",
+          sourceRef: "P2 p.4 y p.12",
+          headline: "«El cambio climático y las olas de calor amenazan el futuro de las cosechas y la producción global de alimentos»",
+          contextText: "Noticia publicada en medios de comunicación con base en estudios agronómicos internacionales.",
+          question: "¿Te lo crees?",
           options: [
-            {
-              id: "b1-opt1",
-              text: "La bajada reciente demuestra una reducción sostenida e irreversible.",
-              feedback: "No es correcto. Un descenso puntual de 3 meses no demuestra un cambio estructural de tendencia si se observa la gráfica histórica.",
-              isCorrect: false
-            },
-            {
-              id: "b1-opt2",
-              text: "Hay un descenso puntual reciente, pero falta contexto para afirmar una bajada global sostenida.",
-              feedback: "¡Exacto! Comprobar el período completo, la escala y la fuente original evita caer en engaños por gráficas sesgadas.",
-              isCorrect: true
-            },
-            {
-              id: "b1-opt3",
-              text: "Todas las gráficas de datos estadísticos son automáticamente falsas.",
-              feedback: "Cuidado: el escepticismo extremo tampoco ayuda. Los datos científicos rigurosos son imprescindibles; la clave es saber auditarlos.",
-              isCorrect: false
-            }
-          ]
+            { id: "b1-opt1", text: "Me lo creo", isKey: true, label: "Me lo creo" },
+            { id: "b1-opt2", text: "No me lo creo", isKey: false, label: "No me lo creo" },
+            { id: "b1-opt3", text: "Necesito comprobarlo", isKey: true, isPrudent: true, label: "Necesito comprobarlo" }
+          ],
+          tools: {
+            queVeo: "Un titular de prensa que relaciona eventos meteorológicos extremos con el rendimiento de cultivos agrícolas.",
+            quePuedoComprobar: "Informes de la FAO y el IPCC sobre estrés hídrico, polinización y rendimiento de cereales en el sur de Europa.",
+            queFaltaSaber: "Si se trata de una proyección para décadas futuras o de pérdidas agrícolas ya registradas en las campañas actuales."
+          },
+          verdictInSlide: "VERDADERO",
+          feedbackTitle: "Veredicto del material: Clasificado como VERDADERO",
+          feedbackBody: "La presentación de Verificat (P2 p.12) clasifica este caso como VERDADERO. La evidencia científica acumulada constata que las sequías recurrentes y el estrés térmico impactan negativamente en las cosechas.",
+          methodNote: "Optar por 'Necesito comprobarlo' es una actitud metodológica intachable: el rigor periodístico consiste precisamente en acudir a las fuentes primarias antes de compartir."
         },
         {
           id: "b2",
-          stepNumber: "Caso 2 de 3",
-          title: "La prenda verde",
-          badge: "Greenwashing Publicitario",
-          headline: "«Camiseta 100% ECO: Vístete a la moda sin ningún impacto en el planeta»",
-          sourceAuthor: "Anuncio de marca internacional de moda rápida",
-          publishedTime: "Campaña patrocinada en redes sociales",
-          chartPreviewType: "shirt",
-          tools: {
-            fuente: "Es un mensaje publicitario autofinanciado por la marca para incentivar la compra impulsiva.",
-            pruebas: "La letra pequeña indica que solo el envoltorio plástico contiene un 20% de material reciclado; no hay datos de la tela ni tintes.",
-            contexto: "Fabricar una camiseta de algodón o poliéster requiere miles de litros de agua, pesticidas y energía. Prometer 'cero impacto' es engañoso."
-          },
-          question: "¿Está respaldada la promesa de 'compra sin impacto'?",
+          stepNumber: "2 de 3",
+          badge: "Caso 6 Original: Los Mapas del Tiempo",
+          sourceRef: "P2 p.8 y p.16",
+          headline: "«Comparativa viral: Mapa del tiempo de 1986 en verde frente a mapa de 2022 en rojo oscuro para simular que hace más calor»",
+          contextText: "Publicación viral en redes que compara dos mapas televisivos para sugerir manipulación gráfica del clima.",
+          question: "¿Te lo crees?",
           options: [
-            {
-              id: "b2-opt1",
-              text: "Sí, porque el anuncio incluye un sello verde y la palabra ECO en mayúsculas.",
-              feedback: "Los colores verdes y logotipos no regulados son recursos clásicos de marketing; no equivalen a una certificación auditada.",
-              isCorrect: false
-            },
-            {
-              id: "b2-opt2",
-              text: "No está respaldada: una mejora parcial en el embalaje no elimina el impacto ecológico de la prenda.",
-              feedback: "¡Muy bien visto! Es una técnica típica de 'Greenwashing': resaltar un detalle menor para ocultar el impacto del producto completo.",
-              isCorrect: true
-            },
-            {
-              id: "b2-opt3",
-              text: "Toda ropa que mencione reciclaje es una estafa legal.",
-              feedback: "El reciclaje real es positivo, pero las afirmaciones absolutas ('cero impacto') deben ser examinadas con lupa.",
-              isCorrect: false
-            }
-          ]
+            { id: "b2-opt1", text: "Me lo creo", isKey: false, label: "Me lo creo" },
+            { id: "b2-opt2", text: "No me lo creo", isKey: true, label: "No me lo creo" },
+            { id: "b2-opt3", text: "Necesito comprobarlo", isKey: true, isPrudent: true, label: "Necesito comprobarlo" }
+          ],
+          tools: {
+            queVeo: "Dos imágenes yuxtapuestas con tonalidades visualmente muy diferentes (una verde y otra roja).",
+            quePuedoComprobar: "Si ambos mapas representan la misma variable (temperatura superficial frente a índice de radiación o temperaturas a 850 hPa).",
+            queFaltaSaber: "La procedencia exacta de cada mapa, la fecha real de emisión y la leyenda técnica de colores utilizada por el canal."
+          },
+          verdictInSlide: "FALSO",
+          feedbackTitle: "Veredicto del material: Clasificado como FALSO",
+          feedbackBody: "La presentación (P2 p.16) clasifica este bulo como FALSO. La comparativa manipulaba la escala: confrontaba un mapa de temperaturas con otro de índice UV o utilizaba mapas de diferentes cadenas y épocas con códigos cromáticos distintos.",
+          methodQuestion: "¿Qué pistas son esenciales comprobar antes de comparar imágenes?",
+          methodPills: ["Fecha y procedencia real", "Variable física representada", "Escala y leyenda de colores"]
         },
         {
           id: "b3",
-          stepNumber: "Caso 3 de 3",
-          title: "Esperar al invento milagroso",
-          badge: "Discursos de Retardismo",
-          headline: "«La inteligencia artificial y la fusión arreglarán el clima: no necesitamos cambiar nada ahora»",
-          sourceAuthor: "Columna de opinión 'TecnoFuturo'",
-          publishedTime: "Artículo viral en foros tecnológicos",
-          chartPreviewType: "tech",
-          tools: {
-            fuente: "Es una columna de opinión especulativa, no un informe de viabilidad técnica o científica con fechas.",
-            pruebas: "No se especifica cuándo estará disponible dicha tecnología a escala global ni cuánta energía o materiales consumirá.",
-            contexto: "Apelar a soluciones milagrosas lejanas se utiliza a menudo para retrasar regulaciones ambientales y cambios de modelo actuales."
-          },
-          question: "¿Qué postura ayuda a avanzar con mayor rigor?",
-          options: [
+          stepNumber: "3 de 3",
+          badge: "Construye tu Método",
+          sourceRef: "P2 p.20 y p.22",
+          headline: "¿Qué preguntas os haríais para verificar una información?",
+          contextText: "Explora las 4 preguntas maestras propuestas por Verificat para auditar cualquier mensaje antes de creerlo o difundirlo:",
+          isMethodBuilder: true,
+          questions: [
             {
-              id: "b3-opt1",
-              text: "Esperar pasivamente sin revisar consumos ni aplicar medidas en la actualidad.",
-              feedback: "Aplazar las decisiones aumenta el riesgo ambiental y la pérdida de biodiversidad.",
-              isCorrect: false
+              id: "q1",
+              number: "1",
+              text: "¿Cómo me quiere hacer reaccionar?",
+              focus: "Emoción y Sesgo",
+              desc: "Los desinformadores apelan al miedo, la indignación o la sorpresa rápida para anular nuestro pensamiento analítico."
             },
             {
-              id: "b3-opt2",
-              text: "Exigir pruebas científicas, apoyar la innovación pero aplicar hoy soluciones comunitarias ya contrastadas.",
-              feedback: "¡Excelente! La innovación es una gran aliada, pero no reemplaza la necesidad de reducir la sobreexplotación de recursos hoy.",
-              isCorrect: true
+              id: "q2",
+              number: "2",
+              text: "¿Quién hay tras la información?",
+              focus: "Autoría y Fuentes",
+              desc: "Comprueba si firma una institución técnica, una persona especialista o una cuenta anónima con intereses comerciales."
             },
             {
-              id: "b3-opt3",
-              text: "Rechazar cualquier avance científico o desarrollo tecnológico.",
-              feedback: "La tecnología aporta sensores, energías renovables y medicina. Lo cuestionable es usarla como excusa para la inacción.",
-              isCorrect: false
+              id: "q3",
+              number: "3",
+              text: "¿Qué dicen otras fuentes fiables?",
+              focus: "Contraste Cruzado",
+              desc: "Verifica si agencias científicas u otros medios independientes contrastados confirman el hallazgo."
+            },
+            {
+              id: "q4",
+              number: "4",
+              text: "¿Qué pruebas aporta?",
+              focus: "Evidencia Documentada",
+              desc: "Exige datos, metodología y enlaces comprobables; desconfía de afirmaciones grandilocuentes sin soporte."
             }
-          ]
+          ],
+          feedbackTitle: "Las cuatro preguntas de verificación (P2 p.22)",
+          feedbackBody: "Hacerte estas cuatro preguntas antes de compartir un titular frena en seco la propagación de desinformación.",
+          takeaway: "Verificar no es desconfiar de todo, sino dotarse de un método ordenado para distinguir hechos de manipulaciones."
         }
       ],
       closing: {
         title: "Antes de compartir, detente y comprueba",
-        subtitle: "Has completado la investigación periodística",
+        subtitle: "Has completado la auditoría con la metodología Verificat",
         takeaways: [
-          "¿Quién lo dice? Identifica si es publicidad, opinión interesada o una fuente verificable.",
-          "¿Qué pruebas aporta? No te fíes de sellos autoproclamados ni de fragmentos de gráficas recortadas.",
-          "¿Qué contexto falta? Cuidado con las promesas de impacto cero o las soluciones mágicas que invitan a la pasividad."
+          "Casos reales: El rigor científico confirma impactos reales (cosechas) y desmonta manipulaciones visuales (mapas).",
+          "Duda metódica: Decir 'Necesito comprobarlo' no es ignorancia, es la actitud más inteligente frente a un titular.",
+          "Las 4 preguntas maestras: Emoción, Autoría, Contraste y Pruebas."
         ],
-        sourceNote: "Basado en los talleres de Verificat y Desfake para detectar desinformación y pensamiento crítico."
+        sourceNote: "Basado en los casos prácticos y preguntas de verificación de Verificat / Desfake (Presentación CIVICAN.pdf, p.2-17, 20-22)."
       }
     },
 
+    /* ==========================================================================
+       JUEGO C: ¿VERDE DE VERDAD? (P2 - Caso H&M y Greenwashing)
+       ========================================================================== */
     {
       id: "juego-c",
       title: "¿Verde de verdad?",
-      typology: "Auditoría de Escaparate / Greenwashing",
+      typology: "Auditoría de Campaña / Detección de Greenwashing",
       icon: "fa-tags",
       badgeColor: "var(--terracota)",
-      invitation: "Abre tres promesas verdes y descubre qué las respalda.",
+      invitation: "Explora una campaña y descubre cómo comprobar su promesa.",
       duration: "2-3 min",
       cta: "Examinar promesas",
-      summary: "Explora tres objetos del escaparate de consumo: zapatilla, teléfono y servicio de reparto. Audita sus capas y clasifica con criterio.",
-      sourceRef: "Casos prácticos de publicidad y códigos de alegaciones ambientales (Verificat)",
-      objects: [
+      summary: "Tres capas de análisis sobre la campaña real de recogida y reciclaje de ropa de H&M ('Let's Close The Loop') analizada en la presentación.",
+      sourceRef: "Presentación CIVICAN.pdf (P2, p.30-34, 38-39)",
+      layers: [
         {
           id: "c1",
-          name: "Zapatilla Urbana",
-          tag: "Calzado y Moda",
-          icon: "fa-shoe-prints",
-          claim: "«Caja hecha íntegramente de cartón 100% reciclado»",
-          layers: {
-            promesa: "El fabricante destaca con grandes tipografías su compromiso con el cartón reciclado en la caja de embalaje.",
-            pruebas: "La ficha técnica y la certificación independiente confirman que el cartón de la caja es efectivamente reciclado.",
-            loQueFalta: "No se facilita ninguna información sobre el origen del cuero sintético, el pegamento de la suela ni las condiciones de fabricación."
-          },
-          expectedClassification: "respaldada-alcance",
-          question: "¿Cómo clasificarías esta afirmación publicitaria?",
+          stepNumber: "Capa 1 de 3",
+          name: "La Campaña Publicitaria",
+          sourceRef: "P2 p.30-31",
+          subtitle: "Campaña 'Let's Close The Loop' (H&M)",
+          question: "¿Qué puede buscar esta marca haciendo este tipo de publicidad?",
+          claimPresented: "«Trae tu ropa usada a nuestras tiendas para reciclarla y cerremos juntos el ciclo de la moda sin residuos.»",
+          isReflectionMulti: true,
           options: [
-            {
-              id: "respaldada-alcance",
-              label: "Respaldada en su alcance específico",
-              desc: "Las pruebas demuestran lo que afirma sobre la caja, aunque no dice nada del resto de la zapatilla.",
-              isCorrect: true,
-              explanation: "¡Exacto! Las pruebas confirman lo relativo a la caja. No comete fraude sobre el cartón, pero su alcance es limitado al embalaje, no al calzado."
-            },
-            {
-              id: "faltan-pruebas",
-              label: "Faltan pruebas para la caja",
-              desc: "No hay ninguna evidencia que acredite el cartón reciclado.",
-              isCorrect: false,
-              explanation: "En este caso concreto, la ficha independiente sí avala el cartón de la caja. La prudencia exige no rechazar lo que sí está probado."
-            },
-            {
-              id: "contradice-pruebas",
-              label: "Contradice abiertamente los hechos",
-              desc: "Se ha demostrado que la caja es de plástico virgen.",
-              isCorrect: false,
-              explanation: "Las pruebas no contradicen la caja. Lo importante es distinguir entre una afirmación cierta de alcance pequeño y un fraude total."
-            }
-          ]
+            { id: "c1-o1", text: "Comunicar una iniciativa ambiental corporativa" },
+            { id: "c1-o2", text: "Mejorar la reputación e imagen de marca" },
+            { id: "c1-o3", text: "Fidelizar a la clientela con cupones de descuento" },
+            { id: "c1-o4", text: "Incentivar que los clientes vuelvan a tienda y compren más prendas" },
+            { id: "c1-o5", text: "No lo sé con certeza" }
+          ],
+          feedbackTitle: "Hipótesis sobre la comunicación publicitaria",
+          feedbackBody: "Como plantea la diapositiva P2 p.30-31, una campaña publicitaria de una multinacional de moda rápida persigue múltiples objetivos a la vez: imagen, fidelización e incentivo al consumo continuo.",
+          insight: "Fijarse solo en la estética verde del anuncio oculta las preguntas de fondo: ¿adónde va realmente esa ropa?"
         },
         {
           id: "c2",
-          name: "Teléfono Móvil",
-          tag: "Electrónica de Consumo",
-          icon: "fa-mobile-screen-button",
-          claim: "«El teléfono eterno: diseñado para durar toda la vida sin residuos»",
-          layers: {
-            promesa: "Un eslogan publicitario afirma que este terminal nunca se quedará obsoleto ni generará chatarra electrónica.",
-            pruebas: "Solo se muestra un render 3D con un lema comercial. No se detallan piezas desmontables ni disponibilidad de recambios.",
-            loQueFalta: "Faltan años garantizados de actualizaciones de software, manuales de reparación abiertos y precio de baterías de sustitución."
-          },
-          expectedClassification: "faltan-pruebas",
-          question: "¿Cómo clasificarías esta promesa comercial?",
+          stepNumber: "Capa 2 de 3",
+          name: "La Investigación Periodística",
+          sourceRef: "P2 p.33-34",
+          subtitle: "Investigación del diario sueco Aftonbladet",
+          question: "¿Cómo comprobaron los periodistas qué ocurría realmente con la ropa entregada en las tiendas?",
           options: [
-            {
-              id: "respaldada-alcance",
-              label: "Respaldada en su alcance",
-              desc: "El render 3D demuestra que durará toda la vida.",
-              isCorrect: false,
-              explanation: "Una imagen de marketing no es una prueba de durabilidad ni garantiza repuestos a largo plazo."
-            },
-            {
-              id: "faltan-pruebas",
-              label: "Faltan pruebas determinantes",
-              desc: "Una promesa tan absoluta requiere pruebas técnicas y garantías de soporte que aquí no aparecen.",
-              isCorrect: true,
-              explanation: "¡Correcto! Afirmar que dura 'para siempre' requiere planes de reparación, derecho a reparar y soporte de software que la marca no acredita."
-            },
-            {
-              id: "contradice-pruebas",
-              label: "Contradice pruebas documentadas",
-              desc: "Existe una sentencia que demuestra que se rompe a los dos días.",
-              isCorrect: false,
-              explanation: "No tenemos pruebas de que sea inservible, sino ausencia total de datos técnicos que respalden su grandilocuente afirmación."
-            }
-          ]
+            { id: "c2-opt1", text: "Colocaron diez rastreadores GPS ocultos en diez prendas donadas", isKey: true },
+            { id: "c2-opt2", text: "Se limitaron a confiar en el informe de sostenibilidad de la marca", isKey: false },
+            { id: "c2-opt3", text: "Hicieron una encuesta de opinión en redes sociales", isKey: false }
+          ],
+          feedbackTitle: "El método de los rastreadores GPS (P2 p.33)",
+          feedbackBody: "El periódico Aftonbladet introdujo rastreadores satelitales en prendas entregadas en tiendas de la marca. El seguimiento documentó que la ropa no se reciclaba en circuito cerrado local: viajó miles de kilómetros en barco y camión, y varias prendas acabaron en vertederos textiles o en el mercado de segunda mano en África.",
+          insight: "Auditar la realidad exige pruebas operativas físicas y trazabilidad independiente, no solo declaraciones corporativas."
         },
         {
           id: "c3",
-          name: "Servicio de Reparto",
-          tag: "Logística Urbana",
-          icon: "fa-truck-fast",
-          claim: "«Garantizado: Todos nuestros envíos a domicilio llegan con 0% de plásticos de un solo uso»",
-          layers: {
-            promesa: "La plataforma de comercio electrónico asegura que en ningún pedido se utilizan bolsas plásticas desechables.",
-            pruebas: "En las propias auditorías de la empresa y quejas de clientes del mismo mes, se documenta el uso de fundas de plástico virgen en un 35% de paquetes.",
-            loQueFalta: "Un sistema estandarizado de empaque retornable que funcione en toda la red de reparto."
-          },
-          expectedClassification: "contradice-pruebas",
-          question: "¿Cómo clasificarías esta afirmación?",
+          stepNumber: "Capa 3 de 3",
+          name: "Definición y Conclusión",
+          sourceRef: "P2 p.36, 38-39 y P1 p.14-15",
+          subtitle: "Comprender el Greenwashing",
+          question: "¿Qué debemos comprobar siempre antes de aceptar una promesa de reciclaje?",
           options: [
-            {
-              id: "respaldada-alcance",
-              label: "Respaldada en su alcance",
-              desc: "Es una promesa de la empresa, por lo que es válida.",
-              isCorrect: false,
-              explanation: "Las declaraciones corporativas deben coincidir con la operativa real comprobada."
-            },
-            {
-              id: "faltan-pruebas",
-              label: "Faltan pruebas para evaluarlo",
-              desc: "No hay ninguna información sobre los paquetes.",
-              isCorrect: false,
-              explanation: "Aquí sí disponemos de auditorías de la propia empresa que contradicen directamente el lema del '0%'."
-            },
-            {
-              id: "contradice-pruebas",
-              label: "Contradice las pruebas disponibles",
-              desc: "La promesa dice 'todos', pero las auditorías del mismo período registran plástico de un solo uso en un tercio de envíos.",
-              isCorrect: true,
-              explanation: "¡Exacto! Cuando una promesa usa términos absolutos ('todos', 'cero residuos') pero la realidad documentada muestra excepciones continuadas, la afirmación contradice los hechos."
-            }
-          ]
+            { id: "c3-opt1", text: "Comprobar con datos independientes qué ocurre realmente con los materiales", isKey: true },
+            { id: "c3-opt2", text: "Basta con que el anuncio use fondos verdes, música emotiva y letras ECO", isKey: false },
+            { id: "c3-opt3", text: "Basta con que la empresa sea una multinacional conocida", isKey: false }
+          ],
+          feedbackTitle: "¿Qué es el Greenwashing? (P2 p.36)",
+          feedbackBody: "La presentación define el greenwashing como la práctica de proyectar una imagen engañosa de responsabilidad ecológica sin pruebas suficientes ni coherencia con el modelo de negocio global.",
+          takeaway: "Este caso no significa que todo reciclaje sea inútil, pero nos enseña a exigir pruebas proporcionales. Como recuerda Andreu Escrivà (P1 p.15), la solución más ecológica sigue siendo comprar menos, cuidar y usar más tiempo lo que ya tenemos."
         }
       ],
       closing: {
-        title: "No todo lo verde es un engaño, pero exige precisión",
-        subtitle: "Has completado la auditoría del escaparate",
+        title: "No todo lo verde es un engaño, pero exige comprobación",
+        subtitle: "Has completado la auditoría de la campaña analizada en la charla",
         takeaways: [
-          "Distingue la parte del todo: una caja reciclada no hace que un producto entero sea ecológico.",
-          "Exige derechos y repuestos: la durabilidad no es un eslogan, es diseño reparable y soporte legal.",
-          "Compara las afirmaciones absolutas ('100%', 'cero emisiones') con las auditorías operativas reales."
+          "Trazabilidad real: El caso de los rastreadores GPS demuestra que prometer reciclaje no garantiza que ocurra.",
+          "Definición de Greenwashing: Apariencia publicitaria de sostenibilidad sin respaldo operativo medible.",
+          "Prioridad de recursos: Reciclar no sustituye reducir la sobreproducción y alargar la vida de las prendas."
         ],
-        sourceNote: "Casos simulados con fines pedagógicos basados en las guías de alegaciones ambientales de Verificat."
+        sourceNote: "Basado en la investigación de Aftonbladet y el análisis de greenwashing de Verificat (Presentación CIVICAN.pdf, p.30-34, 36-39)."
       }
     },
 
+    /* ==========================================================================
+       JUEGO D: MISIÓN: ROMPER LA CADENA (P2 - EFECT y Retardismo)
+       ========================================================================== */
     {
       id: "juego-d",
       title: "Misión: romper la cadena",
-      typology: "Escape Room Digital / Romper la Cadena",
+      typology: "Escape Room Digital / Desmontar el Retardismo",
       icon: "fa-link-slash",
       badgeColor: "var(--azul-tinta)",
-      invitation: "Supera tres pruebas para frenar un mensaje engañoso.",
+      invitation: "Descubre las estrategias que frenan la acción climática.",
       duration: "3-4 min",
       cta: "Iniciar la misión",
-      summary: "Una cadena viral de desinformación está a punto de propagarse. Desbloquea las llaves de Fuente, Contexto y Acción para reconvertirla en una red de cooperación vecinal.",
-      sourceRef: "Estrategias de frenado de bulos y alfabetización cívica (Verificat & Andreu Escrivà)",
+      summary: "Desbloquea las tres piezas clave (Pruebas, Estrategias EFECT y Acción Colectiva) para detener los discursos de inacción y retardismo.",
+      sourceRef: "Presentación CIVICAN.pdf (P2, p.22-28, 35-42)",
       trials: [
         {
           id: "d1",
           stepNumber: "Enigma 1 de 3",
-          keyName: "Fuente",
-          title: "¿Quién respalda esta afirmación?",
-          claimViral: "«Un nuevo estudio secreto prueba que el reciclaje permite consumir plásticos sin ningún límite.»",
-          situation: "Para desbloquear la Llave de la Fuente, debes seleccionar qué perfil ofrece los elementos más sólidos para verificar la validez técnica de la afirmación.",
-          cards: [
-            {
-              id: "d1-card1",
-              name: "Influencer famoso con 2 millones de seguidores",
-              desc: "Comparte el titular alarmista en vídeo con música tensa, pero no cita el estudio ni la institución científica que lo firma.",
-              isCorrect: false,
-              feedback: "La popularidad o el número de seguidores en redes sociales no garantiza la veracidad técnica de una afirmación."
-            },
-            {
-              id: "d1-card2",
-              name: "Investigadora en materiales de una universidad pública",
-              desc: "Publica un artículo de revisión por pares con metodología abierta, fuentes bibliográficas y datos contrastables.",
-              isCorrect: true,
-              feedback: "¡Llave conseguida! La competencia técnica, el método explícito y las fuentes públicas auditables son la base del rigor."
-            },
-            {
-              id: "d1-card3",
-              name: "Cuenta anónima 'NoticiasLibres24'",
-              desc: "Afirma tener 'la verdad que nadie quiere que sepas' con enlaces a tiendas de productos milagro.",
-              isCorrect: false,
-              feedback: "Las cuentas anónimas sin atribución editorial que apelan a teorías conspirativas suelen buscar monetizar visitas mediante el clickbait."
-            }
-          ]
+          keyName: "Pruebas",
+          badge: "Las 4 Llaves de Verificación",
+          sourceRef: "P2 p.22",
+          title: "Empareja cada pregunta de verificación con su objetivo",
+          situation: "Para desbloquear la Llave de las PRUEBAS, empareja correctamente una de las 4 preguntas con su finalidad metodológica:",
+          pairingTask: {
+            questionGiven: "¿Cómo me quiere hacer reaccionar esta información?",
+            options: [
+              { id: "pair-1", text: "Examinar la emoción y evitar compartir por impulso", isCorrect: true },
+              { id: "pair-2", text: "Comprobar los títulos universitarios del autor", isCorrect: false },
+              { id: "pair-3", text: "Buscar únicamente a personas que opinen igual que yo", isCorrect: false }
+            ]
+          },
+          feedbackTitle: "¡Llave de Pruebas desbloqueada!",
+          feedbackBody: "Revisar la emoción que nos suscita un titular es el primer filtro. Sentir indignación o euforia no hace que algo sea cierto ni falso, pero nos alerta de un posible anzuelo para que compartamos sin pensar."
         },
         {
           id: "d2",
           stepNumber: "Enigma 2 de 3",
-          keyName: "Contexto",
-          title: "La foto con otra historia",
-          claimViral: "«¡Mira esta foto! Queda demostrado que nunca se recicla ninguna prenda en todo el planeta.»",
-          situation: "Una fotografía viral muestra una montaña de ropa tirada en un vertedero. Toca las pistas de contexto para descubrir qué revela y qué oculta una imagen descontextualizada.",
-          photoContext: {
-            lugar: "Vertedero textil en el desierto de Atacama (Chile), año 2021.",
-            realidad: "Documenta un gravísimo problema real de sobreproducción y gestión de residuos de la moda rápida importada.",
-            limite: "Una foto ilustra una realidad local dramática, pero no demuestra la frase matemática de que 'nunca y en ningún lugar' se recicle nada."
+          keyName: "Estrategias",
+          badge: "Estrategias de Desinformación EFECT",
+          sourceRef: "P2 p.23-28",
+          title: "¿Qué estrategia EFECT describe este mecanismo?",
+          situation: "Lee la definición extraída de las diapositivas de Verificat e identifica a cuál de las 5 estrategias corresponde:",
+          efectChallenge: {
+            definition: "«Seleccionar y mostrar únicamente datos o periodos favorables a una postura, ignorando deliberadamente el conjunto de la evidencia científica.»",
+            options: [
+              { id: "efect-1", name: "Cherry Picking (Selección sesgada de datos)", isCorrect: true, desc: "P2 p.26: Escoger solo la cereza que conviene para falsear la tendencia general." },
+              { id: "efect-2", name: "Falsos Expertos", isCorrect: false, desc: "P2 p.24: Presentar a personas sin competencia acreditada en la materia." },
+              { id: "efect-3", name: "Expectativas Imposibles", isCorrect: false, desc: "P2 p.25: Exigir certezas o precisiones absolutas antes de tomar cualquier medida." },
+              { id: "efect-4", name: "Falacias Lógicas", isCorrect: false, desc: "P2 p.27: Argumentos que contienen errores de razonamiento." },
+              { id: "efect-5", name: "Teorías de la Conspiración", isCorrect: false, desc: "P2 p.28: Atribuir hechos a planes secretos sin pruebas contrastables." }
+            ]
           },
-          question: "¿Cuál es la conclusión mejor fundamentada sobre esta imagen?",
-          options: [
-            {
-              id: "d2-opt1",
-              text: "La foto demuestra de forma concluyente que el 100% de la ropa del planeta acaba quemada.",
-              isCorrect: false,
-              feedback: "Una imagen aislada, por impactante que sea, no permite inferir una conclusión universal absoluta sin datos estadísticos agregados."
-            },
-            {
-              id: "d2-opt2",
-              text: "Muestra un problema real y urgente de residuos, pero la frase viral exagera el alcance para generar cinismo y desmovilización.",
-              isCorrect: true,
-              feedback: "¡Llave de Contexto conseguida! El rigor periodístico nos enseña a denunciar el problema real sin caer en generalizaciones que alimentan la resignación."
-            },
-            {
-              id: "d2-opt3",
-              text: "La foto es un montaje creado por ordenador y no existe ningún vertedero textil.",
-              feedback: "La crisis de la moda rápida y los vertederos es dolorosamente real. Negar la realidad es tan peligroso como manipularla."
-            }
-          ]
+          feedbackTitle: "¡Llave de Estrategias desbloqueada!",
+          feedbackBody: "¡Correcto! El 'Cherry Picking' (P2 p.26) es una de las tácticas más habituales: elegir un año atípico o un fragmento de gráfico para ocultar la tendencia global del calentamiento."
         },
         {
           id: "d3",
           stepNumber: "Enigma 3 de 3",
           keyName: "Acción",
-          title: "Cambia el mensaje, abre una posibilidad",
-          claimViral: "«Como no podemos frenar el cambio climático al 100% mañana mismo, no tiene sentido hacer nada.»",
-          situation: "El último eslabón de la desinformación es el derrotismo: convencerte de que nada sirve para que no exijas mejoras. ¿Qué respuesta rompe la cadena y abre una acción colectiva?",
+          badge: "Desmontar el Retardismo",
+          sourceRef: "P2 p.36-42 y P1 p.3, 19-26",
+          title: "¿Qué consecuencias producen las narrativas de retardismo?",
+          situation: "El retardismo acepta que el cambio climático existe, pero difunde argumentos para posponer la acción. ¿Qué efecto busca este mensaje?",
+          narrativeClaim: "«Como la tecnología del futuro lo solucionará todo y nuestras acciones individuales son insignificantes, no tiene sentido cambiar nada ahora.»",
           options: [
-            {
-              id: "d3-opt1",
-              text: "«Esperemos a que los gobiernos mundiales se pongan de acuerdo sin intervenir desde la ciudadanía.»",
-              isCorrect: false,
-              feedback: "La pasividad posterga la adopción de medidas que ya salvan vidas y reducen vulnerabilidad."
-            },
-            {
-              id: "d3-opt2",
-              text: "«Cada décima de grado y cada recurso ahorrado cuenta: organizando mejoras vecinales con las instituciones logramos cambios reales y evaluables.»",
-              isCorrect: true,
-              feedback: "¡Misión cumplida! Has roto la cadena de desinformación y la has transformado en una red ciudadana de soluciones."
-            },
-            {
-              id: "d3-opt3",
-              text: "«La única salida es que cada persona se construya un refugio privado aislado del resto.»",
-              isCorrect: false,
-              feedback: "El individualismo extremo agrava la crisis ecológica. Las soluciones reales son solidarias e interconectadas."
-            }
-          ]
+            { id: "d3-opt1", text: "Desmovilizar a la ciudadanía y retrasar regulaciones colectivas efectivas", isCorrect: true },
+            { id: "d3-opt2", text: "Fomentar un debate científico constructivo y riguroso", isCorrect: false },
+            { id: "d3-opt3", text: "Impulsar de inmediato la transición energética local", isCorrect: false }
+          ],
+          feedbackTitle: "¡Misión Cumplida! Cadena de retardismo rota",
+          feedbackBody: "La presentación P2 p.36-42 identifica cuatro narrativas retardistas: tecnooptimismo ciego, greenwashing, culpabilización individual y catastrofismo paralizante. Todas buscan un mismo resultado: que nada cambie.",
+          takeaway: "Frente al retardismo, Andreu Escrivà propone la acción colectiva: redes comunitarias, infraestructuras públicas y exigencia de políticas basadas en la ciencia."
         }
       ],
       closing: {
-        title: "¡Cadena viral detenida!",
-        subtitle: "Has transformado la desinformación en cooperación",
+        title: "¡Cadena de desinformación detenida!",
+        subtitle: "Has transformado las trampas del retardismo en acción informada",
         takeaways: [
-          "Verifica las fuentes: busca competencia técnica y metodologías transparentes.",
-          "Pon contexto a las imágenes: no permitas que un impacto visual se convierta en una verdad absoluta engañosa.",
-          "Supera el derrotismo: la acción colectiva fundamentada es la respuesta más potente frente a la inacción."
+          "Las 4 preguntas maestras: Emoción, Autoría, Contraste y Evidencia.",
+          "El acrónimo EFECT: Expertos falsos, Falacias, Expectativas imposibles, Cherry picking y Conspiración.",
+          "Superar el retardismo: La tecnología ayuda, pero no sustituye la organización comunitaria y las decisiones valientes hoy."
         ],
-        sourceNote: "Conceptos inspirados en el combate a los discursos de retardismo climático (Andreu Escrivà) y la verificación cívica (Verificat)."
+        sourceNote: "Conceptos inspirados en la metodología EFECT de Verificat (P2 p.22-28) y el análisis de retardismo y acción colectiva de Andreu Escrivà (P1 p.19-26, P2 p.35-42)."
       }
     }
   ]
