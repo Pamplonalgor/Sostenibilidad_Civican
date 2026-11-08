@@ -136,9 +136,21 @@ html, body {
 }
 
 .civican-logo-img {
-  height: 72px; /* Logo notablemente más grande y nítido */
+  height: 62px; /* Logo notablemente más grande y nítido */
   width: auto;
-  max-width: 380px;
+  max-width: 320px;
+  object-fit: contain;
+  display: block;
+}
+
+.algo-frame {
+  padding: 8px 16px;
+}
+
+.algo-logo-img {
+  height: 48px;
+  width: auto;
+  max-width: 210px;
   object-fit: contain;
   display: block;
 }
@@ -481,7 +493,27 @@ html, body {
 .sources-teaser {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
+}
+
+.sources-logos-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(19, 34, 46, 0.08);
+  box-shadow: 0 2px 6px rgba(19, 34, 46, 0.03);
+  flex-shrink: 0;
+}
+
+.footer-partner-logo {
+  height: 38px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
 }
 
 .sources-teaser-icon {
@@ -1023,12 +1055,99 @@ html, body {
   line-height: 1.45;
 }
 
-.idle-countdown-display {
-  font-size: 3.8rem;
-  font-weight: 900;
+/* Cuenta Atrás Circular Visual e Interactiva */
+.idle-countdown-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 28px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.idle-countdown-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* Inicio a las 12 en punto */
+}
+
+.idle-circle-bg {
+  fill: none;
+  stroke: rgba(19, 34, 46, 0.08);
+  stroke-width: 10;
+}
+
+.idle-circle-bar {
+  fill: none;
+  stroke: var(--terracotta);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 427.26;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear, stroke var(--trans-fast);
+}
+
+.idle-countdown-wrap.urgent .idle-circle-bar {
+  stroke: #C0392B;
+  animation: pulseCountdown 0.8s ease-in-out infinite alternate;
+}
+
+.idle-countdown-core {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.idle-countdown-num {
   font-family: var(--font-display);
+  font-size: 3.6rem;
+  font-weight: 900;
   color: var(--terracotta);
-  margin-bottom: 26px;
+  letter-spacing: -1px;
+  transition: color var(--trans-fast);
+}
+
+.idle-countdown-wrap.urgent .idle-countdown-num {
+  color: #C0392B;
+  animation: tickHeartbeat 0.8s ease-in-out infinite;
+}
+
+.idle-countdown-label {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ink-secondary);
+  margin-top: 4px;
+}
+
+@keyframes pulseCountdown {
+  0% { stroke-width: 10; opacity: 1; }
+  100% { stroke-width: 13; opacity: 0.85; }
+}
+
+@keyframes tickHeartbeat {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+body.reduced-motion .idle-circle-bar,
+body.reduced-motion .idle-countdown-wrap.urgent .idle-circle-bar,
+body.reduced-motion .idle-countdown-wrap.urgent .idle-countdown-num {
+  animation: none !important;
+  transition: none !important;
+}
+
+.idle-countdown-display {
+  display: none;
 }
 
 .modal-actions-pair {
@@ -1117,6 +1236,10 @@ html, body {
 
 /* Adaptación para Pantallas Menores */
 @media (max-width: 1080px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
   .experiences-grid {
     grid-template-columns: 1fr;
   }
@@ -1134,10 +1257,15 @@ html, body {
   .kiosk-header {
     padding: 12px 18px;
     min-height: 84px;
+    gap: 12px;
   }
 
   .civican-logo-img {
-    height: 52px;
+    height: 48px;
+  }
+
+  .algo-logo-img {
+    height: 38px;
   }
 
   .header-event-title {
@@ -1150,6 +1278,17 @@ html, body {
 
   .landing-subtitle {
     font-size: 1.15rem;
+  }
+
+  .landing-footer-sources {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .sources-teaser {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .results-actions-grid {

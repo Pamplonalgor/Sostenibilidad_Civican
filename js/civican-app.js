@@ -67,7 +67,7 @@ class CivicanApp {
         <p class="card-summary">${exp.summary}</p>
         
         <div class="card-source-citation">
-          <i class="fa-solid fa-book-bookmark"></i> ${exp.sourceRef}
+          <i class="fa-solid fa-compass"></i> ${exp.badgeTopic || exp.typology}
         </div>
 
         <div class="card-footer-action">
@@ -183,7 +183,7 @@ class CivicanApp {
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${round.sourceRef}
+            <i class="fa-solid fa-bookmark"></i> ${round.badge || 'Reflexión comunitaria'}
           </span>
           <div class="step-indicator">Reto ${round.stepNumber}</div>
         </div>
@@ -347,7 +347,7 @@ class CivicanApp {
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${currentCase.sourceRef}
+            <i class="fa-solid fa-bookmark"></i> ${currentCase.badge || 'Verificación periodística'}
           </span>
           <div class="step-indicator">Caso ${currentCase.stepNumber}</div>
         </div>
@@ -513,7 +513,7 @@ class CivicanApp {
 
       <div style="background:var(--surface); border-radius:var(--radius-lg); padding:32px 36px; border:2px solid var(--rule); margin-top:22px; box-shadow:var(--shadow-card);">
         <p style="font-family:var(--font-display); font-size:1.45rem; font-weight:700; color:var(--ink); margin-bottom:24px; text-align:center;">
-          Las 4 preguntas maestras de verificación (Verificat, P2 p.22):
+          Las 4 preguntas maestras de verificación periodística:
         </p>
 
         <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; margin-bottom:28px;">
@@ -567,7 +567,7 @@ class CivicanApp {
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${layer.sourceRef}
+            <i class="fa-solid fa-bookmark"></i> ${layer.name || 'Auditoría'}
           </span>
           <div class="step-indicator">${layer.stepNumber}</div>
         </div>
@@ -708,7 +708,7 @@ class CivicanApp {
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${trial.sourceRef}
+            <i class="fa-solid fa-bookmark"></i> ${trial.badge || 'Pensamiento crítico'}
           </span>
           <div class="step-indicator">${trial.stepNumber}</div>
         </div>
@@ -937,7 +937,7 @@ class CivicanApp {
           <!-- Tipografía Editorial Central -->
           <text x="230" y="125" font-family="'Fraunces', serif" font-size="36" font-weight="900" fill="#1A5E44" text-anchor="middle">7,2%</text>
           <text x="230" y="152" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" fill="#13222E" text-anchor="middle" letter-spacing="0.5">MATERIALES RECICLADOS</text>
-          <text x="230" y="170" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#728492" text-anchor="middle">Dato global 2023 (P1 p.14)</text>
+          <text x="230" y="170" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#728492" text-anchor="middle">Informe Global Circularity Gap</text>
 
           <!-- Flecha Circular Artesanal -->
           <path d="M 230 20 L 236 32 L 224 32 Z" fill="#1A5E44"/>
@@ -970,7 +970,7 @@ class CivicanApp {
           <text x="370" y="226" font-size="9" font-weight="600" fill="#1A5E44" text-anchor="middle">Salud, tiempo libre</text>
           <text x="370" y="238" font-size="9" font-weight="600" fill="#1A5E44" text-anchor="middle">y comunidad</text>
 
-          <text x="230" y="45" font-family="'Fraunces', serif" font-size="16" font-weight="800" fill="#13222E" text-anchor="middle">¿Crecer siempre es mejorar? (P1 p.16)</text>
+          <text x="230" y="45" font-family="'Fraunces', serif" font-size="16" font-weight="800" fill="#13222E" text-anchor="middle">¿Crecer siempre es mejorar?</text>
         </svg>
       `;
     } else {
@@ -996,7 +996,7 @@ class CivicanApp {
           <circle cx="310" cy="200" r="18" fill="#FFF" stroke="#1A5E44" stroke-width="2"/>
 
           <text x="230" y="38" font-family="'Fraunces', serif" font-size="15" font-weight="800" fill="#13222E" text-anchor="middle">La mayoría actuaría, pero cree que los demás no</text>
-          <text x="230" y="258" font-size="11" font-weight="600" fill="#728492" text-anchor="middle">Estudio global de disposición (CIVICAN.pptx.pdf p.26)</text>
+          <text x="230" y="258" font-size="11" font-weight="600" fill="#728492" text-anchor="middle">Estudio sociológico global en 125 países</text>
         </svg>
       `;
     }

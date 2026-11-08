@@ -143,9 +143,22 @@ class CivicanKioskManager {
     if (!this.idleModal) return;
 
     this.remainingWarningSeconds = this.WARNING_DURATION;
+    const circumference = 2 * Math.PI * 68; // 427.26
+    
     if (this.idleSecondsEl) {
       this.idleSecondsEl.textContent = this.remainingWarningSeconds;
     }
+
+    const circle = document.getElementById('idle-progress-circle');
+    const wrap = document.querySelector('.idle-countdown-wrap');
+    if (circle) {
+      circle.style.strokeDasharray = `${circumference}`;
+      circle.style.strokeDashoffset = '0';
+    }
+    if (wrap) {
+      wrap.classList.remove('urgent');
+    }
+
     this.idleModal.classList.add('active');
 
     clearInterval(this.warningInterval);
@@ -153,6 +166,19 @@ class CivicanKioskManager {
       this.remainingWarningSeconds--;
       if (this.idleSecondsEl) {
         this.idleSecondsEl.textContent = this.remainingWarningSeconds;
+      }
+
+      if (circle) {
+        const progress = (this.WARNING_DURATION - this.remainingWarningSeconds) / this.WARNING_DURATION;
+        circle.style.strokeDashoffset = `${circumference * progress}`;
+      }
+
+      if (wrap) {
+        if (this.remainingWarningSeconds <= 5) {
+          wrap.classList.add('urgent');
+        } else {
+          wrap.classList.remove('urgent');
+        }
       }
 
       if (this.remainingWarningSeconds <= 0) {
@@ -165,6 +191,10 @@ class CivicanKioskManager {
   dismissIdleWarning() {
     if (this.idleModal) {
       this.idleModal.classList.remove('active');
+    }
+    const wrap = document.querySelector('.idle-countdown-wrap');
+    if (wrap) {
+      wrap.classList.remove('urgent');
     }
     clearInterval(this.warningInterval);
     this.restartIdleTimer();
@@ -236,6 +266,11 @@ class CivicanKioskManager {
 
     if (this.idleModal) this.idleModal.classList.remove('active');
     if (this.exitConfirmModal) this.exitConfirmModal.classList.remove('active');
+
+    const wrap = document.querySelector('.idle-countdown-wrap');
+    if (wrap) {
+      wrap.classList.remove('urgent');
+    }
 
     // Cerrar cualquier modal abierto (créditos, pistas)
     document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));

@@ -19,23 +19,32 @@
     <!-- CABECERA DE QUIOSCO SUPERIOR -->
     <header class="kiosk-header" role="banner">
       <div class="kiosk-brand">
-        <!-- Logo Institucional CIVICAN / Fundación Caja Navarra Ampliado -->
-        <div class="logo-frame">
+        <!-- Logo Institucional CIVICAN / Fundación Caja Navarra -->
+        <div class="logo-frame" title="Fundación Caja Navarra - CIVICAN">
           <img src="assets/civican-logo.png" alt="Fundación Caja Navarra - Civican" class="civican-logo-img">
         </div>
+
         <div class="brand-divider"></div>
-        <div class="header-meta">
-          <span class="tag-kicker">Videowall Atrio · Exposición Interactiva</span>
+
+        <!-- Logo Algorithmics Pamplona -->
+        <div class="logo-frame algo-frame" title="Algorithmics Pamplona">
+          <img src="assets/logo-algorithmics.png" alt="Algorithmics Pamplona" class="algo-logo-img">
+        </div>
+
+        <div class="brand-divider hide-mobile"></div>
+
+        <div class="header-meta hide-mobile">
+          <span class="tag-kicker">Exposición Interactiva · Videowall Atrio</span>
           <span class="header-event-title">Tu impacto en juego</span>
-          <span class="header-event-subtitle">Fundación Caja Navarra · CIVICAN</span>
+          <span class="header-event-subtitle">CIVICAN · Fundación Caja Navarra &amp; Algorithmics</span>
         </div>
       </div>
 
       <!-- Acciones de Navegación del Quiosco -->
       <nav class="kiosk-header-actions" aria-label="Navegación general">
-        <button class="header-btn" id="btn-open-sources" aria-label="Ver fuentes y créditos">
-          <i class="fa-solid fa-book-open"></i>
-          <span>Fuentes y Charla</span>
+        <button class="header-btn" id="btn-open-sources" aria-label="Ver fuentes y curaduría">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Fuentes y Curaduría</span>
         </button>
 
         <button class="header-btn" id="btn-toggle-motion" aria-label="Ajustar preferencias de movimiento">
@@ -73,20 +82,21 @@
         <!-- Renderizado dinámico desde civican-app.js -->
       </section>
 
-      <!-- Pie de Portada: Fuentes y Reconocimientos -->
+      <!-- Pie de Portada: Colaboración y Fuentes -->
       <footer class="landing-footer-sources">
         <div class="sources-teaser">
-          <div class="sources-teaser-icon">
-            <i class="fa-solid fa-feather-pointed"></i>
+          <div class="sources-logos-group">
+            <img src="assets/civican-logo.png" alt="CIVICAN · Fundación Caja Navarra" class="footer-partner-logo">
+            <img src="assets/logo-algorithmics.png" alt="Algorithmics" class="footer-partner-logo">
           </div>
           <div class="sources-teaser-text">
-            <h4>Fuentes teóricas y metodológicas de la exposición</h4>
-            <p>Contenidos desarrollados a partir de la conferencia de <strong>Andreu Escrivà</strong> (P1) y las metodologías de <strong>Verificat / Desfake</strong> (P2).</p>
+            <h4>Una iniciativa de pensamiento crítico y cultura ciudadana</h4>
+            <p>Diseñada por <strong>Algorithmics</strong> para el espacio <strong>CIVICAN</strong>, basada en las investigaciones ecosociales de <strong>Andreu Escrivà</strong> y las herramientas periodísticas de <strong>Verificat / Desfake</strong>.</p>
           </div>
         </div>
         <button class="header-btn" id="btn-open-sources-landing">
           <i class="fa-solid fa-graduation-cap"></i>
-          <span>Consultar fuentes</span>
+          <span>Curaduría y Fuentes</span>
         </button>
       </footer>
     </main>
@@ -123,8 +133,16 @@
       <p class="modal-body-text">
         La pantalla táctil detecta inactividad. Si nadie continúa interactuando, la sesión se reiniciará automáticamente para el siguiente visitante en:
       </p>
-      <div class="idle-countdown-display">
-        <span id="idle-seconds">15</span>s
+      <!-- Cuenta atrás circular visual e interactiva -->
+      <div class="idle-countdown-wrap" role="timer" aria-live="polite">
+        <svg class="idle-countdown-svg" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="idle-circle-bg" cx="80" cy="80" r="68"></circle>
+          <circle class="idle-circle-bar" id="idle-progress-circle" cx="80" cy="80" r="68"></circle>
+        </svg>
+        <div class="idle-countdown-core">
+          <span class="idle-countdown-num" id="idle-seconds">15</span>
+          <span class="idle-countdown-label">segundos</span>
+        </div>
       </div>
       <div class="modal-actions-pair">
         <button class="btn-modal-action primary" id="btn-keep-playing">
@@ -184,26 +202,28 @@
 
       <!-- Fuente 1: Andreu Escrivà -->
       <div class="sources-source-card andreu">
-        <h4>Andreu Escrivà (Documento P1: CIVICAN.pptx.pdf)</h4>
+        <h4>Andreu Escrivà</h4>
         <div class="sources-role">Ambientólogo, doctor en Biodiversidad y divulgador científico</div>
         <p class="sources-desc">
-          Aporta el marco de <strong>límites biofísicos de materiales (p.4, 14-15)</strong>, el debate sobre <strong>PIB y bienestar humano (p.16-18)</strong>, los <strong>futuros y la acción colectiva (p.19-24)</strong> y el estudio sociológico sobre la <strong>subestimación de la voluntad comunitaria a actuar (p.25-27)</strong>.
+          Aporta el marco científico y social sobre <strong>los límites reales de los materiales</strong>, el debate sobre el <strong>PIB frente al bienestar humano</strong> y la fuerza de la <strong>acción comunitaria</strong> para transformar nuestros barrios en lugares más habitables y saludables.
         </p>
       </div>
 
       <!-- Fuente 2: Verificat / Desfake -->
       <div class="sources-source-card">
-        <h4>Verificat / Desfake (Documento P2: Presentación CIVICAN.pdf)</h4>
-        <div class="sources-role">Asociación de periodismo de verificación y educación mediática</div>
+        <h4>Verificat / Desfake</h4>
+        <div class="sources-role">Asociación periodística de verificación y educación mediática</div>
         <p class="sources-desc">
-          Aporta la metodología de <strong>alfabetización crítica frente a la desinformación climática</strong>: los casos de '¿Te lo crees?' de alimentación y mapas meteorológicos (p.2-17), las <strong>cuatro preguntas maestras de verificación (p.20-22)</strong>, las <strong>estrategias EFECT (p.23-28)</strong>, la investigación con rastreadores GPS sobre la campaña de H&M (p.30-34) y el análisis de las <strong>narrativas de retardismo (p.35-42)</strong>.
+          Aporta el método de <strong>alfabetización crítica frente a los bulos</strong>: el análisis de titulares sobre cosechas y mapas del tiempo, las <strong>4 preguntas de verificación</strong>, las tácticas de manipulación (E.F.E.C.T.), la investigación real con rastreadores GPS sobre el reciclaje textil y las claves para detectar el <em>greenwashing</em>.
         </p>
       </div>
 
-      <div style="background:var(--superficie); border:1px solid var(--borde-funcional); border-radius:var(--radius-sm); padding:14px; margin-top:16px;">
-        <strong style="color:var(--azul-tinta);">Fundación Caja Navarra - CIVICAN</strong>
-        <p style="font-size:0.9rem; color:var(--texto-secundario); margin-top:4px;">
-          Instalación diseñada para el Videowall del Atrio de CIVICAN. Promoviendo el pensamiento crítico, la participación ciudadana y la cultura científica en Pamplona.
+      <!-- Fuente 3: Algorithmics y CIVICAN -->
+      <div class="sources-source-card" style="border-left-color:var(--amber);">
+        <h4>Algorithmics &amp; CIVICAN (Fundación Caja Navarra)</h4>
+        <div class="sources-role">Diseño pedagógico, tecnología y espacio cultural</div>
+        <p class="sources-desc">
+          Experiencia concebida para el <strong>Videowall del Atrio de CIVICAN</strong> (Pamplona). Una iniciativa abierta a toda la ciudadanía para fomentar el pensamiento crítico, la cultura científica y la convivencia en el espacio público.
         </p>
       </div>
     </div>
