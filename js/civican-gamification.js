@@ -1,11 +1,11 @@
 /**
  * CIVICAN: MOTOR DE GAMIFICACIÓN TÁCTIL E INTERACTIVA (PROTOTIPO 2)
  * Diseñado específicamente para pantalla táctil en Videowall Atrio CIVICAN.
- * Proporciona interacción física, directa y visual:
- * 1. Simulador de Barrio con 3 Palancas reactivas y medidores en vivo
- * 2. Estampador de Noticias (Rigor periodístico vs Bulo) con lupa forense
- * 3. Rastreador GPS por Satélite con mapamundi y ruta de ropa
- * 4. Rompecadenas del Retardismo con candados y llaves críticas
+ * Proporciona interacción física, directa, visual y fundamentada en datos reales:
+ * 1. Simulador de Barrio con 3 Palancas reactivas, casos reales de ciudades y beneficios medidos
+ * 2. Estampador de Noticias (Rigor periodístico vs Bulo) con 3 casos y expedientes forenses
+ * 3. Rastreador GPS por Satélite con mapamundi y la investigación de la ropa en Ghana
+ * 4. Rompecadenas del Retardismo con candados y desmitificación con estudios científicos
  */
 
 class CivicanGamificationApp {
@@ -86,7 +86,7 @@ class CivicanGamificationApp {
   }
 
   /* ========================================================================
-     1. MÓDULO: SIMULADOR DE BARRIO CON PALANCAS TÁCTILES
+     1. MÓDULO: SIMULADOR DE BARRIO CON CASOS REALES Y BENEFICIOS MEDIDOS
      ======================================================================== */
   renderSimulatorModule() {
     this.simState = {
@@ -94,6 +94,7 @@ class CivicanGamificationApp {
       mobility: false,   // false: coches, true: peatonal/bus
       resources: false   // false: usar y tirar, true: reparar/compartir
     };
+    this.lastToggledKey = null;
 
     this.gameContainer.innerHTML = `
       <div class="game-top-nav">
@@ -110,7 +111,7 @@ class CivicanGamificationApp {
       </div>
 
       <div class="simulator-workspace">
-        <!-- Escena del Barrio en Tiempo Real -->
+        <!-- Escena del Barrio y Caso Real Dinámico -->
         <div class="simulator-scene-canvas">
           <div class="simulator-svg-box" id="sim-svg-target">
             ${this.getNeighborhoodSvg()}
@@ -136,6 +137,11 @@ class CivicanGamificationApp {
                 <div class="gauge-fill materials" id="bar-materials" style="width: 92.8%;"></div>
               </div>
             </div>
+          </div>
+
+          <!-- Tarjeta Dinámica de Caso Real y Beneficios Medidos -->
+          <div id="sim-case-story-container">
+            ${this.getRealCaseStoryHtml()}
           </div>
         </div>
 
@@ -189,7 +195,7 @@ class CivicanGamificationApp {
           </div>
 
           <div style="background:var(--forest-soft); border-left:4px solid var(--forest); border-radius:var(--radius-sm); padding:14px 18px; font-size:0.95rem; color:var(--forest); font-weight:600;">
-            <i class="fa-solid fa-lightbulb"></i> <strong>Conclusión ecosocial:</strong> Reducir el consumo de materiales no es vivir peor, sino tener más tiempo, salud y espacios para convivir.
+            <i class="fa-solid fa-lightbulb"></i> <strong>Conclusión ecosocial (Andreu Escrivà):</strong> Reducir el despilfarro de materiales no es vivir peor, sino tener mejor salud, aire limpio y espacios para convivir.
           </div>
         </div>
       </div>
@@ -203,6 +209,7 @@ class CivicanGamificationApp {
       const card = document.getElementById(`lever-${key}`);
       card.addEventListener('click', () => {
         this.simState[key] = !this.simState[key];
+        this.lastToggledKey = key;
         card.classList.toggle('active-state', this.simState[key]);
         this.updateSimulatorState();
       });
@@ -212,7 +219,7 @@ class CivicanGamificationApp {
   updateSimulatorState() {
     const s = this.simState;
 
-    // Actualizar etiquetas
+    // Actualizar etiquetas de estado
     document.getElementById('label-spaces').textContent = s.spaces ? 'Parques, sombra y huertos' : 'Asfalto y plazas duras';
     document.getElementById('label-mobility').textContent = s.mobility ? 'Calles peatonales, bicis y bus' : 'Tráfico individual y atascos';
     document.getElementById('label-resources').textContent = s.resources ? 'Taller de reparación y banco vecinal' : 'Comprar nuevo y tirar rápido';
@@ -233,6 +240,161 @@ class CivicanGamificationApp {
 
     // Actualizar SVG
     document.getElementById('sim-svg-target').innerHTML = this.getNeighborhoodSvg();
+
+    // Actualizar Ficha de Caso Real y Beneficios
+    const storyContainer = document.getElementById('sim-case-story-container');
+    if (storyContainer) {
+      storyContainer.innerHTML = this.getRealCaseStoryHtml();
+    }
+  }
+
+  getRealCaseStoryHtml() {
+    const s = this.simState;
+    const activeCount = (s.spaces ? 1 : 0) + (s.mobility ? 1 : 0) + (s.resources ? 1 : 0);
+
+    // Caso: Las 3 palancas activas simultáneamente
+    if (activeCount === 3) {
+      return `
+        <div class="real-case-story-card" style="border-color:var(--forest);">
+          <div class="real-case-header">
+            <span class="real-case-badge" style="background:var(--forest); color:#FFF;">
+              <i class="fa-solid fa-trophy"></i> Transformación Integral del Barrio
+            </span>
+            <span class="real-case-city">Modelo CIVICAN Ecosocial</span>
+          </div>
+          <h4 class="real-case-title">Un barrio que cuida, comparte y respira</h4>
+          <p class="real-case-narrative">
+            Al combinar zonas verdes permeables, calles para las personas y herramientas compartidas, el barrio demuestra la tesis central de Andreu Escrivà: no vivimos con escasez, sino con mucha mayor salud, tranquilidad y tiempo para convivir.
+          </p>
+          <div class="measured-benefits-grid">
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--forest);">+98%</div>
+              <div class="benefit-label">Bienestar vecinal medido</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--forest);">-3,5 ºC</div>
+              <div class="benefit-label">Efecto isla de calor</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--forest);">-85%</div>
+              <div class="benefit-label">Basura y despilfarro</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Caso: Espacio público / Zonas verdes
+    if (this.lastToggledKey === 'spaces' && s.spaces || (s.spaces && !s.mobility && !s.resources)) {
+      return `
+        <div class="real-case-story-card">
+          <div class="real-case-header">
+            <span class="real-case-badge">
+              <i class="fa-solid fa-tree"></i> Caso Real: Supermanzanas & Anillo Verde
+            </span>
+            <span class="real-case-city">Vitoria-Gasteiz y Barcelona</span>
+          </div>
+          <h4 class="real-case-title">De plazas duras de cemento a refugios climáticos vivos</h4>
+          <p class="real-case-narrative">
+            Al sustituir el asfalto y aparcamientos por parterres permeables y copas de árboles, el suelo vuelve a absorber el agua de lluvia, los niños juegan en la calle y la temperatura en verano cae drásticamente.
+          </p>
+          <div class="measured-benefits-grid">
+            <div class="benefit-metric-pill">
+              <div class="benefit-value">-3,5 ºC</div>
+              <div class="benefit-label">Temperatura en olas de calor</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value">+80%</div>
+              <div class="benefit-label">Espacio peatonal ganado</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value">+45%</div>
+              <div class="benefit-label">Retención de aguas pluviales</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Caso: Movilidad vecinal / Calles peatonales
+    if (this.lastToggledKey === 'mobility' && s.mobility || (s.mobility && !s.spaces && !s.resources)) {
+      return `
+        <div class="real-case-story-card" style="border-color:var(--cyanotype);">
+          <div class="real-case-header">
+            <span class="real-case-badge" style="background:var(--cyanotype-soft); color:var(--cyanotype);">
+              <i class="fa-solid fa-bicycle"></i> Caso Real: Pacificación Integral del Tráfico
+            </span>
+            <span class="real-case-city">Pontevedra y París 15 min</span>
+          </div>
+          <h4 class="real-case-title">Las calles recuperadas: sin humos, sin ruido y con comercio vivo</h4>
+          <p class="real-case-narrative">
+            Eliminar el tráfico de paso devolvió la seguridad: los niños van solos a pie al colegio, los mayores descansan por la noche sin ruido de motores y los comercios del barrio aumentan sus ventas porque la gente pasea.
+          </p>
+          <div class="measured-benefits-grid">
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--cyanotype);">-67%</div>
+              <div class="benefit-label">Emisiones de gases NOx</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--cyanotype);">0</div>
+              <div class="benefit-label">Atropellos graves en 10 años</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--cyanotype);">+25%</div>
+              <div class="benefit-label">Ventas en comercios locales</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Caso: Cuidado, reparación y banco de herramientas
+    if (this.lastToggledKey === 'resources' && s.resources || (s.resources && !s.spaces && !s.mobility)) {
+      return `
+        <div class="real-case-story-card" style="border-color:var(--terracotta);">
+          <div class="real-case-header">
+            <span class="real-case-badge" style="background:var(--terracotta-soft); color:var(--terracotta);">
+              <i class="fa-solid fa-wrench"></i> Caso Real: Bibliotecas de Cosas y Repair Cafés
+            </span>
+            <span class="real-case-city">Pamplona y Red Europea</span>
+          </div>
+          <h4 class="real-case-title">Comunidad de uso compartido: reparar en lugar de tirar</h4>
+          <p class="real-case-narrative">
+            Un taladro se usa de media solo 13 minutos en toda su vida útil. Compartir herramientas y aprender a reparar electrodomésticos en común ahorra cientos de euros a las familias y evita toneladas de basura electrónica.
+          </p>
+          <div class="measured-benefits-grid">
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--terracotta);">-85%</div>
+              <div class="benefit-label">Residuos enviados al vertedero</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--terracotta);">380 €</div>
+              <div class="benefit-label">Ahorro anual medio por familia</div>
+            </div>
+            <div class="benefit-metric-pill">
+              <div class="benefit-value" style="color:var(--terracotta);">+100%</div>
+              <div class="benefit-label">Vínculo intergeneracional</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Estado inicial: todo apagado
+    return `
+      <div class="real-case-story-card" style="border-color:var(--rule); background:var(--canvas);">
+        <div class="real-case-header">
+          <span class="real-case-badge" style="background:rgba(19,34,46,0.08); color:var(--ink-secondary);">
+            <i class="fa-solid fa-hand-pointer"></i> Toca una palanca
+          </span>
+          <span class="real-case-city">Panel Interactivo</span>
+        </div>
+        <h4 class="real-case-title" style="color:var(--ink-secondary);">El barrio actual: asfalto, atascos y consumo de usar y tirar</h4>
+        <p class="real-case-narrative">
+          Toca cualquiera de las tres palancas de la derecha para ver cómo una medida concreta transformó la vida de un barrio real con datos medidos científicamente.
+        </p>
+      </div>
+    `;
   }
 
   getNeighborhoodSvg() {
@@ -244,94 +406,113 @@ class CivicanGamificationApp {
     const repairShed = s.resources;
 
     return `
-      <svg viewBox="0 0 540 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 540 290" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <!-- Cielo y Fondo -->
-        <rect width="100%" height="100%" fill="${skyColor}" rx="12"/>
+        <rect width="100%" height="100%" fill="${skyColor}" rx="10"/>
         
-        <!-- Sol o Nubes -->
+        <!-- Sol y Nubes dinámicas -->
         ${cleanAir ? `
-          <circle cx="480" cy="50" r="30" fill="#FBC02D" opacity="0.9"/>
-          <circle cx="480" cy="50" r="42" fill="#FFF59D" opacity="0.4"/>
+          <circle cx="480" cy="45" r="28" fill="#FBC02D" opacity="0.9"/>
+          <circle cx="480" cy="45" r="38" fill="#FFF59D" opacity="0.4"/>
+          <!-- Pájaros volando en cielo limpio -->
+          <path d="M 120 40 Q 128 32 136 40 Q 144 32 152 40" fill="none" stroke="#37474F" stroke-width="2"/>
+          <path d="M 180 55 Q 186 48 192 55 Q 198 48 204 55" fill="none" stroke="#37474F" stroke-width="2"/>
         ` : `
-          <ellipse cx="460" cy="55" rx="50" ry="20" fill="#B0BEC5"/>
-          <ellipse cx="490" cy="45" rx="35" ry="18" fill="#CFD8DC"/>
-          <path d="M 60 70 Q 80 50 120 60 Q 150 40 190 70 Z" fill="#90A4AE" opacity="0.5"/>
+          <ellipse cx="460" cy="50" rx="45" ry="18" fill="#B0BEC5"/>
+          <ellipse cx="490" cy="42" rx="30" ry="16" fill="#CFD8DC"/>
+          <path d="M 60 65 Q 80 45 120 55 Q 150 35 190 65 Z" fill="#90A4AE" opacity="0.5"/>
         `}
 
         <!-- Edificios del Fondo -->
-        <rect x="40" y="90" width="85" height="150" fill="#78909C" rx="4"/>
-        <rect x="52" y="105" width="16" height="18" fill="#FFFDE7"/>
-        <rect x="76" y="105" width="16" height="18" fill="#FFFDE7"/>
-        <rect x="52" y="135" width="16" height="18" fill="#FFFDE7"/>
-        <rect x="76" y="135" width="16" height="18" fill="#FFFDE7"/>
+        <rect x="40" y="70" width="85" height="150" fill="#78909C" rx="4"/>
+        <rect x="52" y="85" width="16" height="18" fill="#FFFDE7"/>
+        <rect x="76" y="85" width="16" height="18" fill="#FFFDE7"/>
+        <rect x="52" y="115" width="16" height="18" fill="#FFFDE7"/>
+        <rect x="76" y="115" width="16" height="18" fill="#FFFDE7"/>
 
-        <rect x="140" y="60" width="110" height="180" fill="#607D8B" rx="4"/>
-        <rect x="155" y="75" width="22" height="20" fill="#ECEFF1"/>
-        <rect x="190" y="75" width="22" height="20" fill="#ECEFF1"/>
-        <rect x="155" y="110" width="22" height="20" fill="#ECEFF1"/>
-        <rect x="190" y="110" width="22" height="20" fill="#ECEFF1"/>
-        <rect x="155" y="145" width="22" height="20" fill="#ECEFF1"/>
-        <rect x="190" y="145" width="22" height="20" fill="#ECEFF1"/>
+        <rect x="140" y="50" width="110" height="170" fill="#607D8B" rx="4"/>
+        <rect x="155" y="65" width="22" height="20" fill="#ECEFF1"/>
+        <rect x="190" y="65" width="22" height="20" fill="#ECEFF1"/>
+        <rect x="155" y="98" width="22" height="20" fill="#ECEFF1"/>
+        <rect x="190" y="98" width="22" height="20" fill="#ECEFF1"/>
+        <rect x="155" y="130" width="22" height="20" fill="#ECEFF1"/>
+        <rect x="190" y="130" width="22" height="20" fill="#ECEFF1"/>
+
+        <!-- Paneles Solares en Tejado cuando se activan Recursos -->
+        ${repairShed ? `
+          <polygon points="142,48 185,38 185,48 142,48" fill="#1565C0"/>
+          <polygon points="195,48 248,38 248,48 195,48" fill="#1565C0"/>
+        ` : ''}
 
         <!-- Plaza / Suelo del Barrio -->
-        <rect x="0" y="220" width="540" height="100" fill="${groundColor}"/>
+        <rect x="0" y="210" width="540" height="90" fill="${groundColor}"/>
 
         <!-- Elementos del Espacio (Verde vs Asfalto) -->
         ${trees ? `
           <!-- Parque con árboles frondosos y bancos -->
-          <circle cx="80" cy="210" r="28" fill="#2E7D32"/>
-          <rect x="75" y="215" width="10" height="25" fill="#5D4037"/>
+          <circle cx="80" cy="200" r="28" fill="#2E7D32"/>
+          <rect x="75" y="205" width="10" height="25" fill="#5D4037"/>
 
-          <circle cx="280" cy="205" r="35" fill="#388E3C"/>
-          <rect x="274" y="215" width="12" height="30" fill="#5D4037"/>
+          <circle cx="280" cy="195" r="34" fill="#388E3C"/>
+          <rect x="274" y="205" width="12" height="30" fill="#5D4037"/>
 
-          <circle cx="460" cy="210" r="26" fill="#2E7D32"/>
-          <rect x="456" y="218" width="8" height="22" fill="#5D4037"/>
+          <circle cx="460" cy="200" r="26" fill="#2E7D32"/>
+          <rect x="456" y="208" width="8" height="22" fill="#5D4037"/>
+
+          <!-- Huerto urbano comunitario -->
+          <rect x="475" y="235" width="45" height="18" fill="#6D4C41" rx="2"/>
+          <circle cx="485" cy="232" r="5" fill="#43A047"/>
+          <circle cx="498" cy="232" r="5" fill="#E53935"/>
+          <circle cx="510" cy="232" r="5" fill="#FB8C00"/>
 
           <!-- Banco vecinal -->
-          <rect x="120" y="245" width="40" height="8" rx="2" fill="#8D6E63"/>
-          <line x1="125" y1="253" x2="125" y2="263" stroke="#4E342E" stroke-width="3"/>
-          <line x1="155" y1="253" x2="155" y2="263" stroke="#4E342E" stroke-width="3"/>
+          <rect x="120" y="235" width="40" height="8" rx="2" fill="#8D6E63"/>
+          <line x1="125" y1="243" x2="125" y2="253" stroke="#4E342E" stroke-width="3"/>
+          <line x1="155" y1="243" x2="155" y2="253" stroke="#4E342E" stroke-width="3"/>
         ` : `
           <!-- Asfalto y Líneas de Parking -->
-          <line x1="0" y1="260" x2="540" y2="260" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="16 12"/>
-          <rect x="60" y="235" width="45" height="20" fill="#546E7A" rx="4"/>
-          <rect x="130" y="235" width="45" height="20" fill="#B0BEC5" rx="4"/>
+          <line x1="0" y1="250" x2="540" y2="250" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="16 12"/>
+          <rect x="60" y="225" width="45" height="20" fill="#546E7A" rx="4"/>
+          <rect x="130" y="225" width="45" height="20" fill="#B0BEC5" rx="4"/>
         `}
 
         <!-- Elementos de Movilidad (Bici/Peatón vs Coches) -->
         ${cleanAir ? `
           <!-- Personas paseando y ciclista -->
-          <circle cx="210" cy="245" r="7" fill="#E65100"/>
-          <line x1="210" y1="252" x2="210" y2="275" stroke="#E65100" stroke-width="3"/>
+          <circle cx="210" cy="235" r="7" fill="#E65100"/>
+          <line x1="210" y1="242" x2="210" y2="265" stroke="#E65100" stroke-width="3"/>
 
-          <circle cx="340" cy="250" r="6" fill="#1565C0"/>
-          <line x1="340" y1="256" x2="340" y2="278" stroke="#1565C0" stroke-width="3"/>
+          <circle cx="340" cy="240" r="6" fill="#1565C0"/>
+          <line x1="340" y1="246" x2="340" y2="268" stroke="#1565C0" stroke-width="3"/>
+
+          <!-- Niña con pelota -->
+          <circle cx="355" cy="248" r="5" fill="#8E24AA"/>
+          <circle cx="368" cy="254" r="5" fill="#FFB300"/>
 
           <!-- Bicicleta -->
-          <circle cx="390" cy="270" r="10" fill="none" stroke="#2E7D32" stroke-width="3"/>
-          <circle cx="415" cy="270" r="10" fill="none" stroke="#2E7D32" stroke-width="3"/>
-          <line x1="390" y1="270" x2="402" y2="260" stroke="#2E7D32" stroke-width="3"/>
-          <line x1="415" y1="270" x2="402" y2="260" stroke="#2E7D32" stroke-width="3"/>
+          <circle cx="390" cy="258" r="10" fill="none" stroke="#2E7D32" stroke-width="3"/>
+          <circle cx="415" cy="258" r="10" fill="none" stroke="#2E7D32" stroke-width="3"/>
+          <line x1="390" y1="258" x2="402" y2="248" stroke="#2E7D32" stroke-width="3"/>
+          <line x1="415" y1="258" x2="402" y2="248" stroke="#2E7D32" stroke-width="3"/>
         ` : `
           <!-- Coche contaminante echando humo -->
-          <rect x="330" y="245" width="70" height="26" rx="6" fill="#D32F2F"/>
-          <circle cx="348" cy="272" r="8" fill="#212121"/>
-          <circle cx="385" cy="272" r="8" fill="#212121"/>
-          <ellipse cx="315" cy="256" rx="8" ry="4" fill="#78909C" opacity="0.6"/>
-          <ellipse cx="300" cy="252" rx="12" ry="6" fill="#78909C" opacity="0.4"/>
+          <rect x="330" y="235" width="70" height="26" rx="6" fill="#D32F2F"/>
+          <circle cx="348" cy="262" r="8" fill="#212121"/>
+          <circle cx="385" cy="262" r="8" fill="#212121"/>
+          <ellipse cx="315" cy="246" rx="8" ry="4" fill="#78909C" opacity="0.6"/>
+          <ellipse cx="300" cy="242" rx="12" ry="6" fill="#78909C" opacity="0.4"/>
         `}
 
         <!-- Elementos de Recursos (Taller de Reparación vs Vertedero) -->
         ${repairShed ? `
-          <!-- Taller de reparación y biblioteca de herramientas -->
-          <rect x="20" y="240" width="60" height="45" fill="#8D6E63" rx="4"/>
-          <polygon points="15,240 50,225 85,240" fill="#5D4037"/>
-          <text x="50" y="265" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="900" fill="#FFF" text-anchor="middle">REPARA</text>
+          <!-- Taller de reparación vecinal -->
+          <rect x="20" y="228" width="60" height="42" fill="#8D6E63" rx="4"/>
+          <polygon points="15,228 50,215 85,228" fill="#5D4037"/>
+          <text x="50" y="252" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="900" fill="#FFF" text-anchor="middle">REPARA</text>
         ` : `
           <!-- Contenedores desbordados -->
-          <rect x="25" y="250" width="28" height="30" fill="#757575" rx="3"/>
-          <ellipse cx="39" cy="245" rx="10" ry="4" fill="#E53935"/>
+          <rect x="25" y="240" width="28" height="28" fill="#757575" rx="3"/>
+          <ellipse cx="39" cy="235" rx="10" ry="4" fill="#E53935"/>
         `}
       </svg>
     `;
@@ -347,19 +528,31 @@ class CivicanGamificationApp {
         id: "s1",
         category: "Clima y Alimentación",
         headline: "«El aumento de sequías y olas de calor extremas ya reduce las cosechas y la producción global de alimentos»",
-        sourceContext: "Titular publicado en prensa generalista sobre el impacto hídrico en cereales y olivar.",
-        correctVerdict: "verified", // verified o hoax
+        sourceContext: "Titular publicado en prensa generalista sobre el impacto agrícola de la falta de agua.",
+        correctVerdict: "verified",
         analysisTitle: "¡Sello acertado! Noticia con rigor científico",
-        analysisText: "Tanto los informes de la FAO (Naciones Unidas) como los registros del Ministerio de Agricultura confirman pérdidas de cosecha medibles por estrés térmico. Verificar no es desconfiar de todo, sino comprobar con fuentes primarias."
+        analysisText: "Los informes de la FAO (Naciones Unidas) confirman que el estrés hídrico reduce las cosechas de cereales y olivar en el sur de Europa. Verificar no es desconfiar de todo, sino contrastar con organismos científicos oficiales.",
+        evidenceData: "📉 Dato oficial de la FAO (2023): Caída de más del 35% en cosechas de cereales y 48% en aceite de oliva en España e Italia en dos campañas consecutivas por sequía prolongada."
       },
       {
         id: "s2",
         category: "Mapas del Tiempo",
         headline: "«Alerta extrema en el mapa del tiempo: pintan de rojo fuego 25ºC en mayo para alarmar a la población»",
-        sourceContext: "Mensaje viral en redes sociales acusando a las televisiones de trucar las escalas cromáticas.",
+        sourceContext: "Mensaje viral en redes sociales acusando a las televisiones de trucar las escalas cromáticas para generar pánico.",
         correctVerdict: "hoax",
         analysisTitle: "¡Sello acertado! Es una narrativa de manipulación",
-        analysisText: "Las escalas de color meteorológicas están estandarizadas internacionalmente según percentiles históricos de calor. Manipular el contexto de una escala cromática para crear sospecha es una técnica habitual de desinformación."
+        analysisText: "Las escalas de color meteorológicas están estandarizadas internacionalmente según percentiles históricos de los últimos 30 años. Manipular el contexto de una escala cromática para crear sospecha es una técnica habitual de desinformación.",
+        evidenceData: "🎨 Protocolo AEMET: Los colores responden a percentiles matemáticos climatológicos (1991-2020), no a decisiones arbitrarias de diseñadores ni a fines alarmistas."
+      },
+      {
+        id: "s3",
+        category: "Renovables y Ecosistemas",
+        headline: "«Los aerogeneradores eólicos matan más aves que los rascacielos acristalados y los gatos urbanos juntos»",
+        sourceContext: "Publicación viral en foros contrarios a la transición energética compartida miles de veces.",
+        correctVerdict: "hoax",
+        analysisTitle: "¡Sello acertado! Datos descontextualizados y falsos",
+        analysisText: "Los estudios de conservación de fauna demuestran que las colisiones contra cristaleras de edificios y los tendidos eléctricos causan el 95% de la mortalidad accidental de aves. Los parques eólicos modernos incluyen radares de detección y parada automática ante bandadas.",
+        evidenceData: "🕊️ Estudio de SEO/BirdLife: El impacto de colisiones contra cristaleras multiplica por 100 las incidencias eólicas, que cuentan con monitorización ambiental y paradas preventivas obligatorias."
       }
     ];
 
@@ -377,7 +570,7 @@ class CivicanGamificationApp {
           </h2>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
-          <div class="step-indicator">Caso ${this.currentStamperIndex + 1} de 2</div>
+          <div class="step-indicator">Caso ${this.currentStamperIndex + 1} de ${this.stamperCases.length}</div>
           <button class="header-btn" id="btn-back-landing">
             <i class="fa-solid fa-arrow-left"></i> Cambiar juego
           </button>
@@ -413,9 +606,14 @@ class CivicanGamificationApp {
             <span id="forensic-title">Análisis de los verificadores</span>
           </div>
           <p class="forensic-body" id="forensic-text"></p>
+          
+          <div class="stamper-metric-callout" id="forensic-evidence">
+            ${item.evidenceData}
+          </div>
+
           <div style="margin-top:18px; display:flex; justify-content:flex-end;">
             <button class="header-btn" id="btn-next-stamper" style="background:var(--ink); color:#FFF;">
-              <span>Siguiente caso</span> <i class="fa-solid fa-arrow-right"></i>
+              <span>${this.currentStamperIndex < this.stamperCases.length - 1 ? 'Siguiente caso' : 'Completar mesa'}</span> <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
         </div>
@@ -437,7 +635,7 @@ class CivicanGamificationApp {
       stampBadge.className = `stamp-seal-badge stamped ${verdictUser === 'verified' ? 'verified' : 'hoax'}`;
       stampBadge.textContent = verdictUser === 'verified' ? 'INFORMACIÓN RIGUROSA' : 'ALERTA BULO';
 
-      forensicTitle.textContent = item.analysisTitle;
+      forensicTitle.textContent = isCorrect ? item.analysisTitle : (item.correctVerdict === 'verified' ? '¡Ojo! Este dato sí es riguroso' : '¡Cuidado! Se trata de una manipulación');
       forensicText.textContent = item.analysisText;
       forensicBox.classList.add('revealed');
 
@@ -467,34 +665,38 @@ class CivicanGamificationApp {
       {
         num: 1,
         title: "Punto 1: Tienda en Pamplona",
-        desc: "Prenda de ropa con rastreador GPS oculto depositada en el contenedor corporativo 'Cero Residuos'.",
+        desc: "Chaqueta depositada en el contenedor corporativo 'Cero Residuos' con un diminuto rastreador GPS cosido en el forro.",
         signal: "42.8125° N, 1.6458° W",
         svgTargetX: 180,
-        svgTargetY: 80
+        svgTargetY: 80,
+        investigationNote: "🔍 Promesa publicitaria: 'Recogemos tu ropa usada para reciclarla en nuevas prendas'. La marca entrega un cupón de descuento para incentivar que compres más ropa rápida."
       },
       {
         num: 2,
         title: "Punto 2: Puerto marítimo de Algeciras",
-        desc: "La prenda viaja 900 km en camión y es empaquetada en fardos industriales de 40 toneladas.",
+        desc: "La prenda viaja 900 km en camión y es empaquetada en fardos industriales de exportación de 40 toneladas.",
         signal: "36.1408° N, 5.4562° W",
         svgTargetX: 170,
-        svgTargetY: 130
+        svgTargetY: 130,
+        investigationNote: "📦 La realidad logística: En lugar de plantas de hilado o reciclaje textil europeo, la ropa es embalada masivamente para su venta a intermediarios internacionales."
       },
       {
         num: 3,
         title: "Punto 3: Barco en el Océano Atlántico",
-        desc: "La señal satelital detecta navegación continua durante 18 días rumbo al continente africano.",
+        desc: "La señal satelital emite cada 6 horas desde la bodega de un buque portacontenedores navegando rumbo al Golfo de Guinea.",
         signal: "14.2350° N, 17.3660° W",
         svgTargetX: 140,
-        svgTargetY: 200
+        svgTargetY: 200,
+        investigationNote: "🚢 Huella de transporte: 18 días en alta mar quemando fuel pesado para trasladar residuos textiles de países ricos al continente africano."
       },
       {
         num: 4,
         title: "Punto 4: Vertedero en Accra (Ghana)",
-        desc: "La ropa nunca se recicló: terminó en gigantescas dunas textiles a cielo abierto en África a 7.500 km.",
+        desc: "La ropa nunca se recicló: terminó arrojada en inmensas dunas textiles a cielo abierto en el mercado de Kantamanto.",
         signal: "5.6037° N, 0.1870° W",
         svgTargetX: 200,
-        svgTargetY: 270
+        svgTargetY: 270,
+        investigationNote: "⚠️ Impacto final (Aftonbladet): El 40% de la ropa que llega a África es de calidad tan baja que termina quemada en vertederos ilegales o arrastrada al mar por las lluvias."
       }
     ];
 
@@ -526,7 +728,7 @@ class CivicanGamificationApp {
             <span class="satellite-status-live">GPS ACTIVO</span>
           </div>
 
-          <svg viewBox="0 0 360 320" width="100%" height="280" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 360 300" width="100%" height="260" xmlns="http://www.w3.org/2000/svg">
             <!-- Siluetas geográficas simplificadas (Europa sur y África oeste) -->
             <path d="M 120 40 L 220 40 L 210 110 L 160 130 L 130 90 Z" fill="#2C3E50" stroke="#34495E" stroke-width="2"/>
             <path d="M 120 140 L 260 140 L 280 230 L 200 310 L 110 240 L 110 180 Z" fill="#2C3E50" stroke="#34495E" stroke-width="2"/>
@@ -554,6 +756,22 @@ class CivicanGamificationApp {
           <div style="color:#BDC3C7; font-size:0.86rem; font-family:monospace; margin-top:8px;">
             COORDENADAS: ${wp.signal} | DISTANCIA ACUMULADA: ${this.currentWaypoint * 2500} km
           </div>
+
+          <!-- Tira de Datos Forenses del Sector Textil -->
+          <div class="textile-facts-strip">
+            <div class="textile-fact-item">
+              <strong>2.700 L</strong>
+              <span>Agua por camiseta</span>
+            </div>
+            <div class="textile-fact-item">
+              <strong>< 1%</strong>
+              <span>Ropa reciclada en tela</span>
+            </div>
+            <div class="textile-fact-item">
+              <strong>7.500 km</strong>
+              <span>Ruta hasta vertedero</span>
+            </div>
+          </div>
         </div>
 
         <!-- Línea Temporal de la Investigación -->
@@ -563,7 +781,7 @@ class CivicanGamificationApp {
               Toca cada parada del rastreador
             </h3>
             <p style="font-size:0.98rem; color:var(--ink-secondary); margin-bottom:12px;">
-              Investigación real de periodistas con 10 localizadores cosidos en ropa entregada para reciclar.
+              Investigación real de periodistas con 10 localizadores GPS cosidos en ropa entregada para reciclar.
             </p>
           </div>
 
@@ -577,8 +795,9 @@ class CivicanGamificationApp {
             </div>
           `).join('')}
 
-          <div style="background:var(--terracotta-soft); border-radius:var(--radius-sm); padding:12px 16px; border-left:4px solid var(--terracotta); font-size:0.95rem; color:var(--terracotta); font-weight:600;">
-            <i class="fa-solid fa-triangle-exclamation"></i> <strong>Conclusión:</strong> El <em>greenwashing</em> promete soluciones mágicas para seguir consumiendo. La prenda más sostenible es la que ya tienes.
+          <!-- Nota de Investigación Activa -->
+          <div style="background:var(--terracotta-soft); border-radius:var(--radius-sm); padding:14px 18px; border-left:4px solid var(--terracotta); font-size:0.95rem; color:var(--ink); line-height:1.45;">
+            ${wp.investigationNote}
           </div>
         </div>
       </div>
@@ -607,21 +826,24 @@ class CivicanGamificationApp {
         excuse: "«¿De qué sirve que yo actúe si las grandes fábricas y otros países contaminan mucho más?»",
         keyId: "k-contagio",
         labelKey: "Llave 1: Efecto contagio",
-        descKey: "Las encuestas demuestran que el 69% actuaría, pero cree falsamente que los demás no. El ejemplo colectivo rompe el aislamiento."
+        descKey: "Estudio de Nature Climate Change en 125 países: El 69% de la población mundial sí está dispuesta a actuar, pero cree falsamente que los demás no. El ejemplo colectivo rompe el aislamiento.",
+        scientificDebunk: "📊 Estudio en 125 países (Nature): Sufrimos una 'ilusión de soledad'. Cuando nos organizamos en el barrio, descubrimos que la inmensa mayoría de vecinos desea cuidar el entorno común."
       },
       {
         id: 1,
         excuse: "«No hace falta cambiar nada: ya inventarán una tecnología milagrosa en el futuro que lo solucione todo.»",
         keyId: "k-limites",
         labelKey: "Llave 2: Límites de materiales",
-        descKey: "Solo el 7,2% de los recursos mundiales se reciclan. La física y la geología exigen reducir y reparar hoy, no esperar milagros."
+        descKey: "Informe Global Circularity Gap: Solo el 7,2% de los recursos mundiales se reciclan. La geología y la física exigen reparar y compartir hoy, no esperar milagros tecnológicos.",
+        scientificDebunk: "⚙️ Límites biofísicos reales: Sustituir todos los coches térmicos por eléctricos consumiría las reservas mundiales de litio y cobalto conocidas. La solución es compartir y pacificar calles."
       },
       {
         id: 2,
         excuse: "«Ya es demasiado tarde para evitar el cambio climático, así que disfrutemos mientras podamos.»",
         keyId: "k-decimas",
         labelKey: "Llave 3: Cada décima importa",
-        descKey: "El cambio climático no es todo o nada: cada décima de grado prevenida salva vidas, cosechas, agua potable y salud pública."
+        descKey: "Panel Científico del IPCC: Cada décima de grado prevenida (1,5ºC vs 1,6ºC) salva cosechas, evita sequías extremas y protege la salud pública de millones de personas.",
+        scientificDebunk: "🌡️ Cada 0,1 ºC cuenta: En Navarra y el sur de Europa, evitar medio grado de calentamiento significa preservar acuíferos vitales, bosques y la producción agrícola de proximidad."
       }
     ];
 
@@ -664,6 +886,11 @@ class CivicanGamificationApp {
               <div style="font-size:0.88rem; font-weight:800; color:${this.brokenLocks[i] ? 'var(--forest)' : 'var(--terracotta)'};">
                 ${this.brokenLocks[i] ? '✓ CANDADO ROTO' : `CANDADO ${i + 1} BLOQUEADO`}
               </div>
+              ${this.brokenLocks[i] ? `
+                <div class="chain-evidence-box">
+                  ${lock.scientificDebunk}
+                </div>
+              ` : ''}
             </div>
           `).join('')}
         </div>
