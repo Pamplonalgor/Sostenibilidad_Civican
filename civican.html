@@ -8,6 +8,7 @@
 
   <!-- Estilos Dedicados de la Experiencia Quiosco CIVICAN -->
   <link rel="stylesheet" href="css/civican.css">
+  <link rel="stylesheet" href="css/civican-gamification.css">
   
   <!-- Iconos FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,11 +34,23 @@
         </div>
       </div>
 
-      <!-- Acciones de Navegación del Quiosco -->
+      <!-- Acciones de Navegación del Quiosco y Selector de Prototipo -->
       <nav class="kiosk-header-actions" aria-label="Navegación general">
+        <!-- Selector Rápido para Reunión de Presentación -->
+        <div class="prototype-switcher-nav" aria-label="Selector de prototipo de exposición">
+          <a href="prototipo1.html" class="proto-pill-btn active" title="Prototipo 1: Formato Editorial Clásico">
+            <span>Prototipo 1</span>
+            <span class="proto-badge">Editorial</span>
+          </a>
+          <a href="prototipo2.html" class="proto-pill-btn" title="Ver Prototipo 2: Gamificación Táctil Activa">
+            <span>Prototipo 2</span>
+            <span class="proto-badge">Gamificación</span>
+          </a>
+        </div>
+
         <button class="header-btn" id="btn-open-sources" aria-label="Ver fuentes y curaduría">
           <i class="fa-solid fa-graduation-cap"></i>
-          <span>Fuentes y Curaduría</span>
+          <span>Fuentes</span>
         </button>
 
         <!-- Botón permanente de volver al inicio -->
