@@ -114,50 +114,38 @@ html, body {
   top: 0;
   z-index: 200;
   box-shadow: 0 4px 20px rgba(19, 34, 46, 0.04);
-  min-height: 102px;
+  min-height: 114px;
 }
 
 .kiosk-brand {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
 }
 
 /* Contenedor y Escala del Logotipo Ampliado */
 .logo-frame {
   background: #FFFFFF;
-  padding: 6px 14px;
-  border-radius: var(--radius-sm);
+  padding: 10px 22px;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(19, 34, 46, 0.08);
   display: inline-flex;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(19, 34, 46, 0.04);
+  box-shadow: 0 3px 12px rgba(19, 34, 46, 0.05);
   transition: transform var(--trans-fast);
 }
 
 .civican-logo-img {
-  height: 62px; /* Logo notablemente más grande y nítido */
+  height: 82px; /* Logo protagonista, nítido y de gran escala */
   width: auto;
-  max-width: 320px;
-  object-fit: contain;
-  display: block;
-}
-
-.algo-frame {
-  padding: 8px 16px;
-}
-
-.algo-logo-img {
-  height: 48px;
-  width: auto;
-  max-width: 210px;
+  max-width: 440px;
   object-fit: contain;
   display: block;
 }
 
 .brand-divider {
   width: 2px;
-  height: 48px;
+  height: 56px;
   background: var(--rule);
 }
 
@@ -430,10 +418,11 @@ html, body {
 }
 
 .card-summary {
-  font-size: 1.02rem;
+  font-size: 1.25rem;
+  font-weight: 500;
   color: var(--ink-secondary);
-  margin-bottom: 18px;
-  line-height: 1.45;
+  margin-bottom: 24px;
+  line-height: 1.4;
 }
 
 .card-source-citation {
@@ -509,9 +498,9 @@ html, body {
 }
 
 .footer-partner-logo {
-  height: 38px;
+  height: 52px;
   width: auto;
-  max-width: 140px;
+  max-width: 260px;
   object-fit: contain;
   display: block;
 }
@@ -1261,11 +1250,7 @@ body.reduced-motion .idle-countdown-wrap.urgent .idle-countdown-num {
   }
 
   .civican-logo-img {
-    height: 48px;
-  }
-
-  .algo-logo-img {
-    height: 38px;
+    height: 58px;
   }
 
   .header-event-title {

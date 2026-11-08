@@ -43,15 +43,10 @@ class CivicanApp {
 
       card.innerHTML = `
         <div class="card-top-bar">
-          <span class="typology-tag">
-            <i class="fa-solid fa-shapes"></i> ${exp.typology}
+          <span style="font-family:var(--font-display); font-size:1.2rem; font-weight:900; color:var(--ink-muted); letter-spacing:-0.5px;">Reto ${numStr}</span>
+          <span class="duration-tag">
+            <i class="fa-regular fa-clock"></i> ${exp.duration}
           </span>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-family:var(--font-display); font-size:1.15rem; font-weight:800; color:var(--ink-muted);">${numStr}</span>
-            <span class="duration-tag">
-              <i class="fa-regular fa-clock"></i> ${exp.duration}
-            </span>
-          </div>
         </div>
         
         <div class="card-main-info">
@@ -60,15 +55,10 @@ class CivicanApp {
           </div>
           <div class="card-titles">
             <h3 class="card-title">${exp.title}</h3>
-            <p class="card-invitation">${exp.invitation}</p>
           </div>
         </div>
 
         <p class="card-summary">${exp.summary}</p>
-        
-        <div class="card-source-citation">
-          <i class="fa-solid fa-compass"></i> ${exp.badgeTopic || exp.typology}
-        </div>
 
         <div class="card-footer-action">
           <button class="btn-card-cta" aria-label="Iniciar ${exp.title}">
@@ -176,15 +166,9 @@ class CivicanApp {
     container.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <span class="game-typology-badge" style="background:var(--forest-soft); color:var(--forest); border:1px solid var(--forest-border);">
-            <i class="fa-solid fa-city"></i> ${this.currentGame.typology}
-          </span>
-          <h2 style="font-family:var(--font-display); font-size:1.55rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
+          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
-          <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${round.badge || 'Reflexión comunitaria'}
-          </span>
           <div class="step-indicator">Reto ${round.stepNumber}</div>
         </div>
       </div>
@@ -340,15 +324,9 @@ class CivicanApp {
     container.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <span class="game-typology-badge" style="background:var(--cyanotype-soft); color:var(--cyanotype); border:1px solid var(--cyanotype-border);">
-            <i class="fa-solid fa-magnifying-glass-chart"></i> ${this.currentGame.typology}
-          </span>
-          <h2 style="font-family:var(--font-display); font-size:1.55rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
+          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
-          <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${currentCase.badge || 'Verificación periodística'}
-          </span>
           <div class="step-indicator">Caso ${currentCase.stepNumber}</div>
         </div>
       </div>
@@ -503,10 +481,7 @@ class CivicanApp {
     container.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <span class="game-typology-badge" style="background:var(--cyanotype-soft); color:var(--cyanotype); border:1px solid var(--cyanotype-border);">
-            <i class="fa-solid fa-shield-halved"></i> ${currentCase.badge}
-          </span>
-          <h2 style="font-family:var(--font-display); font-size:1.55rem; font-weight:800; color:var(--ink);">${currentCase.headline}</h2>
+          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">${currentCase.headline}</h2>
         </div>
         <div class="step-indicator">Paso 3 de 3</div>
       </div>
@@ -560,15 +535,9 @@ class CivicanApp {
     container.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <span class="game-typology-badge" style="background:var(--terracotta-soft); color:var(--terracotta); border:1px solid var(--terracotta-border);">
-            <i class="fa-solid fa-tags"></i> ${this.currentGame.typology}
-          </span>
-          <h2 style="font-family:var(--font-display); font-size:1.55rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
+          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
-          <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${layer.name || 'Auditoría'}
-          </span>
           <div class="step-indicator">${layer.stepNumber}</div>
         </div>
       </div>
@@ -701,15 +670,9 @@ class CivicanApp {
     container.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <span class="game-typology-badge" style="background:var(--amber-soft); color:var(--amber); border:1px solid var(--amber-border);">
-            <i class="fa-solid fa-link-slash"></i> ${this.currentGame.typology}
-          </span>
-          <h2 style="font-family:var(--font-display); font-size:1.55rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
+          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">${this.currentGame.title}</h2>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
-          <span style="font-size:0.88rem; font-weight:700; color:var(--ink-secondary); background:var(--canvas-tint); padding:5px 12px; border-radius:var(--radius-pill); border:1px solid var(--rule);">
-            <i class="fa-solid fa-bookmark"></i> ${trial.badge || 'Pensamiento crítico'}
-          </span>
           <div class="step-indicator">${trial.stepNumber}</div>
         </div>
       </div>

@@ -23,9 +23,9 @@ const CIVICAN_DATA = {
         contribution: "Aporta las herramientas de pensamiento crítico: detección de bulos climáticos, método de las 4 preguntas, estrategias de manipulación y análisis de greenwashing."
       },
       {
-        name: "Algorithmics",
-        role: "Academia internacional de programación y pensamiento computacional",
-        contribution: "Diseño pedagógico y desarrollo de la experiencia interactiva táctil para CIVICAN."
+        name: "CIVICAN (Fundación Caja Navarra)",
+        role: "Centro cultural y social",
+        contribution: "Espacio público y marco cultural para el aprendizaje ciudadano y el pensamiento crítico en Pamplona."
       }
     ]
   },
@@ -40,10 +40,10 @@ const CIVICAN_DATA = {
       typology: "Simulación Urbana / Reflexión y Comunidad",
       icon: "fa-city",
       badgeColor: "var(--forest)",
-      invitation: "Explora los recursos, el bienestar y lo que podemos hacer en común.",
+      invitation: "Decisiones comunitarias para tu barrio.",
       duration: "3-4 min",
       cta: "Transformar el barrio",
-      summary: "Tres decisiones cotidianas para descubrir qué hace que un barrio sea realmente habitable: el uso de los materiales, qué entendemos por bienestar y la fuerza de colaborar con los vecinos.",
+      summary: "Decisiones comunitarias para tu barrio.",
       badgeTopic: "Recursos y Comunidad",
       rounds: [
         {
@@ -132,10 +132,10 @@ const CIVICAN_DATA = {
       typology: "Trivial de Investigación / Fact-Checking",
       icon: "fa-magnifying-glass-chart",
       badgeColor: "var(--cyanotype)",
-      invitation: "Pon a prueba dos casos reales y descubre cómo verificar noticias.",
+      invitation: "Comprueba noticias y desmonta bulos.",
       duration: "3-4 min",
       cta: "Investigar mensajes",
-      summary: "Conviértete en verificador periodístico: audita dos noticias virales sobre el clima y los mapas meteorológicos, y llévate las 4 preguntas para no caer en bulos.",
+      summary: "Comprueba noticias y desmonta bulos.",
       badgeTopic: "Verificación de Noticias",
       cases: [
         {
@@ -246,10 +246,10 @@ const CIVICAN_DATA = {
       typology: "Auditoría de Campaña / Detección de Greenwashing",
       icon: "fa-tags",
       badgeColor: "var(--terracotta)",
-      invitation: "Abre una promesa publicitaria y descubre qué hay detrás.",
+      invitation: "Aprende a detectar publicidad engañosa.",
       duration: "2-3 min",
       cta: "Examinar promesas",
-      summary: "Sigue la investigación real sobre la recogida de ropa en grandes tiendas: qué promete el anuncio, qué descubrieron los periodistas con rastreadores GPS y cómo detectar el 'greenwashing'.",
+      summary: "Aprende a detectar publicidad engañosa.",
       badgeTopic: "Moda Rápida y Publicidad",
       layers: [
         {
@@ -321,10 +321,10 @@ const CIVICAN_DATA = {
       typology: "Escape Room Digital / Desmontar el Retardismo",
       icon: "fa-link-slash",
       badgeColor: "var(--ink)",
-      invitation: "Descubre las estrategias que frenan la acción por el clima.",
+      invitation: "Supera excusas que frenan actuar.",
       duration: "3-4 min",
       cta: "Iniciar la misión",
-      summary: "Un escape room colaborativo para desbloquear 3 llaves: aprender a filtrar emociones, reconocer las trampas lógicas (E.F.E.C.T.) y vencer las excusas del 'retardismo'.",
+      summary: "Supera excusas que frenan actuar.",
       badgeTopic: "Desmontar Excusas",
       trials: [
         {
