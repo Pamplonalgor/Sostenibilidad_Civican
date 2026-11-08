@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración | Navarra Code & Game</title>
+  
+  <!-- Estilos Globales -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- CABECERA / MENÚ DE NAVEGACIÓN -->
+  <header class="header" id="header">
+    <div class="container navbar">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.svg" alt="Navarra Code & Game Logo" style="width: 100%; height: 100%;">
+      </a>
+      
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="talleres.html" class="nav-link">Talleres</a>
+        <a href="torneos.html" class="nav-link">Torneos</a>
+        <a href="conferencias.html" class="nav-link">Conferencias</a>
+        <a href="juegos.html" class="nav-link">Juegos Offline</a>
+        <a href="admin.html" class="btn btn-cyan btn-sm active"><i class="fa-solid fa-user-gear"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CABECERA DEL PANEL -->
+  <section class="page-header" style="padding-bottom: 20px;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; text-align: left;">
+      <div>
+        <h1 class="page-title" style="margin-bottom: 8px; font-size: 2.8rem; background: var(--gradient-cyan-blue); -webkit-background-clip: text;">Panel de Control</h1>
+        <p style="color: var(--color-text-secondary); max-width: 600px;">
+          Administra las actividades del festival Navarra Code & Game en tiempo real. Añade nuevos talleres, torneos, conferencias y juegos físicos.
+        </p>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div class="db-status-badge local" id="db-status-badge">
+          <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:currentColor; margin-right:4px;"></span>
+          Modo Local
+        </div>
+        <button class="btn btn-outline btn-sm" id="btn-reset-db" title="Reinicia LocalStorage con los datos por defecto."><i class="fa-solid fa-rotate-left"></i> Restablecer Mocks</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESPACIO DE TRABAJO DEL ADMINISTRADOR -->
+  <main class="container">
+    <div class="admin-workspace">
+      
+      <!-- SIDEBAR NAVEGACIÓN INTERNA -->
+      <aside class="admin-sidebar">
+        <h3 class="admin-sidebar-title">Secciones</h3>
+        <button class="admin-tab-btn active" data-target="sec-config"><i class="fa-solid fa-database"></i> Base de Datos</button>
+        <button class="admin-tab-btn" data-target="sec-talleres"><i class="fa-solid fa-laptop-code"></i> Talleres</button>
+        <button class="admin-tab-btn" data-target="sec-torneos"><i class="fa-solid fa-gamepad"></i> Torneos</button>
+        <button class="admin-tab-btn" data-target="sec-conferencias"><i class="fa-solid fa-circle-nodes"></i> Conferencias</button>
+        <button class="admin-tab-btn" data-target="sec-juegos"><i class="fa-solid fa-vr-cardboard"></i> Juegos Offline</button>
+      </aside>
+
+      <!-- SECCIONES DE CONTENIDO DINÁMICO -->
+      <section class="admin-content">
+
+        <!-- 1. CONFIGURACIÓN BASE DE DATOS -->
+        <div class="admin-content-section active" id="sec-config">
+          <div class="admin-section-header">
+            <h2 class="admin-section-title"><i class="fa-solid fa-database" style="color: var(--neon-cyan);"></i> Conectar Supabase</h2>
+          </div>
+          
+          <div class="db-config-box">
+            <h3 style="font-size: 1.15rem; margin-bottom: 8px;">Estado del Almacenamiento</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">
+              Por defecto, el sitio web funciona en <strong>modo local (LocalStorage)</strong> para que puedas probar la aplicación de inmediato sin configurar nada. Si quieres usar <strong>Supabase</strong>, introduce las credenciales de tu proyecto a continuación. Los datos se persistirán en la nube.
+            </p>
+            
+            <form id="form-supabase-config">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="sb-url">Supabase URL (API URL)</label>
+                  <input type="url" id="sb-url" class="form-input" placeholder="https://xxxxxx.supabase.co" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="sb-key">Supabase Anon Key (API Key)</label>
+                  <input type="password" id="sb-key" class="form-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." required>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button type="button" class="btn btn-purple btn-sm" id="btn-sync-to-sb" style="display:none;"><i class="fa-solid fa-cloud-arrow-up"></i> Exportar Mocks a Supabase</button>
+                <button type="button" class="btn btn-outline btn-sm" id="btn-disconnect-sb" style="display:none;"><i class="fa-solid fa-unlink"></i> Volver a Modo Local</button>
+                <button type="submit" class="btn btn-cyan btn-sm"><i class="fa-solid fa-link"></i> Conectar Supabase</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- SQL SCHEMA HELP -->
+          <div style="background: rgba(255,255,255,0.02); border: var(--border-glass); padding: 24px; border-radius: var(--border-radius-md);">
+            <h3 style="font-size: 1.15rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-circle-info" style="color: var(--neon-green);"></i> SQL Script para tu base de datos Supabase
+            </h3>
+            <p style="font-size: 0.85rem; margin-bottom: 16px; color: var(--color-text-secondary);">
+              Copia y pega este script en el editor SQL de tu panel de Supabase para inicializar las tablas necesarias con las columnas correspondientes en segundos:
+            </p>
+            <details style="cursor: pointer; font-size: 0.9rem;">
+              <summary style="color: var(--neon-cyan); font-weight: 600; padding: 4px 0;">Mostrar Script SQL de Tablas</summary>
+              <pre style="background: #070a13; border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 8px; font-family: monospace; font-size: 0.8rem; overflow-x: auto; margin-top: 10px; max-height: 350px; text-align: left; color: #a9b7c6; user-select: all;">
+-- Tabla de Talleres
+create table talleres (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default now() not null,
+  title text not null,
+  description text,
+  age_range text,
+  instructor text,
+  schedule text,
+  capacity integer,
+  category text,
+  image_url text
+);
+
+-- Tabla de Torneos
+create table torneos (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default now() not null,
+  title text not null,
+  description text,
+  game text,
+  schedule text,
+  rules text,
+  prizes text,
+  max_players integer,
+  age_range text,
+  image_url text
+);
+
+-- Tabla de Conferencias
+create table conferencias (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default now() not null,
+  title text not null,
+  description text,
+  speaker text,
+  speaker_company text,
+  speaker_image text,
+  schedule text,
+  room text,
+  age_range text,
+  image_url text
+);
+
+-- Tabla de Juegos Offline
+create table juegos_offline (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default now() not null,
+  title text not null,
+  description text,
+  type text,
+  location text,
+  schedule text,
+  capacity text,
+  age_range text,
+  image_url text
+);
+              </pre>
+            </details>
+          </div>
+        </div>
+
+        <!-- 2. ADMINISTRAR TALLERES -->
+        <div class="admin-content-section" id="sec-talleres">
+          <div class="admin-section-header">
+            <h2 class="admin-section-title"><i class="fa-solid fa-laptop-code" style="color: var(--neon-orange);"></i> Gestionar Talleres</h2>
+          </div>
+
+          <!-- Formulario Taller -->
+          <div class="db-config-box" style="border-color: rgba(255, 145, 0, 0.2); background: rgba(255, 145, 0, 0.02); margin-bottom: 40px;">
+            <h3 id="form-taller-title" style="font-size: 1.15rem; margin-bottom: 16px; color: var(--neon-orange);"><i class="fa-solid fa-plus"></i> Crear Nuevo Taller</h3>
+            <form id="form-taller">
+              <input type="hidden" id="taller-id">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="taller-title">Título del Taller</label>
+                  <input type="text" id="taller-title" class="form-input" placeholder="Ej: Iniciación a Arduino Uno" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="taller-category">Categoría STEAM</label>
+                  <select id="taller-category" class="form-select" required>
+                    <option value="Programacion">💻 Programación</option>
+                    <option value="Robotica">🤖 Robótica</option>
+                    <option value="Diseno-3D">🎨 Diseño 3D</option>
+                    <option value="Ciencia">🧪 Ciencia</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="taller-age">Rango de Edad (Ej: 6-10, 11-14, 15-18)</label>
+                  <input type="text" id="taller-age" class="form-input" placeholder="Ej: 11-14" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="taller-instructor">Facilitador / Instructor</label>
+                  <input type="text" id="taller-instructor" class="form-input" placeholder="Ej: Navarra STEAM Academy" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="taller-schedule">Horario (Día y Hora)</label>
+                  <input type="text" id="taller-schedule" class="form-input" placeholder="Ej: Sábado 21 - 10:00 a 11:30" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="taller-capacity">Plazas Totales</label>
+                  <input type="number" id="taller-capacity" class="form-input" placeholder="Ej: 15" required min="1">
+                </div>
+                <div class="form-group full-width">
+                  <label class="form-label" for="taller-image">URL de la Imagen Promocional</label>
+                  <input type="url" id="taller-image" class="form-input" placeholder="https://images.unsplash.com/... o vacío para usar por defecto">
+                </div>
+                <div class="form-group full-width">
+                  <label class="form-label" for="taller-desc">Descripción Completa</label>
+                  <textarea id="taller-desc" class="form-textarea" placeholder="Explica detalladamente qué aprenderán los chicos y qué necesitan traer..." required></textarea>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button type="button" class="btn btn-outline btn-sm" id="btn-cancel-taller" style="display:none;">Cancelar Edición</button>
+                <button type="submit" class="btn btn-purple btn-sm" id="btn-submit-taller">Crear Taller</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Listado Talleres -->
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">Talleres Existentes</h3>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Título</th>
+                  <th>Categoría</th>
+                  <th>Edad</th>
+                  <th>Horario / Instructor</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="table-talleres-body">
+                <!-- Se cargará mediante admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. ADMINISTRAR TORNEOS -->
+        <div class="admin-content-section" id="sec-torneos">
+          <div class="admin-section-header">
+            <h2 class="admin-section-title"><i class="fa-solid fa-gamepad" style="color: var(--neon-purple);"></i> Gestionar Torneos</h2>
+          </div>
+
+          <!-- Formulario Torneo -->
+          <div class="db-config-box" style="border-color: rgba(224, 64, 251, 0.2); background: rgba(224, 64, 251, 0.02); margin-bottom: 40px;">
+            <h3 id="form-torneo-title" style="font-size: 1.15rem; margin-bottom: 16px; color: var(--neon-purple);"><i class="fa-solid fa-plus"></i> Crear Nuevo Torneo</h3>
+            <form id="form-torneo">
+              <input type="hidden" id="torneo-id">
+              <div class="form-grid">
+                <div class="form-grid-inner" style="display: contents;">
+                  <div class="form-group">
+                    <label class="form-label" for="torneo-title">Título del Torneo</label>
+                    <input type="text" id="torneo-title" class="form-input" placeholder="Ej: Copa Roblox Build" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="torneo-game">Videojuego</label>
+                    <input type="text" id="torneo-game" class="form-input" placeholder="Ej: Minecraft, Clash Royale, etc." required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="torneo-schedule">Horario (Día y Hora)</label>
+                    <input type="text" id="torneo-schedule" class="form-input" placeholder="Ej: Sábado 21 - 16:00 a 19:00" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="torneo-age">Rango de Edad Permitido</label>
+                    <input type="text" id="torneo-age" class="form-input" placeholder="Ej: 11-18 o 6-14" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="torneo-players">Máximo de Participantes</label>
+                    <input type="number" id="torneo-players" class="form-input" placeholder="Ej: 32" required min="2">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="torneo-image">URL de la Imagen Promocional</label>
+                    <input type="url" id="torneo-image" class="form-input" placeholder="https://images.unsplash.com/...">
+                  </div>
+                  <div class="form-group full-width">
+                    <label class="form-label" for="torneo-prizes">Premios (Para ganadores)</label>
+                    <input type="text" id="torneo-prizes" class="form-input" placeholder="Ej: 1º Auriculares Gaming, 2º Ratón RGB" required>
+                  </div>
+                  <div class="form-group full-width">
+                    <label class="form-label" for="torneo-rules">Reglas Básicas del Torneo</label>
+                    <textarea id="torneo-rules" class="form-textarea" placeholder="Ej: Eliminación directa al mejor de tres. Dispositivo propio obligatorio..." required></textarea>
+                  </div>
+                  <div class="form-group full-width">
+                    <label class="form-label" for="torneo-desc">Descripción General</label>
+                    <textarea id="torneo-desc" class="form-textarea" placeholder="Detalles de la arena de juego, dinámicas..." required></textarea>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button type="button" class="btn btn-outline btn-sm" id="btn-cancel-torneo" style="display:none;">Cancelar Edición</button>
+                <button type="submit" class="btn btn-purple btn-sm" id="btn-submit-torneo">Crear Torneo</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Listado Torneos -->
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">Torneos Existentes</h3>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Título</th>
+                  <th>Videojuego</th>
+                  <th>Edad</th>
+                  <th>Horario / Participantes</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="table-torneos-body">
+                <!-- Cargado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. ADMINISTRAR CONFERENCIAS -->
+        <div class="admin-content-section" id="sec-conferencias">
+          <div class="admin-section-header">
+            <h2 class="admin-section-title"><i class="fa-solid fa-circle-nodes" style="color: var(--neon-cyan);"></i> Gestionar Conferencias</h2>
+          </div>
+
+          <!-- Formulario Conferencia -->
+          <div class="db-config-box" style="border-color: rgba(0, 242, 254, 0.2); background: rgba(0, 242, 254, 0.02); margin-bottom: 40px;">
+            <h3 id="form-conferencia-title" style="font-size: 1.15rem; margin-bottom: 16px; color: var(--neon-cyan);"><i class="fa-solid fa-plus"></i> Crear Nueva Charla</h3>
+            <form id="form-conferencia">
+              <input type="hidden" id="conferencia-id">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="conf-title">Título de la Conferencia</label>
+                  <input type="text" id="conf-title" class="form-input" placeholder="Ej: Descubriendo el universo de la IA" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="conf-speaker">Nombre del Ponente</label>
+                  <input type="text" id="conf-speaker" class="form-input" placeholder="Ej: Dra. Alicia Gil" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="conf-company">Empresa / Institución del Ponente</label>
+                  <input type="text" id="conf-company" class="form-input" placeholder="Ej: Universidad de Navarra" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="conf-speaker-img">URL Foto del Ponente</label>
+                  <input type="url" id="conf-speaker-img" class="form-input" placeholder="https://images.unsplash.com/... (Avatar)">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="conf-schedule">Horario (Día y Hora)</label>
+                  <input type="text" id="conf-schedule" class="form-input" placeholder="Ej: Domingo 22 - 12:00 a 13:00" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="conf-room">Sala / Auditorio</label>
+                  <input type="text" id="conf-room" class="form-input" placeholder="Ej: Salón de Actos Principal" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="conf-age">Público Destinatario (Ej: Todo publico, 11-18, 15-18)</label>
+                  <input type="text" id="conf-age" class="form-input" placeholder="Ej: Todo publico" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="conf-image">URL de la Imagen Ilustrativa</label>
+                  <input type="url" id="conf-image" class="form-input" placeholder="https://images.unsplash.com/...">
+                </div>
+                <div class="form-group full-width">
+                  <label class="form-label" for="conf-desc">Descripción del Contenido</label>
+                  <textarea id="conf-desc" class="form-textarea" placeholder="Escribe un resumen atractivo sobre lo que tratará la charla..." required></textarea>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button type="button" class="btn btn-outline btn-sm" id="btn-cancel-conferencia" style="display:none;">Cancelar Edición</button>
+                <button type="submit" class="btn btn-purple btn-sm" id="btn-submit-conferencia">Crear Charla</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Listado Conferencias -->
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">Conferencias Existentes</h3>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ponente</th>
+                  <th>Título de la Charla</th>
+                  <th>Público / Sala</th>
+                  <th>Horario</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="table-conferencias-body">
+                <!-- Cargado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. ADMINISTRAR JUEGOS OFFLINE -->
+        <div class="admin-content-section" id="sec-juegos">
+          <div class="admin-section-header">
+            <h2 class="admin-section-title"><i class="fa-solid fa-vr-cardboard" style="color: var(--neon-green);"></i> Gestionar Juegos Offline</h2>
+          </div>
+
+          <!-- Formulario Juego -->
+          <div class="db-config-box" style="border-color: rgba(57, 255, 20, 0.2); background: rgba(57, 255, 20, 0.02); margin-bottom: 40px;">
+            <h3 id="form-juego-title" style="font-size: 1.15rem; margin-bottom: 16px; color: var(--neon-green);"><i class="fa-solid fa-plus"></i> Crear Nueva Actividad Offline</h3>
+            <form id="form-juego">
+              <input type="hidden" id="juego-id">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="juego-title">Nombre de la Actividad</label>
+                  <input type="text" id="juego-title" class="form-input" placeholder="Ej: Arena Drones Control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="juego-type">Tipo de Juego</label>
+                  <select id="juego-type" class="form-select" required>
+                    <option value="Escape Room">🔑 Escape Room</option>
+                    <option value="Robots Fisicos">🤖 Robots Físicos</option>
+                    <option value="Realidad Virtual">🥽 Realidad Virtual</option>
+                    <option value="Juegos de Mesa">🎲 Juegos de Mesa</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="juego-location">Ubicación en Recinto</label>
+                  <input type="text" id="juego-location" class="form-input" placeholder="Ej: Zona Central - Stand 4" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="juego-schedule">Horario / Disponibilidad</label>
+                  <input type="text" id="juego-schedule" class="form-input" placeholder="Ej: Todo el fin de semana" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="juego-capacity">Capacidad o Formato (Ej: Grupos de 5, Individual)</label>
+                  <input type="text" id="juego-capacity" class="form-input" placeholder="Ej: Individual" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="juego-image">URL Imagen de la Actividad</label>
+                  <input type="url" id="juego-image" class="form-input" placeholder="https://images.unsplash.com/...">
+                </div>
+                <div class="form-group full-width">
+                  <label class="form-label" for="juego-desc">Descripción Detallada</label>
+                  <textarea id="juego-desc" class="form-textarea" placeholder="Escribe en qué consiste la actividad física en el recinto..." required></textarea>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button type="button" class="btn btn-outline btn-sm" id="btn-cancel-juego" style="display:none;">Cancelar Edición</button>
+                <button type="submit" class="btn btn-purple btn-sm" id="btn-submit-juego">Crear Actividad</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Listado Juegos -->
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">Actividades Offline Existentes</h3>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Actividad</th>
+                  <th>Tipo</th>
+                  <th>Ubicación</th>
+                  <th>Horario / Formato</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="table-juegos-body">
+                <!-- Cargado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <img src="assets/logo.svg" alt="Navarra Code & Game Logo" style="width: 100%; height: 100%;">
+      </div>
+      <p class="footer-text">
+        &copy; 2026 Navarra Code & Game. Organizado con fines educativos y de fomento STEAM en jóvenes.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

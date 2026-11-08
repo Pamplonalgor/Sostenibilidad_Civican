@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navarra Code & Game | Festival Tecnológico & STEAM</title>
+  <meta name="description" content="El mayor festival STEAM y tecnológico de Navarra para jóvenes de 6 a 18 años. Robótica, videojuegos, talleres de programación, torneos y conferencias.">
+  
+  <!-- Estilos Globales -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Iconos FontAwesome para botones y detalles (Cargado vía CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- CABECERA / MENÚ DE NAVEGACIÓN -->
+  <header class="header" id="header">
+    <div class="container navbar">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.svg" alt="Navarra Code & Game Logo" style="width: 100%; height: 100%;">
+      </a>
+      
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link active">Inicio</a>
+        <a href="talleres.html" class="nav-link">Talleres</a>
+        <a href="torneos.html" class="nav-link">Torneos</a>
+        <a href="conferencias.html" class="nav-link">Conferencias</a>
+        <a href="juegos.html" class="nav-link">Juegos Offline</a>
+        <a href="admin.html" class="btn btn-cyan btn-sm"><i class="fa-solid fa-user-gear"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot"></span> Próximamente en Pamplona
+      </div>
+      
+      <h1 class="hero-title">
+        El Universo <span class="cyan">STEAM</span> y <span class="purple">Gaming</span> para Jóvenes
+      </h1>
+      
+      <p class="hero-subtitle">
+        Únete a Navarra Code & Game. Tres días repletos de desafíos de programación, robótica interactiva, torneos de tus videojuegos favoritos y conferencias que cambiarán tu visión del futuro. ¡Para creadores de 6 a 18 años!
+      </p>
+
+      <!-- TEMPORIZADOR DE CUENTA ATRÁS -->
+      <div class="countdown-container">
+        <h2 class="countdown-title">El gran inicio en...</h2>
+        
+        <div class="countdown-grid" id="countdown-grid">
+          <div class="countdown-item">
+            <span class="countdown-number" id="days">00</span>
+            <span class="countdown-label">Días</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="hours">00</span>
+            <span class="countdown-label">Horas</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="minutes">00</span>
+            <span class="countdown-label">Minutos</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="seconds">00</span>
+            <span class="countdown-label">Segundos</span>
+          </div>
+        </div>
+        
+        <div class="countdown-finished" id="countdown-finished"></div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#explorar" class="btn btn-purple"><i class="fa-solid fa-rocket"></i> Explorar Actividades</a>
+        <a href="admin.html" class="btn btn-outline" style="margin-left: 16px;"><i class="fa-solid fa-lock"></i> Panel Administrador</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE SECCIONES (CARDS ENLACE) -->
+  <section class="section-features" id="explorar">
+    <div class="container">
+      <div class="grid-features">
+        
+        <!-- CARD TALLERES -->
+        <div class="feature-card f-talleres">
+          <div class="feature-header">
+            <div class="feature-icon">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <span class="feature-age">Edades: 6-18</span>
+          </div>
+          <div class="feature-body">
+            <h3>Talleres STEAM</h3>
+            <p>Construye con LEGO, programa tus propios mods de Minecraft, diseña personajes en 3D y crea mini-juegos interactivos con mentores expertos en tecnología.</p>
+          </div>
+          <div class="feature-footer">
+            <span>Aprende &amp; Crea</span>
+            <a href="talleres.html" class="feature-link">Ver Talleres <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- CARD TORNEOS -->
+        <div class="feature-card f-torneos">
+          <div class="feature-header">
+            <div class="feature-icon">
+              <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <span class="feature-age">Edades: 6-18</span>
+          </div>
+          <div class="feature-body">
+            <h3>Torneos Gaming</h3>
+            <p>Compite en la copa escolar de construcción en Minecraft, demuestra tus reflejos en Brawl Stars y haz equipo en Rocket League. ¡Grandes premios te esperan!</p>
+          </div>
+          <div class="feature-footer">
+            <span>Compite &amp; Gana</span>
+            <a href="torneos.html" class="feature-link">Ver Torneos <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- CARD CONFERENCIAS -->
+        <div class="feature-card f-conferencias">
+          <div class="feature-header">
+            <div class="feature-icon">
+              <i class="fa-solid fa-circle-nodes"></i>
+            </div>
+            <span class="feature-age">Público General</span>
+          </div>
+          <div class="feature-body">
+            <h3>Conferencias</h3>
+            <p>Aprende de creadores de videojuegos indie, científicos especializados en inteligencia artificial y expertos en hacking ético que explicarán la tecnología de forma divertida.</p>
+          </div>
+          <div class="feature-footer">
+            <span>Escucha &amp; Inspírate</span>
+            <a href="conferencias.html" class="feature-link">Ver Charlas <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- CARD JUEGOS OFFLINE -->
+        <div class="feature-card f-juegos">
+          <div class="feature-header">
+            <div class="feature-icon">
+              <i class="fa-solid fa-vr-cardboard"></i>
+            </div>
+            <span class="feature-age">Todo Público</span>
+          </div>
+          <div class="feature-body">
+            <h3>Juegos Offline</h3>
+            <p>Diviértete en vivo con escape rooms de hacking físico, combates de robots controlados por radio, simuladores de Realidad Virtual y mucho más en el recinto.</p>
+          </div>
+          <div class="feature-footer">
+            <span>Juega en Vivo</span>
+            <a href="juegos.html" class="feature-link">Ver Juegos <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <img src="assets/logo.svg" alt="Navarra Code & Game Logo" style="width: 100%; height: 100%;">
+      </div>
+      <p class="footer-text">
+        &copy; 2026 Navarra Code & Game. Organizado con fines educativos y de fomento STEAM en jóvenes.
+      </p>
+      <div class="footer-links">
+        <a href="talleres.html" class="footer-link">Talleres</a>
+        <a href="torneos.html" class="footer-link">Torneos</a>
+        <a href="conferencias.html" class="footer-link">Conferencias</a>
+        <a href="juegos.html" class="footer-link">Juegos</a>
+        <a href="admin.html" class="footer-link">Administración</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/countdown.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juegos Offline | Navarra Code & Game</title>
+  <meta name="description" content="Diviértete con las actividades presenciales en el recinto: simuladores VR, escape rooms lógicos y combate de robots.">
+  
+  <!-- Estilos Globales -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- CABECERA / MENÚ DE NAVEGACIÓN -->
+  <header class="header" id="header">
+    <div class="container navbar">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.svg" alt="Navarra Code & Game Logo" style="width: 100%; height: 100%;">
+      </a>
+      
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="talleres.html" class="nav-link">Talleres</a>
+        <a href="torneos.html" class="nav-link">Torneos</a>
+        <a href="conferencias.html" class="nav-link">Conferencias</a>
+        <a href="juegos.html" class="nav-link active">Juegos Offline</a>
+        <a href="admin.html" class="btn btn-cyan btn-sm"><i class="fa-solid fa-user-gear"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SECCIÓN CABECERA DE PÁGINA -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title juegos">Juegos Offline</h1>
+      <p class="page-description">
+        Actividades físicas y lúdicas en tiempo real en el recinto. ¡Sin pantallas o con tecnología inmersiva para disfrutar en vivo!
+      </p>
+    </div>
+  </section>
+
+  <!-- FILTROS DE CATEGORÍA DE JUEGO -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="filters-bar" id="game-filters">
+        <button class="filter-btn active filter-juegos" data-filter="all">Todas las Actividades</button>
+        <button class="filter-btn" data-filter="Escape Room">Escape Rooms</button>
+        <button class="filter-btn" data-filter="Robots Fisicos">Robots Físicos</button>
+        <button class="filter-btn" data-filter="Realidad Virtual">Realidad Virtual</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID DE TARJETAS (JUEGOS OFFLINE) -->
+  <main class="container">
+    <div class="items-grid" id="juegos-grid">
+      <div class="empty-state" style="grid-column: 1/-1;">
+        <div class="empty-state-icon"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+        <h3>Cargando actividades offline...</h3>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL DE DETALLE (GLASSMORPHISM) -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-container">
+      <button class="modal-close" id="modal-close" aria-label="Cerrar ventana">&times;</button>
+      <div class="modal-hero">
+        <img id="modal-image" src="" alt="Imagen de la actividad">
+      </div>
+      <div class="modal-body">
+        <div class="modal-tags">
+          <span class="modal-tag" id="modal-tag-type" style="background: rgba(57, 255, 20, 0.15); color: var(--neon-green); border: 1px solid rgba(57, 255, 20, 0.3);"></span>
+          <span class="modal-tag" id="modal-tag-location" style="background: rgba(0, 242, 254, 0.15); color: var(--neon-cyan); border: 1px solid rgba(0, 242, 254, 0.3);"></span>
+        </div>
+        <h2 class="modal-title" id="modal-title">Título de la Actividad</h2>
+        
+        <div class="modal-info-grid">
+          <div class="modal-info-item">
+            <strong>Ubicación en Recinto</strong>
+            <span id="modal-location">Ubicación</span>
+          </div>
+          <div class="modal-info-item">
+            <strong>Horarios de Apertura</strong>
+            <span id="modal-schedule">Horario</span>
+          </div>
+          <div class="modal-info-item" style="grid-column: 1 / -1;">
+            <strong>Capacidad / Organización</strong>
+            <span id="modal-capacity">Detalles</span>
+          </div>
+        </div>
+
+        <p class="modal-description" id="modal-description">
+          Descripción completa de la actividad...
+        </p>
+
+        <div class="modal-actions">
+          <button class="btn btn-outline" onclick="window.ncgUI.closeModal()">Cerrar</button>
+          <button class="btn btn-purple" id="btn-register-activity"><i class="fa-solid fa-qrcode"></i> Obtener Ticket Rápido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <img src="assets/logo.svg" alt="Navarra Code & Game Logo" style="width: 100%; height: 100%;">
+      </div>
+      <p class="footer-text">
+        &copy; 2026 Navarra Code & Game. Organizado con fines educativos y de fomento STEAM en jóvenes.
+      </p>
+      <div class="footer-links">
+        <a href="talleres.html" class="footer-link">Talleres</a>
+        <a href="torneos.html" class="footer-link">Torneos</a>
+        <a href="conferencias.html" class="footer-link">Conferencias</a>
+        <a href="juegos.html" class="footer-link">Juegos</a>
+        <a href="admin.html" class="footer-link">Administración</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/db.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/juegos.js"></script>
+</body>
+</html>

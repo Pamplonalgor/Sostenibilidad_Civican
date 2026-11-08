@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" width="100%" height="100%">
+  <defs>
+    <!-- Gradiente Cyan a Azul para Código -->
+    <linearGradient id="gradCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#0072FF" />
+    </linearGradient>
+    
+    <!-- Gradiente Púrpura a Rosa para Gaming -->
+    <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E040FB" />
+      <stop offset="100%" stop-color="#9B51E0" />
+    </linearGradient>
+    
+    <!-- Gradiente para el texto general -->
+    <linearGradient id="gradText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+
+    <!-- Filtro de Resplandor Neón (Glow) -->
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Filtro de Resplandor Neón Suave -->
+    <filter id="neonGlowSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .title-navarra {
+      font-family: 'Outfit', 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 300;
+      fill: #A0AEC0;
+      font-size: 18px;
+      letter-spacing: 7px;
+    }
+    .title-main {
+      font-family: 'Space Grotesk', 'Outfit', 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 38px;
+      letter-spacing: 2px;
+    }
+    .glow-cyan {
+      filter: url(#neonGlowSoft);
+      fill: url(#gradCyan);
+    }
+    .glow-purple {
+      filter: url(#neonGlowSoft);
+      fill: url(#gradPurple);
+    }
+  </style>
+
+  <!-- ICONO LOGO (Combinación de mando de consola, corchetes de código y circuito) -->
+  <g transform="translate(15, 10)">
+    <!-- Brillo de fondo (Sombra neón difuminada) -->
+    <path d="M 40,15 L 80,15 A 25,25 0 0 1 105,40 L 105,60 A 25,25 0 0 1 80,85 L 40,85 A 25,25 0 0 1 15,60 L 15,40 A 25,25 0 0 1 40,15 Z" 
+          fill="none" stroke="#E040FB" stroke-width="8" opacity="0.15" filter="url(#neonGlow)"/>
+    <path d="M 35,10 C 20,10 5,25 5,45 C 5,65 15,85 30,90 C 38,92 48,82 55,82 C 62,82 72,92 80,90 C 95,85 105,65 105,45 C 105,25 90,10 75,10 Z" 
+          fill="#111827" stroke="url(#gradCyan)" stroke-width="3" filter="url(#neonGlowSoft)" />
+          
+    <!-- D-Pad (Cruceta de dirección) izquierda -->
+    <path d="M 22,45 L 28,45 M 25,42 L 25,48" stroke="url(#gradCyan)" stroke-width="3.5" stroke-linecap="round" />
+    
+    <!-- Botones de Acción derecha -->
+    <circle cx="80" cy="40" r="3" fill="#E040FB" filter="url(#neonGlowSoft)" />
+    <circle cx="88" cy="48" r="3" fill="#00F2FE" filter="url(#neonGlowSoft)" />
+    <circle cx="72" cy="48" r="3" fill="#39FF14" filter="url(#neonGlowSoft)" />
+    <circle cx="80" cy="56" r="3" fill="#FF9100" filter="url(#neonGlowSoft)" />
+    
+    <!-- Corchetes de código en el centro ( < y > ) -->
+    <!-- Corchete Izquierdo -->
+    <path d="M 42,38 L 36,46 L 42,54" fill="none" stroke="url(#gradCyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Corchete Derecho -->
+    <path d="M 68,38 L 74,46 L 68,54" fill="none" stroke="url(#gradPurple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Barra Diagonal del Código ( / ) -->
+    <line x1="58" y1="36" x2="52" y2="56" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    
+    <!-- Detalles de circuito (Puntos STEAM) -->
+    <circle cx="55" cy="18" r="2" fill="#39FF14" />
+    <path d="M 55,20 L 55,28" fill="none" stroke="#39FF14" stroke-width="1" stroke-dasharray="2,2" />
+    
+    <circle cx="55" cy="74" r="2" fill="#00F2FE" />
+    <path d="M 55,72 L 55,64" fill="none" stroke="#00F2FE" stroke-width="1" stroke-dasharray="2,2" />
+  </g>
+
+  <!-- TEXTO DEL LOGOTIPO -->
+  <g transform="translate(145, 10)">
+    <!-- Subtítulo NAVARRA -->
+    <text x="0" y="32" class="title-navarra">NAVARRA</text>
+    
+    <!-- Nombre principal CODE & GAME -->
+    <text x="0" y="78" class="title-main">
+      <tspan fill="url(#gradCyan)" filter="url(#neonGlowSoft)">CODE</tspan>
+      <tspan fill="#FFFFFF">&amp;</tspan>
+      <tspan fill="url(#gradPurple)" filter="url(#neonGlowSoft)">GAME</tspan>
+    </text>
+    
+    <!-- Pequeña etiqueta STEAM -->
+    <rect x="330" y="52" width="65" height="22" rx="11" fill="none" stroke="#39FF14" stroke-width="1.5" filter="url(#neonGlowSoft)" />
+    <text x="3625" y="67" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="11" fill="#39FF14" text-anchor="middle" letter-spacing="1" transform="translate(-3262.5, 0)">STEAM</text>
+  </g>
+</svg>

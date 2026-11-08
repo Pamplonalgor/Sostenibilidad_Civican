@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentación de Proyecto: Navarra Code & Game</title>
+  
+  <!-- Estilos Globales de la Presentación -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    body {
+      background-image: radial-gradient(circle at 50% 50%, #111827 0%, #070a13 100%);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    /* Contenedor de Diapositivas */
+    .deck-container {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      position: relative;
+    }
+    
+    .slide {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border-radius: var(--border-radius-lg);
+      width: 100%;
+      max-width: 950px;
+      height: 100%;
+      max-height: 580px;
+      padding: 50px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 242, 254, 0.05);
+      position: relative;
+      animation: slideFadeIn 0.5s ease-out forwards;
+    }
+    
+    .slide.active {
+      display: flex;
+    }
+    
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Barra de Progreso */
+    .progress-bar {
+      height: 5px;
+      background: rgba(255,255,255,0.05);
+      width: 100%;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      z-index: 10;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-cyan-blue);
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+    
+    /* Elementos de la Slide */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 20px;
+    }
+    
+    .slide-step {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .slide-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: var(--gradient-cyan-blue);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 5px;
+    }
+    
+    .slide-body {
+      flex-grow: 1;
+      margin: 30px 0;
+      font-size: 1.1rem;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    
+    .slide-body ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .slide-body li {
+      margin-bottom: 10px;
+      color: var(--color-text-secondary);
+    }
+    
+    .slide-body strong {
+      color: #fff;
+    }
+    
+    /* Estilo de la Portada */
+    .slide-cover {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .slide-cover img {
+      max-width: 320px;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.2));
+    }
+    
+    /* Cuadros de Prompts */
+    .prompt-box {
+      background: #090e1a;
+      border-left: 4px solid var(--neon-purple);
+      border-top: var(--border-glass);
+      border-bottom: var(--border-glass);
+      border-right: var(--border-glass);
+      padding: 16px 20px;
+      border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+      margin-top: 15px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.9rem;
+      position: relative;
+    }
+    
+    .prompt-label {
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: var(--neon-purple);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+    
+    /* Controles inferiores */
+    .presentation-controls {
+      background: rgba(7, 10, 19, 0.9);
+      border-top: var(--border-glass);
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 100;
+    }
+    
+    .slide-counter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+    }
+    
+    .control-buttons {
+      display: flex;
+      gap: 16px;
+    }
+    
+    .btn-control {
+      background: rgba(255,255,255,0.03);
+      border: var(--border-glass);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+    
+    .btn-control:hover {
+      background: var(--neon-cyan);
+      color: #070a13;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px var(--neon-cyan-glow);
+    }
+    
+    /* Ocultar barra navegación por defecto en presentacion */
+    .header {
+      position: relative;
+    }
+    .header .nav-menu {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABECERA SIMPLE -->
+  <header class="header" id="header" style="backdrop-filter:none; background:transparent; border:none;">
+    <div class="container navbar">
+      <div class="nav-logo" style="margin: 0 auto; height: 50px;">
+        <img src="assets/logo.svg" alt="Logo">
+      </div>
+    </div>
+  </header>
+
+  <!-- BARRA DE PROGRESO -->
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- CONTENEDOR DE LAS DIAPOSITIVAS -->
+  <main class="deck-container">
+
+    <!-- SLIDE 1: PORTADA -->
+    <div class="slide slide-cover active">
+      <img src="assets/logo.svg" alt="Navarra Code & Game Logo">
+      <h1 style="font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px;">
+        Paso a Paso del Proyecto
+      </h1>
+      <p style="color: var(--neon-cyan); font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">
+        Cómo construir tu propia web del evento con IA
+      </p>
+      <div style="margin-top: 30px; font-size: 0.9rem; color: var(--color-text-muted);">
+        Usa las flechas del teclado <span style="border: 1px solid rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px;">&larr;</span> <span style="border: 1px solid rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px;">&rarr;</span> o los botones inferiores para navegar.
+      </div>
+    </div>
+
+    <!-- SLIDE 2: PASO 1 - BRANDING Y LOGO -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Paso 1</span>
+        <h2>Branding y Concepto Visual</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 16px;">
+          Todo proyecto empieza definiendo la <strong>identidad de marca</strong>. Diseñamos un evento tecnológico/STEAM enfocado a jóvenes de 6 a 18 años.
+        </p>
+        <ul>
+          <li><strong>Paleta de colores</strong>: Estilo "Dark Mode" espacial con acentos de luces neón en Cyan, Morado, Verde y Naranja.</li>
+          <li><strong>Tipografía</strong>: Estilos de letra geométricos y modernos (Google Fonts: <i>Space Grotesk</i>, <i>Outfit</i> e <i>Inter</i>).</li>
+          <li><strong>Logotipo SVG</strong>: Vector interactivo que fusiona un mando de consola con corchetes de código de programación `&lt; /&gt;`.</li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Prompt del Profesor</div>
+          "Branding de un evento orientado a niños de 6 a 18 años pero tecnológico/Steam. Nombre del evento es Navarra Code & Game. Pon un logo atractivo y dinámico en formato SVG."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: PASO 2 - ARQUITECTURA DE ARCHIVOS -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Paso 2</span>
+        <h2>Arquitectura de Archivos Estática</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 16px;">
+          Para mantener la sencillez técnica, creamos una estructura de desarrollo clásica de desarrollo web front-end utilizando <strong>HTML5, CSS3 y JavaScript moderno</strong>:
+        </p>
+        <ul style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+          <li>📁 <strong>index.html</strong>: Landing/cuenta atrás.</li>
+          <li>📁 <strong>talleres.html</strong>: Talleres con filtros.</li>
+          <li>📁 <strong>torneos.html</strong>: Competiciones gaming.</li>
+          <li>📁 <strong>conferencias.html</strong>: Charlas STEAM.</li>
+          <li>📁 <strong>juegos.html</strong>: Actividades offline.</li>
+          <li>📁 <strong>admin.html</strong>: Gestión de contenidos.</li>
+          <li>📁 <strong>css/style.css</strong>: Estilos CSS.</li>
+          <li>📁 <strong>js/db.js</strong>: Capa base de datos.</li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Prompt del Profesor</div>
+          "Haremos una web con html, css y javascript simple, sin react ni next.js. Tendrá Landing/Home, Talleres, Torneos, Conferencias, Juegos Offline y un Panel de Administrador."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: PASO 3 - LANDING Y CUENTA ATRÁS -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Paso 3</span>
+        <h2>Landing Page & Cuenta Atrás</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 16px;">
+          La pantalla de bienvenida incluye un gancho visual potente: un **temporizador en cuenta atrás gigante** hacia el Viernes 20 de Noviembre de 2026.
+        </p>
+        <ul>
+          <li><strong>index.html</strong>: Estructura Hero, rejilla con accesos directos a las páginas públicas y pie de página.</li>
+          <li><strong>js/countdown.js</strong>: Lógica matemática con `setInterval()` que resta la fecha objetivo de la actual, calculando los Días, Horas, Minutos y Segundos restantes de forma dinámica en milisegundos.</li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Prompt del Profesor</div>
+          "La landing de inicio debe tener una cuenta atrás del evento que empieza el viernes 20 de Noviembre. Haz que sea visualmente espectacular, con efectos neón de fondo."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: PASO 4 - VISTAS PÚBLICAS Y FILTRADO -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Paso 4</span>
+        <h2>Tarjetas de Actividades y Filtros</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 12px;">
+          Creamos 4 páginas temáticas muy atractivas visualmente que renderizan dinámicamente las actividades.
+        </p>
+        <ul>
+          <li><strong>Filtros Dinámicos</strong>: Botones para filtrar actividades por rango de edad (6-10, 11-14 y 15-18 años) o tipo, actualizando las tarjetas en el DOM al instante y de forma fluida.</li>
+          <li><strong>Modales de Detalle</strong>: Al hacer clic en "Info", se abre una ventana emergente de cristal (glassmorphism) que detalla el ponente, reglas, horarios, aforo y simula la inscripción.</li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Prompt del Profesor</div>
+          "Crea las vistas de talleres, torneos y conferencias. Añade un filtro dinámico por edades, y un botón en cada tarjeta que abra un modal detallando la actividad y simule el registro."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: PASO 5 - BASE DE DATOS HÍBRIDA -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Paso 5</span>
+        <h2>Base de Datos Híbrida Inteligente</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 12px;">
+          Para que el proyecto funcione de inmediato sin obligar a configurar bases de datos online en el primer día, diseñamos la capa <strong>js/db.js</strong>:
+        </p>
+        <ul>
+          <li><strong>LocalStorage Fallback</strong>: Si no hay credenciales de Supabase en local, la web lee/escribe en el LocalStorage del navegador utilizando datos de prueba precargados.</li>
+          <li><strong>Versión de Mocks</strong>: Un identificador de versión (`v2`) en el JS fuerza el refresco automático de los datos en el navegador si el profesor añade nuevas actividades.</li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Prompt del Profesor</div>
+          "Prepara la base de datos para usar Supabase en producción, pero haz que si no está configurada, use LocalStorage con mock data inicial para que funcione nada más abrir la web."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: PASO 6 - CONEXIÓN CON SUPABASE -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Paso 6</span>
+        <h2>Integración y Despliegue en la Nube</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 12px;">
+          Cuando decidimos pasar el proyecto a producción, conectamos el servicio de base de datos relacional **Supabase**:
+        </p>
+        <ul>
+          <li><strong>SQL Editor</strong>: Ejecutamos un script en el panel de control de Supabase para crear las cuatro tablas con IDs automáticos de tipo UUID.</li>
+          <li><strong>Conexión en Caliente</strong>: El adaptador JS detecta la URL del proyecto y la publishable (Anon) Key. Si están presentes, el backend cambia a Supabase de manera automática y transparente.</li>
+        </ul>
+        <div class="prompt-box">
+          <div class="prompt-label">Prompt del Profesor</div>
+          "sb_publishable_-JKoHcQK-R3SdyjnYUnQSQ_OFgkxkna y url https://shuehcrlyolakwkosgae.supabase.co. Haz la integración y prepara las tablas SQL correspondientes."
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: PASO 7 - PANEL DE ADMINISTRADOR -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Paso 7</span>
+        <h2>El Panel CRUD del Administrador</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 16px;">
+          Por último, creamos la zona de gestión **admin.html** donde los organizadores del evento pueden administrar el catálogo completo en tiempo real.
+        </p>
+        <ul>
+          <li><strong>Pestañas dinámicas</strong>: Cambia entre Talleres, Torneos, Charlas y Configuración sin recargar.</li>
+          <li><strong>CRUD Completo</strong>: Formularios con validación en HTML5 para <i>Crear</i>, <i>Visualizar</i>, <i>Editar</i> (precargando la información) y <i>Borrar</i> registros en Supabase o LocalStorage.</li>
+          <li><strong>Botón de Sincronización</strong>: Un botón que permite exportar los datos locales de prueba a Supabase con un clic.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: CONCLUSIONES / RESUMEN -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-step">Resumen</span>
+        <h2>¿Qué hemos aprendido hoy?</h2>
+      </div>
+      <div class="slide-body">
+        <p style="margin-bottom: 16px;">
+          Este proyecto demuestra cómo estructurar un sitio web profesional y dinámico utilizando tecnologías web nativas básicas:
+        </p>
+        <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <li>🚀 <strong>Navegación & Estructura</strong>: Controlar rutas y estructurar maquetación HTML semántica.</li>
+          <li>🎨 <strong>Estética Moderna (CSS)</strong>: Diseñar degradados, bordes neón y responsive sin Tailwind.</li>
+          <li>🧠 <strong>Lógica DOM (JS)</strong>: Filtrar, abrir modales e interactuar con objetos.</li>
+          <li>💾 <strong>Almacenamiento (Supabase)</strong>: Realizar consultas a bases de datos relacionales en la nube de manera segura.</li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- CONTROLES INFERIORES DE LA PRESENTACIÓN -->
+  <footer class="presentation-controls">
+    <div class="slide-counter" id="slide-counter">Diapositiva 1 de 9</div>
+    <div class="control-buttons">
+      <button class="btn-control" id="prev-btn" aria-label="Diapositiva anterior"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="btn-control" id="next-btn" aria-label="Diapositiva siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </footer>
+
+  <!-- Script Lógica de la Presentación -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      const counter = document.getElementById('slide-counter');
+      const progressFill = document.getElementById('progress-fill');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      let currentIdx = 0;
+
+      function updateSlide() {
+        // Ocultar todas las diapositivas
+        slides.forEach(slide => slide.classList.remove('active'));
+        
+        // Mostrar la actual
+        slides[currentIdx].classList.add('active');
+        
+        // Actualizar contador
+        counter.textContent = `Diapositiva ${currentIdx + 1} de ${slides.length}`;
+        
+        // Actualizar barra de progreso
+        const progress = (currentIdx / (slides.length - 1)) * 100;
+        progressFill.style.width = `${progress}%`;
+      }
+
+      // Siguiente diapositiva
+      function nextSlide() {
+        if (currentIdx < slides.length - 1) {
+          currentIdx++;
+          updateSlide();
+        }
+      }
+
+      // Anterior diapositiva
+      function prevSlide() {
+        if (currentIdx > 0) {
+          currentIdx--;
+          updateSlide();
+        }
+      }
+
+      // Navegación por botones
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+
+      // Navegación por teclado
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+          nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+          prevSlide();
+        }
+      });
+      
+      // Iniciar
+      updateSlide();
+    });
+  </script>
+
+</body>
+</html>
