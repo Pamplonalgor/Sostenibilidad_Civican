@@ -14,9 +14,11 @@ class CivicanKioskManager {
     this.app = appRef;
 
     // Configuración de tiempos (en milisegundos)
-    this.IDLE_LIMIT = 60 * 1000;       // 60 segundos antes de mostrar aviso
+    // En móviles personales (escaneado con QR), lectura pausada y accesible para mayores sin prisas ni reinicios
+    const isMobileDevice = window.innerWidth <= 900 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    this.IDLE_LIMIT = isMobileDevice ? (15 * 60 * 1000) : (60 * 1000); // 15 min en móvil / 60s en quiosco
     this.WARNING_DURATION = 15;        // 15 segundos de cuenta atrás en el aviso
-    this.RESULTS_LIMIT = 45 * 1000;    // 45 segundos en pantalla de resultados
+    this.RESULTS_LIMIT = isMobileDevice ? (5 * 60 * 1000) : (45 * 1000);    // 5 min en móvil / 45s en quiosco
 
     this.idleTimer = null;
     this.warningInterval = null;

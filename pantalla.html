@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videowall Atrio CIVICAN | Tu impacto en juego</title>
+  <meta name="description" content="Emisión continua para pantalla grande / videowall en el Atrio de CIVICAN. Datos de sostenibilidad, pensamiento crítico y código QR para participar desde el móvil.">
+
+  <!-- Estilos de Pantalla Grande -->
+  <link rel="stylesheet" href="css/civican-pantalla.css">
+
+  <!-- Google Fonts: Fraunces & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="pantalla-viewport">
+
+    <!-- ====================================================================
+         CABECERA INSTITUCIONAL
+         ==================================================================== -->
+    <header class="pantalla-header">
+      <div class="pantalla-header-brand">
+        <div class="pantalla-logo-wrap">
+          <img src="assets/civican-logo.png" alt="CIVICAN · Fundación Caja Navarra" class="pantalla-logo-img">
+        </div>
+        <div class="pantalla-header-divider"></div>
+        <div class="pantalla-header-titles">
+          <h2>Tu impacto en juego</h2>
+          <p>Exposición de Sostenibilidad y Pensamiento Crítico · Atrio CIVICAN</p>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:20px;">
+        <div class="pantalla-header-badge">
+          <span class="pantalla-live-dot"></span>
+          <span>Instalación Interactiva</span>
+        </div>
+        <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--pantalla-ink);" id="pantalla-clock">
+          14:30
+        </div>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         CUERPO PRINCIPAL (DATOS ANIMADOS + TÓTEM QR)
+         ==================================================================== -->
+    <main class="pantalla-main-content">
+
+      <!-- COLUMNA IZQUIERDA: SHOWCASE DE DATOS ROTATIVOS -->
+      <section class="pantalla-showcase-card" aria-label="Datos de la exposición">
+        <div class="showcase-slide-wrapper">
+
+          <!-- SLIDE 1: CIRCULARIDAD 7.2% -->
+          <article class="showcase-slide active">
+            <div class="slide-kicker-tag" style="background:var(--pantalla-forest-soft); color:var(--pantalla-forest);">
+              <i class="fa-solid fa-recycle"></i> Límites de Materiales &amp; Economía Circular
+            </div>
+
+            <div class="slide-hero-stat-row">
+              <div class="slide-huge-number" style="color:var(--pantalla-forest);">7,2%</div>
+              <div class="slide-stat-context">
+                <h3 class="slide-title-large">Solo el 7,2% de los recursos mundiales proceden del reciclaje</h3>
+                <p class="slide-body-paragraph">
+                  El <strong>92,8% restante</strong> se sigue extrayendo virgen de la naturaleza cada año. Reciclar es imprescindible, pero la prioridad científica real es reducir el consumo innecesario y reparar lo que ya tenemos.
+                </p>
+              </div>
+            </div>
+
+            <div class="slide-source-footnote">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Fuente científica: <strong>Circularity Gap Report 2023</strong> · Conferencia de <strong>Andreu Escrivà</strong> en CIVICAN</span>
+            </div>
+          </article>
+
+          <!-- SLIDE 2: INVESTIGACIÓN GPS DE LA ROPA (7.500 KM) -->
+          <article class="showcase-slide">
+            <div class="slide-kicker-tag" style="background:rgba(182, 72, 42, 0.1); color:var(--pantalla-terracotta);">
+              <i class="fa-solid fa-satellite-dish"></i> Investigación Periodística · Moda Rápida
+            </div>
+
+            <div class="slide-hero-stat-row">
+              <div class="slide-huge-number" style="color:var(--pantalla-terracotta);">7.500 km</div>
+              <div class="slide-stat-context">
+                <h3 class="slide-title-large">La ruta oculta de la ropa entregada para "reciclar"</h3>
+                <p class="slide-body-paragraph">
+                  Periodistas de investigación cosieron <strong>10 localizadores GPS</strong> en prendas depositadas en tiendas de moda rápida. Ninguna se recicló: cruzaron el océano en buques de carga y terminaron en vertederos a cielo abierto en <strong>Ghana y Rumanía</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div class="slide-source-footnote">
+              <i class="fa-solid fa-newspaper"></i>
+              <span>Fuente periodística: <strong>Investigación satelital Aftonbladet</strong> · Caso analizado por <strong>Verificat / Desfake</strong></span>
+            </div>
+          </article>
+
+          <!-- SLIDE 3: PIB VS BIENESTAR HUMANO -->
+          <article class="showcase-slide">
+            <div class="slide-kicker-tag" style="background:rgba(217, 119, 6, 0.1); color:var(--pantalla-amber);">
+              <i class="fa-solid fa-scale-balanced"></i> Filosofía Ecosocial · ¿Crecer es Mejorar?
+            </div>
+
+            <div style="margin-bottom:18px;">
+              <h3 class="slide-title-large" style="font-size:2.1rem; line-height:1.25;">
+                «El PIB suma como riqueza limpiar un vertido de petróleo, comprar medicinas por contaminación o reparar destrozos tras una tormenta.»
+              </h3>
+              <p class="slide-body-paragraph" style="font-size:1.25rem;">
+                El verdadero bienestar no se mide en consumir más objetos cada semana, sino en tener <strong>tiempo de calidad, salud pública, calles tranquilas y redes vecinales de apoyo</strong>.
+              </p>
+            </div>
+
+            <div class="slide-source-footnote">
+              <i class="fa-solid fa-quote-left"></i>
+              <span>Marco conceptual: <strong>Andreu Escrivà</strong> (Ambientólogo y divulgador científico)</span>
+            </div>
+          </article>
+
+          <!-- SLIDE 4: ILUSIÓN DE SOLEDAD (69%) -->
+          <article class="showcase-slide">
+            <div class="slide-kicker-tag" style="background:rgba(27, 76, 133, 0.1); color:var(--pantalla-cyanotype);">
+              <i class="fa-solid fa-users"></i> Sociología Comunitaria · 125 Países
+            </div>
+
+            <div class="slide-hero-stat-row">
+              <div class="slide-huge-number" style="color:var(--pantalla-cyanotype);">69%</div>
+              <div class="slide-stat-context">
+                <h3 class="slide-title-large">La falsa ilusión de soledad vecinal</h3>
+                <p class="slide-body-paragraph">
+                  Un estudio en 125 países reveló que el <strong>69% de la población mundial</strong> está dispuesta a colaborar económicamente por el clima, pero cree falsamente que en su entorno solo lo haría una minoría. <strong>Cuando actuamos en común, rompemos el aislamiento</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div class="slide-source-footnote">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Estudio sociológico global: <strong>Nature Climate Change (2024)</strong> · 130.000 participantes en 125 países</span>
+            </div>
+          </article>
+
+          <!-- SLIDE 5: 4 PREGUNTAS CONTRA BULOS -->
+          <article class="showcase-slide">
+            <div class="slide-kicker-tag" style="background:var(--pantalla-forest-soft); color:var(--pantalla-forest);">
+              <i class="fa-solid fa-shield-halved"></i> Alfabetización Mediática · Detectives del Clima
+            </div>
+
+            <h3 class="slide-title-large" style="margin-bottom:16px;">
+              Las 4 preguntas maestras de verificación periodística
+            </h3>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;">
+              <div style="background:var(--pantalla-bg); padding:14px 18px; border-radius:12px; border:1px solid var(--pantalla-rule);">
+                <strong style="color:var(--pantalla-forest); display:block; font-size:1.1rem; margin-bottom:4px;">1. ¿Cómo me hace reaccionar?</strong>
+                <span style="font-size:0.95rem; color:var(--pantalla-ink-secondary);">Detecta si apelan a tu miedo o indignación para que compartas sin pensar.</span>
+              </div>
+              <div style="background:var(--pantalla-bg); padding:14px 18px; border-radius:12px; border:1px solid var(--pantalla-rule);">
+                <strong style="color:var(--pantalla-forest); display:block; font-size:1.1rem; margin-bottom:4px;">2. ¿Quién lo dice?</strong>
+                <span style="font-size:0.95rem; color:var(--pantalla-ink-secondary);">Comprueba si es un organismo científico oficial o un perfil anónimo.</span>
+              </div>
+              <div style="background:var(--pantalla-bg); padding:14px 18px; border-radius:12px; border:1px solid var(--pantalla-rule);">
+                <strong style="color:var(--pantalla-forest); display:block; font-size:1.1rem; margin-bottom:4px;">3. ¿Qué pruebas aporta?</strong>
+                <span style="font-size:0.95rem; color:var(--pantalla-ink-secondary);">Exige mediciones y datos reales contrastados, no solo opiniones.</span>
+              </div>
+              <div style="background:var(--pantalla-bg); padding:14px 18px; border-radius:12px; border:1px solid var(--pantalla-rule);">
+                <strong style="color:var(--pantalla-forest); display:block; font-size:1.1rem; margin-bottom:4px;">4. ¿Qué falta por contar?</strong>
+                <span style="font-size:0.95rem; color:var(--pantalla-ink-secondary);">Cuidado con noticias que sacan mapas o estadísticas fuera de contexto.</span>
+              </div>
+            </div>
+
+            <div class="slide-source-footnote">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Metodología de alfabetización mediática: <strong>Verificat / Desfake</strong> en CIVICAN</span>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Barra de navegación y temporizador automático -->
+        <div class="showcase-footer-bar">
+          <div class="showcase-dots-nav">
+            <span class="showcase-dot active" title="Ir a diapositiva 1"></span>
+            <span class="showcase-dot" title="Ir a diapositiva 2"></span>
+            <span class="showcase-dot" title="Ir a diapositiva 3"></span>
+            <span class="showcase-dot" title="Ir a diapositiva 4"></span>
+            <span class="showcase-dot" title="Ir a diapositiva 5"></span>
+          </div>
+
+          <div class="showcase-progress-indicator">
+            <div class="showcase-timer-bar">
+              <div class="showcase-timer-fill"></div>
+            </div>
+            <span id="pantalla-slide-number">1/5</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLUMNA DERECHA: TÓTEM QR PARA PARTICIPAR DESDE EL MÓVIL -->
+      <aside class="pantalla-qr-totem" aria-label="Acceso móvil por código QR">
+        <div>
+          <div class="totem-badge-top">
+            <i class="fa-solid fa-mobile-screen-button"></i> Participa con tu móvil
+          </div>
+          <h3 class="totem-callout-title">Tu impacto en juego</h3>
+          <p class="totem-callout-desc">Descubre los 4 retos interactivos en tu teléfono</p>
+        </div>
+
+        <!-- Código QR en Alta Definición -->
+        <div class="qr-display-frame">
+          <img src="assets/qr-civican.png" alt="Código QR para participar desde el teléfono móvil" class="qr-code-image">
+        </div>
+
+        <!-- Instrucciones Claras y Accesibles para Todas las Edades -->
+        <div class="qr-steps-senior-box">
+          <div class="qr-step-item">
+            <i class="fa-solid fa-camera"></i>
+            <span>1. Abre la cámara de tu teléfono móvil</span>
+          </div>
+          <div class="qr-step-item">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>2. Apunta hacia este código QR</span>
+          </div>
+          <div class="qr-step-item">
+            <i class="fa-solid fa-hand-pointer"></i>
+            <span>3. Toca el enlace amarillo para empezar</span>
+          </div>
+        </div>
+
+        <div style="width:100%;">
+          <div style="font-size:0.82rem; font-weight:700; color:var(--pantalla-ink-muted); margin-bottom:4px;">
+            Sin instalar ninguna app · 100% gratuito
+          </div>
+          <div class="qr-url-display">
+            pamplonalgor.github.io/Sostenibilidad_Civican
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- ====================================================================
+         PIE DE PANTALLA
+         ==================================================================== -->
+    <footer class="pantalla-footer">
+      <div>
+        <strong>CIVICAN · Fundación Caja Navarra</strong> | Espacio de Pensamiento Crítico y Cultura Ciudadana
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span>Basado en las aportaciones de <strong>Andreu Escrivà</strong> y <strong>Verificat / Desfake</strong></span>
+        <a href="index.html" style="color:var(--pantalla-forest); font-weight:700; text-decoration:none; font-size:0.85rem; background:rgba(255,255,255,0.85); padding:5px 12px; border-radius:999px; border:1px solid var(--pantalla-rule); display:inline-flex; align-items:center; gap:6px;">
+          <i class="fa-solid fa-mobile-screen"></i> Ver versión móvil
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Script de rotación de la pantalla -->
+  <script src="js/civican-pantalla.js"></script>
+
+</body>
+</html>

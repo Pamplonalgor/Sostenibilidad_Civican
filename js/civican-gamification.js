@@ -52,6 +52,18 @@ class CivicanGamificationApp {
     if (btnSources) btnSources.addEventListener('click', openSources);
     if (btnSourcesLanding) btnSourcesLanding.addEventListener('click', openSources);
     if (btnCloseSources) btnCloseSources.addEventListener('click', closeSources);
+
+    // Accesibilidad para mayores: Letra grande
+    const btnFont = document.getElementById('btn-toggle-font');
+    if (btnFont) {
+      btnFont.addEventListener('click', () => {
+        document.body.classList.toggle('senior-large-font');
+        const isLarge = document.body.classList.contains('senior-large-font');
+        btnFont.innerHTML = isLarge 
+          ? '<i class="fa-solid fa-text-height"></i> <span>Letra normal</span>' 
+          : '<i class="fa-solid fa-text-height"></i> <span>Letra grande</span>';
+      });
+    }
   }
 
   onSessionReset() {

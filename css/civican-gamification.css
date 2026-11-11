@@ -794,3 +794,31 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Modo Accesibilidad para Mayores (Letra Grande) en Prototipo 2 */
+body.senior-large-font .proto2-hero-title {
+  font-size: 2.8rem !important;
+}
+
+body.senior-large-font .proto2-hero-desc,
+body.senior-large-font .proto2-card-detail,
+body.senior-large-font .story-context-paragraph,
+body.senior-large-font .lever-desc,
+body.senior-large-font .key-detail {
+  font-size: 1.25rem !important;
+  line-height: 1.55 !important;
+}
+
+body.senior-large-font .proto2-card-title,
+body.senior-large-font .lever-title,
+body.senior-large-font .key-label,
+body.senior-large-font .challenge-title {
+  font-size: 1.45rem !important;
+}
+
+body.senior-large-font .btn-proto2-cta,
+body.senior-large-font .decision-btn,
+body.senior-large-font .audit-option-card {
+  min-height: 72px !important;
+  font-size: 1.25rem !important;
+}

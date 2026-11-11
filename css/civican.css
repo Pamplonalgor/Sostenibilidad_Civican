@@ -1223,7 +1223,36 @@ body.reduced-motion .idle-countdown-wrap.urgent .idle-countdown-num {
   line-height: 1.45;
 }
 
-/* Adaptación para Pantallas Menores */
+/* ==========================================================================
+   MODO ACCESIBILIDAD PARA MAYORES / LECTURA FÁCIL
+   ========================================================================== */
+body.senior-large-font {
+  font-size: 1.25rem;
+}
+
+body.senior-large-font .landing-title {
+  font-size: 2.8rem;
+}
+
+body.senior-large-font .landing-subtitle,
+body.senior-large-font .card-summary,
+body.senior-large-font .option-card-touch,
+body.senior-large-font .modal-body-text {
+  font-size: 1.35rem !important;
+  line-height: 1.55 !important;
+}
+
+body.senior-large-font .btn-card-cta,
+body.senior-large-font .btn-modal-action {
+  font-size: 1.3rem !important;
+  min-height: 72px !important;
+}
+
+body.senior-large-font .card-title {
+  font-size: 2.2rem !important;
+}
+
+/* Adaptación para Pantallas Menores y Móviles */
 @media (max-width: 1080px) {
   .hide-mobile {
     display: none !important;
@@ -1244,17 +1273,28 @@ body.reduced-motion .idle-countdown-wrap.urgent .idle-countdown-num {
 
 @media (max-width: 720px) {
   .kiosk-header {
-    padding: 12px 18px;
-    min-height: 84px;
-    gap: 12px;
+    padding: 10px 14px;
+    min-height: 76px;
+    gap: 8px;
+  }
+
+  .logo-frame {
+    padding: 6px 12px;
   }
 
   .civican-logo-img {
-    height: 58px;
+    height: 48px;
+    max-width: 180px;
   }
 
-  .header-event-title {
-    font-size: 1.2rem;
+  .kiosk-header-actions {
+    gap: 8px;
+  }
+
+  .header-btn {
+    min-height: 48px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
   }
 
   .landing-title {
@@ -1263,6 +1303,37 @@ body.reduced-motion .idle-countdown-wrap.urgent .idle-countdown-num {
 
   .landing-subtitle {
     font-size: 1.15rem;
+  }
+
+  .experience-card {
+    padding: 24px 20px;
+  }
+
+  .card-icon-bubble {
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+
+  .btn-card-cta {
+    min-height: 64px;
+    font-size: 1.2rem;
+  }
+
+  .game-layout-split {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .visual-scene-box {
+    max-height: 250px;
+    padding: 12px;
+  }
+
+  .option-card-touch {
+    min-height: 64px;
+    font-size: 1.1rem;
+    padding: 16px 18px;
   }
 
   .landing-footer-sources {

@@ -36,8 +36,8 @@
 
       <!-- Acciones de Navegación del Quiosco y Selector de Prototipo -->
       <nav class="kiosk-header-actions" aria-label="Navegación general">
-        <!-- Selector Rápido para Reunión de Presentación -->
-        <div class="prototype-switcher-nav" aria-label="Selector de prototipo de exposición">
+        <!-- Selector Rápido para Reunión de Presentación (oculto en móviles para no saturar) -->
+        <div class="prototype-switcher-nav hide-mobile" aria-label="Selector de prototipo de exposición">
           <a href="prototipo1.html" class="proto-pill-btn active" title="Prototipo 1: Formato Editorial Clásico">
             <span>Prototipo 1</span>
             <span class="proto-badge">Editorial</span>
@@ -46,7 +46,17 @@
             <span>Prototipo 2</span>
             <span class="proto-badge">Gamificación</span>
           </a>
+          <a href="pantalla.html" class="proto-pill-btn" title="Ver pantalla Atrio CIVICAN (Videowall)">
+            <i class="fa-solid fa-tv"></i>
+            <span class="proto-badge">Pantalla Atrio</span>
+          </a>
         </div>
+
+        <!-- Botón de Accesibilidad para Mayores: Tamaño de Letra -->
+        <button class="header-btn" id="btn-toggle-font" aria-label="Cambiar tamaño de letra para lectura cómoda">
+          <i class="fa-solid fa-text-height"></i>
+          <span>Letra grande</span>
+        </button>
 
         <button class="header-btn" id="btn-open-sources" aria-label="Ver fuentes y curaduría">
           <i class="fa-solid fa-graduation-cap"></i>

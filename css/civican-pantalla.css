@@ -1,0 +1,438 @@
+/* ==========================================================================
+   CIVICAN: ESTILOS DEDICADOS PARA LA PANTALLA GRANDE / VIDEOWALL (ATRIO)
+   Diseñado para visualización nítida y atractiva a distancia en pantalla 16:9 (1920x1080)
+   ========================================================================== */
+
+:root {
+  --pantalla-bg: #F8F7F2;
+  --pantalla-card-bg: #FFFFFF;
+  --pantalla-ink: #13222E;
+  --pantalla-ink-secondary: #485A68;
+  --pantalla-ink-muted: #728492;
+  --pantalla-forest: #1A5E44;
+  --pantalla-forest-soft: #E9F4EE;
+  --pantalla-terracotta: #B6482A;
+  --pantalla-cyanotype: #1B4C85;
+  --pantalla-amber: #D97706;
+  --pantalla-rule: #E5E0D5;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--pantalla-bg);
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(26, 94, 68, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(27, 76, 133, 0.04) 0%, transparent 45%);
+  color: var(--pantalla-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+#pantalla-viewport {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 36px 20px 36px;
+}
+
+/* ==========================================================================
+   CABECERA DE LA PANTALLA
+   ========================================================================== */
+.pantalla-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--pantalla-card-bg);
+  border: 2px solid var(--pantalla-rule);
+  border-radius: 18px;
+  padding: 14px 28px;
+  box-shadow: 0 4px 16px rgba(19, 34, 46, 0.04);
+}
+
+.pantalla-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.pantalla-logo-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.pantalla-logo-img {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+}
+
+.pantalla-header-divider {
+  width: 2px;
+  height: 44px;
+  background: var(--pantalla-rule);
+}
+
+.pantalla-header-titles h2 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--pantalla-ink);
+  line-height: 1.15;
+}
+
+.pantalla-header-titles p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--pantalla-ink-secondary);
+}
+
+.pantalla-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--pantalla-forest-soft);
+  color: var(--pantalla-forest);
+  border: 1px solid rgba(26, 94, 68, 0.2);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.pantalla-live-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--pantalla-forest);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--pantalla-forest);
+  animation: livePulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes livePulse {
+  0% { transform: scale(0.85); opacity: 0.5; }
+  100% { transform: scale(1.25); opacity: 1; }
+}
+
+/* ==========================================================================
+   CONTENIDO PRINCIPAL (SPLIT 62% DATOS ANIMADOS / 38% TÓTEM QR)
+   ========================================================================== */
+.pantalla-main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 28px;
+  margin: 18px 0;
+  min-height: 0;
+}
+
+/* --------------------------------------------------------------------------
+   COLUMNA IZQUIERDA: SHOWCASE DE DATOS ANIMADOS ROTATIVOS
+   -------------------------------------------------------------------------- */
+.pantalla-showcase-card {
+  background: var(--pantalla-card-bg);
+  border: 2px solid var(--pantalla-rule);
+  border-radius: 22px;
+  padding: 38px 44px;
+  box-shadow: 0 8px 24px rgba(19, 34, 46, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.showcase-slide-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.showcase-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.slide-kicker-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.slide-hero-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 20px;
+}
+
+.slide-huge-number {
+  font-family: var(--font-display);
+  font-size: 6.2rem;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+}
+
+.slide-stat-context {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-title-large {
+  font-family: var(--font-display);
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: var(--pantalla-ink);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.slide-body-paragraph {
+  font-size: 1.35rem;
+  color: var(--pantalla-ink-secondary);
+  line-height: 1.5;
+  max-width: 900px;
+}
+
+.slide-infographic-box {
+  background: var(--pantalla-bg);
+  border: 1px solid var(--pantalla-rule);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.slide-source-footnote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--pantalla-ink-muted);
+  margin-top: 16px;
+}
+
+/* Barra inferior del carrusel con progreso continuo */
+.showcase-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--pantalla-rule);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.showcase-dots-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.showcase-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pantalla-rule);
+  transition: all 0.3s ease;
+}
+
+.showcase-dot.active {
+  width: 38px;
+  border-radius: 999px;
+  background: var(--pantalla-forest);
+}
+
+.showcase-progress-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--pantalla-ink-muted);
+}
+
+.showcase-timer-bar {
+  width: 140px;
+  height: 6px;
+  background: var(--pantalla-rule);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.showcase-timer-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--pantalla-forest);
+  border-radius: 999px;
+}
+
+/* --------------------------------------------------------------------------
+   COLUMNA DERECHA: TÓTEM QR DE PARTICIPACIÓN MÓVIL
+   -------------------------------------------------------------------------- */
+.pantalla-qr-totem {
+  background: var(--pantalla-card-bg);
+  border: 3px solid var(--pantalla-forest);
+  border-radius: 22px;
+  padding: 32px 30px;
+  box-shadow: 0 10px 32px rgba(26, 94, 68, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+}
+
+.totem-badge-top {
+  background: var(--pantalla-forest);
+  color: #FFFFFF;
+  font-size: 0.88rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.totem-callout-title {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--pantalla-ink);
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.totem-callout-desc {
+  font-size: 1.05rem;
+  color: var(--pantalla-ink-secondary);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Marco del Código QR */
+.qr-display-frame {
+  background: #FFFFFF;
+  border: 3px solid var(--pantalla-ink);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 8px 24px rgba(19, 34, 46, 0.08);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.qr-code-image {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Guía de Escaneo Paso a Paso para Adultos y Mayores */
+.qr-steps-senior-box {
+  width: 100%;
+  background: var(--pantalla-forest-soft);
+  border: 1px solid rgba(26, 94, 68, 0.2);
+  border-radius: 14px;
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.qr-step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--pantalla-forest);
+}
+
+.qr-step-item:last-child {
+  margin-bottom: 0;
+}
+
+.qr-step-item i {
+  font-size: 1.2rem;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.qr-url-display {
+  font-family: monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--pantalla-ink);
+  background: rgba(19, 34, 46, 0.06);
+  padding: 6px 14px;
+  border-radius: 8px;
+  margin-top: 10px;
+  word-break: break-all;
+}
+
+/* ==========================================================================
+   PIE DE LA PANTALLA
+   ========================================================================== */
+.pantalla-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--pantalla-card-bg);
+  border: 1px solid var(--pantalla-rule);
+  border-radius: 14px;
+  padding: 10px 24px;
+  font-size: 0.88rem;
+  color: var(--pantalla-ink-muted);
+}
+
+.pantalla-footer strong {
+  color: var(--pantalla-ink);
+}

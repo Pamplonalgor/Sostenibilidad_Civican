@@ -93,6 +93,17 @@ class CivicanApp {
   }
 
   initAccessibilityControls() {
+    const btnFont = document.getElementById('btn-toggle-font');
+    if (btnFont) {
+      btnFont.addEventListener('click', () => {
+        document.body.classList.toggle('senior-large-font');
+        const isLarge = document.body.classList.contains('senior-large-font');
+        btnFont.innerHTML = isLarge 
+          ? '<i class="fa-solid fa-text-height"></i> <span>Letra normal</span>' 
+          : '<i class="fa-solid fa-text-height"></i> <span>Letra grande</span>';
+      });
+    }
+
     const btnMotion = document.getElementById('btn-toggle-motion');
     if (btnMotion) {
       btnMotion.addEventListener('click', () => {
