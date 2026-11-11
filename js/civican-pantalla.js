@@ -27,6 +27,8 @@ class CivicanPantallaShowcase {
     this.updateClock();
     setInterval(() => this.updateClock(), 1000);
 
+    this.setupDynamicQr();
+
     this.showSlide(0);
     this.startAutoRotation();
 
@@ -37,6 +39,38 @@ class CivicanPantallaShowcase {
         this.startAutoRotation(); // Reiniciar temporizador
       });
     });
+  }
+
+  setupDynamicQr() {
+    const qrImg = document.querySelector('.qr-code-image');
+    const qrUrlText = document.querySelector('.qr-url-display');
+    if (!qrImg || !qrUrlText) return;
+
+    // Detectar si se pasa ?url= por parámetro o si estamos alojados en Netlify / Servidor web
+    const urlParams = new URLSearchParams(window.location.search);
+    let targetUrl = urlParams.get('url');
+
+    if (!targetUrl && window.location.protocol.startsWith('http')) {
+      // Tomar la raíz de la web donde está alojada la pantalla (Netlify o GitHub Pages)
+      targetUrl = window.location.origin + window.location.pathname.replace(/\/pantalla(\.html)?$/, '/');
+      if (!targetUrl.endsWith('/')) targetUrl += '/';
+    }
+
+    if (targetUrl) {
+      // Texto limpio y legible debajo del QR
+      const cleanDisplay = targetUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      qrUrlText.textContent = cleanDisplay;
+
+      // Generar código QR en tiempo real para esa URL con el color azul marino de CIVICAN (#13222E)
+      const dynamicQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&color=13-34-46&bgcolor=FFFFFF&data=${encodeURIComponent(targetUrl)}`;
+      
+      // Probar cargar la imagen dinámica; si falla, conserva la imagen estática local
+      const tempImg = new Image();
+      tempImg.onload = () => {
+        qrImg.src = dynamicQrUrl;
+      };
+      tempImg.src = dynamicQrUrl;
+    }
   }
 
   updateClock() {
