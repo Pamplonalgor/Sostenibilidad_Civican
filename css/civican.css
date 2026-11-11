@@ -308,28 +308,28 @@ html, body {
 
 @media (max-width: 720px) {
   .mode-navigation-bar {
-    top: 76px;
-    padding: 8px 12px;
+    top: 56px !important;
+    padding: 6px 10px !important;
   }
 
   .mode-navigation-inner {
-    padding: 4px;
-    gap: 6px;
+    padding: 3px !important;
+    gap: 4px !important;
   }
 
   .mode-pill-btn {
-    min-height: 48px;
-    padding: 8px 10px;
-    font-size: 0.95rem;
-    gap: 6px;
+    min-height: 40px !important;
+    padding: 6px 8px !important;
+    font-size: 0.92rem !important;
+    gap: 5px !important;
   }
 
   .mode-pill-btn .mode-name {
-    font-size: 0.98rem;
+    font-size: 0.92rem !important;
   }
 
   .mode-pill-btn .mode-sub {
-    display: none; /* En teléfonos móviles ahorramos espacio para un botón limpio y gigante */
+    display: none !important;
   }
 }
 
@@ -1397,74 +1397,263 @@ body.senior-large-font .card-title {
 }
 
 @media (max-width: 720px) {
+  html, body, #app-viewport {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
+  /* Cabecera Tipo App Móvil Moderna (Compacta y sin desbordamientos) */
   .kiosk-header {
-    padding: 10px 14px;
-    min-height: 76px;
-    gap: 8px;
+    padding: 6px 12px !important;
+    min-height: 56px !important;
+    height: 56px !important;
+    gap: 6px !important;
+    position: sticky !important;
+    top: 0 !important;
+    box-shadow: 0 2px 10px rgba(19, 34, 46, 0.05) !important;
   }
 
   .logo-frame {
-    padding: 6px 12px;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
   .civican-logo-img {
-    height: 48px;
-    max-width: 180px;
+    height: 36px !important;
+    max-width: 125px !important;
+    object-fit: contain !important;
   }
 
   .kiosk-header-actions {
-    gap: 8px;
+    gap: 6px !important;
   }
 
   .header-btn {
-    min-height: 48px;
-    padding: 8px 12px;
-    font-size: 0.95rem;
+    min-height: 38px !important;
+    padding: 6px 10px !important;
+    font-size: 0.85rem !important;
+    gap: 5px !important;
+    border-radius: var(--radius-pill) !important;
+    box-shadow: 0 1.5px 0 var(--rule) !important;
+  }
+
+  .header-btn-home {
+    min-height: 38px !important;
+    padding: 6px 12px !important;
+    box-shadow: 0 1.5px 0 #000 !important;
+  }
+
+  /* Barra Selectora de Modo (Trivial vs Juego) Pegada a la Cabecera Móvil */
+  .mode-navigation-bar {
+    top: 56px !important;
+    padding: 6px 10px !important;
+    background: rgba(250, 248, 245, 0.96) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 2px 8px rgba(19, 34, 46, 0.04) !important;
+    border-bottom: 1px solid var(--rule) !important;
+  }
+
+  .mode-navigation-inner {
+    padding: 3px !important;
+    gap: 4px !important;
+    max-width: 100% !important;
+    border-radius: var(--radius-pill) !important;
+  }
+
+  .mode-pill-btn {
+    min-height: 40px !important;
+    padding: 6px 8px !important;
+    font-size: 0.92rem !important;
+    gap: 5px !important;
+    border-radius: var(--radius-pill) !important;
+  }
+
+  .mode-pill-btn i {
+    font-size: 1rem !important;
+  }
+
+  .mode-pill-btn .mode-name {
+    font-size: 0.92rem !important;
+  }
+
+  .mode-pill-btn .mode-sub {
+    display: none !important;
+  }
+
+  /* Contenedor Principal de Pantalla Móvil */
+  .view-container {
+    padding: 12px 10px 36px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .landing-hero {
+    margin-bottom: 16px !important;
+    padding: 0 4px !important;
+  }
+
+  .hero-pill-badge {
+    font-size: 0.8rem !important;
+    padding: 4px 10px !important;
+    margin-bottom: 8px !important;
   }
 
   .landing-title {
-    font-size: 2rem;
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 8px !important;
   }
 
   .landing-subtitle {
-    font-size: 1.15rem;
+    font-size: 0.98rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .touch-invitation-strip {
+    font-size: 0.88rem !important;
+    padding: 8px 12px !important;
+    border-radius: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Tarjetas de Experiencias en Móvil */
+  .experiences-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
   }
 
   .experience-card {
-    padding: 24px 20px;
+    padding: 16px 14px !important;
+    border-radius: 16px !important;
+    border: 1px solid var(--rule) !important;
+    box-shadow: 0 3px 0 #E0DACB, 0 6px 16px rgba(19, 34, 46, 0.04) !important;
+  }
+
+  .card-top-bar {
+    margin-bottom: 10px !important;
+  }
+
+  .card-main-info {
+    gap: 12px !important;
+    margin-bottom: 10px !important;
   }
 
   .card-icon-bubble {
-    width: 60px;
-    height: 60px;
-    font-size: 1.6rem;
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 1.25rem !important;
+    border-radius: 12px !important;
+  }
+
+  .card-title {
+    font-size: 1.25rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .card-summary {
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 12px !important;
   }
 
   .btn-card-cta {
-    min-height: 64px;
-    font-size: 1.2rem;
+    min-height: 52px !important;
+    font-size: 1.05rem !important;
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+  }
+
+  /* Modo Trivial Dentro del Juego */
+  .game-top-nav {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .game-title-group h2 {
+    font-size: 1.15rem !important;
+    line-height: 1.25 !important;
   }
 
   .game-layout-split {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
   }
 
   .visual-scene-box {
-    max-height: 250px;
-    padding: 12px;
+    max-height: 180px !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .visual-scene-box svg {
+    max-height: 140px !important;
+    width: 100% !important;
+  }
+
+  .situation-heading {
+    font-size: 1.15rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .options-list {
+    gap: 10px !important;
   }
 
   .option-card-touch {
-    min-height: 64px;
-    font-size: 1.1rem;
-    padding: 16px 18px;
+    min-height: 54px !important;
+    font-size: 1rem !important;
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+    gap: 10px !important;
+  }
+
+  .option-indicator {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.95rem !important;
+  }
+
+  .option-title {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .feedback-box-editorial {
+    padding: 14px 14px !important;
+    border-radius: 12px !important;
+    margin-top: 14px !important;
+  }
+
+  .feedback-header h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .feedback-body-editorial {
+    font-size: 0.95rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .btn-continue-step {
+    min-height: 54px !important;
+    font-size: 1.08rem !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    margin-top: 14px !important;
   }
 
   .landing-footer-sources {
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
+    gap: 12px;
+    padding: 16px 14px;
   }
 
   .sources-teaser {
@@ -1474,9 +1663,11 @@ body.senior-large-font .card-title {
 
   .results-actions-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .modal-actions-pair {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 }

@@ -15,7 +15,7 @@ class CivicanPantallaShowcase {
 
     this.currentIndex = 0;
     this.totalSlides = this.slides.length;
-    this.slideDuration = 8000; // 8 segundos por diapositiva
+    this.slideDuration = 14000; // 14 segundos por diapositiva para lectura cómoda en el Atrio
     this.timerInterval = null;
     this.progressInterval = null;
     this.startTime = Date.now();

@@ -111,13 +111,13 @@ class CivicanGamificationApp {
     this.gameContainer.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">
-            Simulador Urbano: Transforma tu barrio
+          <h2 style="font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:var(--ink);">
+            Simulador de barrio
           </h2>
         </div>
-        <div style="display:flex; align-items:center; gap:12px;">
-          <button class="header-btn" id="btn-back-landing">
-            <i class="fa-solid fa-arrow-left"></i> Cambiar juego
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="header-btn" id="btn-back-landing" aria-label="Volver a los retos">
+            <i class="fa-solid fa-arrow-left"></i> <span>Volver</span>
           </button>
         </div>
       </div>
@@ -577,14 +577,14 @@ class CivicanGamificationApp {
     this.gameContainer.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">
-            Estampador de Noticias: Mesa de Verificación
+          <h2 style="font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:var(--ink);">
+            Estampador de noticias
           </h2>
         </div>
-        <div style="display:flex; align-items:center; gap:12px;">
-          <div class="step-indicator">Caso ${this.currentStamperIndex + 1} de ${this.stamperCases.length}</div>
-          <button class="header-btn" id="btn-back-landing">
-            <i class="fa-solid fa-arrow-left"></i> Cambiar juego
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="step-indicator" style="font-size:0.85rem; padding:4px 8px;">Caso ${this.currentStamperIndex + 1}/${this.stamperCases.length}</div>
+          <button class="header-btn" id="btn-back-landing" aria-label="Volver a los retos">
+            <i class="fa-solid fa-arrow-left"></i> <span>Volver</span>
           </button>
         </div>
       </div>
@@ -721,13 +721,13 @@ class CivicanGamificationApp {
     this.gameContainer.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">
-            Rastreador GPS: La ruta secreta del reciclaje textil
+          <h2 style="font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:var(--ink);">
+            Rastreador GPS
           </h2>
         </div>
-        <div style="display:flex; align-items:center; gap:12px;">
-          <button class="header-btn" id="btn-back-landing">
-            <i class="fa-solid fa-arrow-left"></i> Cambiar juego
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="header-btn" id="btn-back-landing" aria-label="Volver a los retos">
+            <i class="fa-solid fa-arrow-left"></i> <span>Volver</span>
           </button>
         </div>
       </div>
@@ -868,13 +868,13 @@ class CivicanGamificationApp {
     this.gameContainer.innerHTML = `
       <div class="game-top-nav">
         <div class="game-title-group">
-          <h2 style="font-family:var(--font-display); font-size:1.65rem; font-weight:800; color:var(--ink);">
-            Rompecadenas: Desactiva las excusas del retardismo
+          <h2 style="font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:var(--ink);">
+            Rompecadenas
           </h2>
         </div>
-        <div style="display:flex; align-items:center; gap:12px;">
-          <button class="header-btn" id="btn-back-landing">
-            <i class="fa-solid fa-arrow-left"></i> Cambiar juego
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="header-btn" id="btn-back-landing" aria-label="Volver a los retos">
+            <i class="fa-solid fa-arrow-left"></i> <span>Volver</span>
           </button>
         </div>
       </div>
