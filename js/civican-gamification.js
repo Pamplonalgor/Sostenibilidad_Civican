@@ -123,7 +123,7 @@ class CivicanGamificationApp {
       </div>
 
       <div class="simulator-workspace">
-        <!-- Escena del Barrio y Caso Real Dinámico -->
+        <!-- 1. Escena del Barrio y Medidores en Vivo -->
         <div class="simulator-scene-canvas">
           <div class="simulator-svg-box" id="sim-svg-target">
             ${this.getNeighborhoodSvg()}
@@ -150,14 +150,9 @@ class CivicanGamificationApp {
               </div>
             </div>
           </div>
-
-          <!-- Tarjeta Dinámica de Caso Real y Beneficios Medidos -->
-          <div id="sim-case-story-container">
-            ${this.getRealCaseStoryHtml()}
-          </div>
         </div>
 
-        <!-- Panel de Palancas Táctiles -->
+        <!-- 2. Panel de Palancas Táctiles (Inmediatamente debajo para interactuar sin scroll) -->
         <div class="levers-control-panel">
           <div>
             <h3 class="levers-panel-title">Toca las palancas para transformar el barrio</h3>
@@ -205,8 +200,15 @@ class CivicanGamificationApp {
               <div class="tactile-toggle-handle"></div>
             </div>
           </div>
+        </div>
 
-          <div style="background:var(--forest-soft); border-left:4px solid var(--forest); border-radius:var(--radius-sm); padding:14px 18px; font-size:0.95rem; color:var(--forest); font-weight:600;">
+        <!-- 3. Tarjeta Dinámica de Caso Real y Beneficios Medidos (Se actualiza al tocar cada palanca) -->
+        <div class="simulator-story-wrapper">
+          <div id="sim-case-story-container">
+            ${this.getRealCaseStoryHtml()}
+          </div>
+
+          <div style="background:var(--forest-soft); border-left:4px solid var(--forest); border-radius:var(--radius-sm); padding:12px 14px; font-size:0.9rem; color:var(--forest); font-weight:600; margin-top:10px;">
             <i class="fa-solid fa-lightbulb"></i> <strong>Conclusión ecosocial (Andreu Escrivà):</strong> Reducir el despilfarro de materiales no es vivir peor, sino tener mejor salud, aire limpio y espacios para convivir.
           </div>
         </div>
@@ -601,13 +603,15 @@ class CivicanGamificationApp {
           <div class="stamp-seal-badge" id="stamp-badge">VEREDICTO</div>
         </div>
 
-        <!-- Botones de Estampado Táctil -->
+        <!-- Botones de Estampado Táctil Tipo App -->
         <div class="stamp-actions-row">
-          <button class="btn-stamp-touch stamp-verified" id="btn-stamp-verified">
-            <i class="fa-solid fa-stamp"></i> Estampar: INFORMACIÓN RIGUROSA
+          <button class="btn-stamp-touch stamp-verified" id="btn-stamp-verified" aria-label="Noticia Rigurosa y Verdadera">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Noticia Real</span>
           </button>
-          <button class="btn-stamp-touch stamp-hoax" id="btn-stamp-hoax">
-            <i class="fa-solid fa-stamp"></i> Estampar: ALERTA BULO
+          <button class="btn-stamp-touch stamp-hoax" id="btn-stamp-hoax" aria-label="Alerta Bulo o Desinformación">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Alerta Bulo</span>
           </button>
         </div>
 
@@ -623,9 +627,9 @@ class CivicanGamificationApp {
             ${item.evidenceData}
           </div>
 
-          <div style="margin-top:18px; display:flex; justify-content:flex-end;">
-            <button class="header-btn" id="btn-next-stamper" style="background:var(--ink); color:#FFF;">
-              <span>${this.currentStamperIndex < this.stamperCases.length - 1 ? 'Siguiente caso' : 'Completar mesa'}</span> <i class="fa-solid fa-arrow-right"></i>
+          <div style="margin-top:14px; display:flex; justify-content:flex-end;">
+            <button class="btn-card-cta" id="btn-next-stamper" style="background:var(--ink); color:#FFF; min-height:48px; padding:10px 18px; border-radius:12px; font-size:1rem;">
+              <span>${this.currentStamperIndex < this.stamperCases.length - 1 ? 'Siguiente noticia' : 'Completar reto'}</span> <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
         </div>
@@ -786,30 +790,41 @@ class CivicanGamificationApp {
           </div>
         </div>
 
-        <!-- Línea Temporal de la Investigación -->
+        <!-- Línea Temporal Interactiva y Compacta -->
         <div class="gps-route-steps">
           <div>
-            <h3 style="font-family:var(--font-display); font-size:1.45rem; font-weight:800; color:var(--ink); margin-bottom:4px;">
-              Toca cada parada del rastreador
+            <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:800; color:var(--ink); margin-bottom:2px;">
+              Ruta del Rastreador Satelital
             </h3>
-            <p style="font-size:0.98rem; color:var(--ink-secondary); margin-bottom:12px;">
-              Investigación real de periodistas con 10 localizadores GPS cosidos en ropa entregada para reciclar.
+            <p style="font-size:0.88rem; color:var(--ink-secondary); margin-bottom:10px;">
+              Investigación real de periodistas con 10 localizadores GPS en ropa.
             </p>
           </div>
 
-          ${this.waypoints.map((item, idx) => `
-            <div class="gps-waypoint-pill ${idx === this.currentWaypoint ? 'active' : ''}" data-idx="${idx}">
-              <div class="waypoint-step-num">${item.num}</div>
-              <div class="waypoint-text">
-                <h5>${item.title}</h5>
-                <p>${item.desc}</p>
-              </div>
-            </div>
-          `).join('')}
+          <!-- Selector de Paradas en Botones Horizontales -->
+          <div class="gps-stepper-bar">
+            ${this.waypoints.map((item, idx) => `
+              <button class="gps-step-tab ${idx === this.currentWaypoint ? 'active' : ''}" data-idx="${idx}" aria-label="${item.title}">
+                <span class="step-badge">${item.num}</span>
+                <span class="step-name">${item.title.split(':')[1]?.replace('Tienda en ', '').replace('Puerto marítimo de ', '').replace('Barco en el ', '').replace('Vertedero en ', '').trim() || item.title}</span>
+              </button>
+            `).join('')}
+          </div>
 
-          <!-- Nota de Investigación Activa -->
-          <div style="background:var(--terracotta-soft); border-radius:var(--radius-sm); padding:14px 18px; border-left:4px solid var(--terracotta); font-size:0.95rem; color:var(--ink); line-height:1.45;">
-            ${wp.investigationNote}
+          <!-- Ficha de la Parada Activa -->
+          <div class="gps-active-card">
+            <div class="gps-active-header">
+              <span class="gps-badge-stop">Parada ${wp.num} de 4</span>
+              <h4 class="gps-active-title">${wp.title}</h4>
+            </div>
+            <p class="gps-active-desc">${wp.desc}</p>
+            <div class="gps-active-note">${wp.investigationNote}</div>
+
+            <div style="margin-top:12px; display:flex; justify-content:flex-end;">
+              <button class="btn-card-cta" id="btn-next-gps" style="background:var(--terracotta); min-height:46px; padding:8px 16px; border-radius:12px; font-size:0.95rem;">
+                <span>${this.currentWaypoint < 3 ? 'Avanzar siguiente parada' : 'Reiniciar ruta'}</span> <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -819,11 +834,20 @@ class CivicanGamificationApp {
       this.showView('landing');
     });
 
-    document.querySelectorAll('.gps-waypoint-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        this.currentWaypoint = parseInt(pill.dataset.idx, 10);
+    const btnNextGps = document.getElementById('btn-next-gps');
+    if (btnNextGps) {
+      btnNextGps.addEventListener('click', () => {
+        this.currentWaypoint = (this.currentWaypoint + 1) % this.waypoints.length;
         this.renderGpsCurrentView();
       });
+    }
+
+    document.querySelectorAll('.gps-step-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        this.currentWaypoint = parseInt(tab.dataset.idx, 10);
+        this.renderGpsCurrentView();
+      });
+    });
     });
   }
 
@@ -880,56 +904,76 @@ class CivicanGamificationApp {
       </div>
 
       <div class="chain-breaker-workspace">
-        <h3 style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--ink); margin-bottom:8px;">
+        <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:800; color:var(--ink); margin-bottom:4px;">
           3 candados que bloquean la acción ciudadana
         </h3>
-        <p style="font-size:1.1rem; color:var(--ink-secondary); max-width:780px; margin:0 auto;">
-          Toca la llave de razonamiento crítico que desmonta cada una de las trampas del discurso del retraso.
+        <p style="font-size:0.92rem; color:var(--ink-secondary); max-width:640px; margin-bottom:12px;">
+          Toca la llave con el argumento científico que desactiva cada excusa del retraso.
         </p>
 
-        <!-- Pista de los 3 Candados -->
+        <!-- Pista de los 3 Candados Compacta -->
         <div class="locks-chain-track">
           ${this.locksData.map((lock, i) => `
             <div class="lock-station-card ${this.brokenLocks[i] ? 'broken' : ''}">
               <div class="lock-station-icon">
                 <i class="fa-solid ${this.brokenLocks[i] ? 'fa-lock-open' : 'fa-lock'}"></i>
               </div>
+              <div class="lock-station-name">Candado ${i + 1}</div>
               <div class="lock-excuse-quote">${lock.excuse}</div>
-              <div style="font-size:0.88rem; font-weight:800; color:${this.brokenLocks[i] ? 'var(--forest)' : 'var(--terracotta)'};">
-                ${this.brokenLocks[i] ? '✓ CANDADO ROTO' : `CANDADO ${i + 1} BLOQUEADO`}
+              <div class="lock-status-tag" style="color:${this.brokenLocks[i] ? 'var(--forest)' : 'var(--terracotta)'}; font-weight:800; font-size:0.78rem;">
+                ${this.brokenLocks[i] ? '✓ DESACTIVADO' : 'BLOQUEADO'}
               </div>
-              ${this.brokenLocks[i] ? `
-                <div class="chain-evidence-box">
-                  ${lock.scientificDebunk}
+            </div>
+          `).join('')}
+        </div>
+
+        ${allBroken ? `
+          <!-- Banner de Misión Superada -->
+          <div class="chain-break-banner active">
+            <div style="font-size:2rem; margin-bottom:8px;"><i class="fa-solid fa-trophy"></i></div>
+            <div style="font-size:1.25rem; font-weight:800; margin-bottom:6px;">¡Cadena rota con éxito!</div>
+            <p style="font-size:0.95rem; font-weight:500; opacity:0.95; line-height:1.45;">
+              Has desactivado las 3 trampas del discurso del retraso con datos contrastados del IPCC y Andreu Escrivà. Un futuro habitable se conquista actuando en común.
+            </p>
+            <div style="margin-top:14px;">
+              <button class="header-btn" id="btn-restart-chain" style="background:#FFFFFF; color:var(--forest); font-weight:800; min-height:44px; border-radius:999px;">
+                <i class="fa-solid fa-rotate-left"></i> <span>Volver a jugar</span>
+              </button>
+            </div>
+          </div>
+        ` : `
+          <!-- Armero de Llaves Táctiles Compactas -->
+          <div class="keys-rack">
+            ${this.locksData.map((lock, i) => `
+              <div class="key-card-touch ${this.brokenLocks[i] ? 'used' : ''}" data-index="${i}">
+                <div class="key-number-tag">
+                  <i class="fa-solid ${this.brokenLocks[i] ? 'fa-check' : 'fa-key'}"></i> ${lock.labelKey}
                 </div>
-              ` : ''}
-            </div>
-          `).join('')}
-        </div>
-
-        <!-- Armero de Llaves Táctiles -->
-        <div class="keys-rack">
-          ${this.locksData.map((lock, i) => `
-            <div class="key-card-touch ${this.brokenLocks[i] ? 'used' : ''}" data-index="${i}">
-              <div class="key-number-tag">
-                <i class="fa-solid fa-key"></i> ${lock.labelKey}
+                <div class="key-label">${this.brokenLocks[i] ? '✓ Candado ' + (i + 1) + ' superado' : 'Tocar para desbloquear candado ' + (i + 1)}</div>
+                <div class="key-detail">${lock.descKey}</div>
+                ${this.brokenLocks[i] ? `
+                  <div class="chain-evidence-box" style="margin-top:8px;">
+                    ${lock.scientificDebunk}
+                  </div>
+                ` : ''}
               </div>
-              <div class="key-label">Tocar para romper candado ${i + 1}</div>
-              <div class="key-detail">${lock.descKey}</div>
-            </div>
-          `).join('')}
-        </div>
-
-        <!-- Banner de Misión Superada -->
-        <div class="chain-break-banner ${allBroken ? 'active' : ''}">
-          <i class="fa-solid fa-trophy"></i> ¡Cadena rota! Has desactivado las narrativas del retraso. Un futuro habitable se conquista actuando en común.
-        </div>
+            `).join('')}
+          </div>
+        `}
       </div>
     `;
 
     document.getElementById('btn-back-landing').addEventListener('click', () => {
       this.showView('landing');
     });
+
+    const btnRestart = document.getElementById('btn-restart-chain');
+    if (btnRestart) {
+      btnRestart.addEventListener('click', () => {
+        this.brokenLocks = [false, false, false];
+        this.renderChainBreakerCurrentView();
+      });
+    }
 
     document.querySelectorAll('.key-card-touch').forEach(card => {
       card.addEventListener('click', () => {

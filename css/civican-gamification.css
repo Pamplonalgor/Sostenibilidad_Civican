@@ -55,14 +55,21 @@
    ========================================================================== */
 .simulator-workspace {
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 28px;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
   align-items: start;
   background: var(--surface);
   border-radius: var(--radius-lg);
   border: 2px solid var(--rule);
-  padding: 30px;
+  padding: 24px;
   box-shadow: var(--shadow-card);
+}
+
+.simulator-story-wrapper {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .simulator-scene-canvas {
@@ -605,7 +612,103 @@
 .gps-route-steps {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+}
+
+/* Stepper Horizontal Interactivo para GPS */
+.gps-stepper-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 0 6px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gps-step-tab {
+  flex: 1;
+  min-width: 68px;
+  background: var(--canvas);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--radius-pill);
+  padding: 6px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.gps-step-tab.active {
+  background: var(--terracotta);
+  color: #FFFFFF;
+  border-color: var(--terracotta);
+  box-shadow: 0 2px 8px rgba(182, 72, 42, 0.25);
+}
+
+.gps-step-tab .step-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(19, 34, 46, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.gps-step-tab.active .step-badge {
+  background: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+}
+
+.gps-active-card {
+  background: var(--surface);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  animation: slideFadeIn 0.2s ease-out forwards;
+}
+
+.gps-badge-stop {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  letter-spacing: 0.5px;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+.gps-active-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.gps-active-desc {
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.gps-active-note {
+  background: var(--terracotta-soft);
+  border-left: 3.5px solid var(--terracotta);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 0.86rem;
+  color: var(--ink);
+  line-height: 1.4;
 }
 
 .gps-waypoint-pill {
@@ -840,8 +943,8 @@
 
   .simulator-svg-box {
     height: auto !important;
-    max-height: 180px !important;
-    aspect-ratio: 540 / 270;
+    max-height: 150px !important;
+    aspect-ratio: 540 / 250;
     width: 100% !important;
   }
 
@@ -928,16 +1031,16 @@
   }
 
   .tactile-lever-card {
-    padding: 10px 12px !important;
-    min-height: 54px !important;
-    gap: 10px !important;
+    padding: 8px 10px !important;
+    min-height: 48px !important;
+    gap: 8px !important;
     border-radius: 12px !important;
   }
 
   .lever-icon-cell {
-    width: 38px !important;
-    height: 38px !important;
-    font-size: 1.15rem !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.1rem !important;
     border-radius: 10px !important;
   }
 
@@ -1019,52 +1122,74 @@
   /* 3. MÓDULO: RASTREADOR SATELITAL GPS */
   .gps-satellite-workspace {
     grid-template-columns: 1fr !important;
-    padding: 14px 12px !important;
+    padding: 12px 10px !important;
     border-radius: 16px !important;
-    gap: 14px !important;
+    gap: 12px !important;
     border: 1.5px solid var(--rule) !important;
     box-shadow: 0 2px 10px rgba(19, 34, 46, 0.05) !important;
   }
 
   .satellite-map-box {
-    padding: 12px 10px !important;
+    padding: 10px 8px !important;
     border-radius: 12px !important;
   }
 
   .satellite-map-box svg {
-    height: 180px !important;
+    height: 150px !important;
+    max-height: 150px !important;
     width: 100% !important;
   }
 
   .gps-route-steps {
-    gap: 10px !important;
+    gap: 8px !important;
   }
 
-  .gps-waypoint-pill {
+  .gps-stepper-bar {
+    display: flex !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    padding: 2px 0 4px 0 !important;
+  }
+
+  .gps-step-tab {
+    flex: 1 !important;
+    min-width: 65px !important;
+    padding: 6px 4px !important;
+    font-size: 0.78rem !important;
+    gap: 4px !important;
+  }
+
+  .gps-step-tab .step-badge {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .gps-active-card {
     padding: 10px 12px !important;
     border-radius: 12px !important;
-    gap: 8px !important;
-    min-height: 48px !important;
   }
 
-  .waypoint-num-bubble {
-    width: 32px !important;
-    height: 32px !important;
-    font-size: 0.95rem !important;
+  .gps-active-title {
+    font-size: 1.05rem !important;
+    margin-bottom: 4px !important;
   }
 
-  .waypoint-title {
-    font-size: 0.95rem !important;
+  .gps-active-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 8px !important;
   }
 
-  .waypoint-desc {
+  .gps-active-note {
+    padding: 8px 10px !important;
     font-size: 0.82rem !important;
   }
 
   .textile-facts-strip {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 6px !important;
-    margin-top: 10px !important;
+    margin-top: 8px !important;
   }
 
   .textile-fact-item {
@@ -1072,7 +1197,7 @@
   }
 
   .textile-fact-item strong {
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
   }
 
   .textile-fact-item span {
@@ -1081,55 +1206,67 @@
 
   /* 4. MÓDULO: ROMPECADENAS */
   .chain-breaker-workspace {
-    padding: 14px 12px !important;
+    padding: 12px 10px !important;
     border-radius: 16px !important;
-    gap: 14px !important;
+    gap: 12px !important;
     border: 1.5px solid var(--rule) !important;
     box-shadow: 0 2px 10px rgba(19, 34, 46, 0.05) !important;
   }
 
   .locks-chain-track {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px !important;
-    margin: 12px 0 16px 0 !important;
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 6px !important;
+    justify-content: space-between !important;
+    margin: 8px 0 12px 0 !important;
   }
 
   .lock-station-card {
-    padding: 10px 6px !important;
+    flex: 1 !important;
+    padding: 8px 4px !important;
     border-radius: 10px !important;
-    gap: 6px !important;
+    gap: 4px !important;
+    text-align: center !important;
   }
 
   .lock-station-icon {
-    font-size: 1.8rem !important;
+    font-size: 1.5rem !important;
   }
 
   .lock-station-name {
-    font-size: 0.72rem !important;
+    font-size: 0.7rem !important;
   }
 
   .lock-excuse-quote {
-    font-size: 0.78rem !important;
-    line-height: 1.25 !important;
+    font-size: 0.74rem !important;
+    line-height: 1.2 !important;
   }
 
   .keys-rack {
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 8px !important;
   }
 
   .key-card-touch {
     padding: 10px 12px !important;
     border-radius: 12px !important;
-    min-height: 52px !important;
+    min-height: 48px !important;
   }
 
   .key-label {
-    font-size: 0.98rem !important;
+    font-size: 0.92rem !important;
   }
 
   .key-detail {
-    font-size: 0.84rem !important;
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .chain-break-banner {
+    padding: 16px 14px !important;
+    border-radius: 14px !important;
+    margin-top: 10px !important;
   }
 }
 
