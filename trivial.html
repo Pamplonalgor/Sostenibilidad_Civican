@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tu impacto en juego | CIVICAN - Fundación Caja Navarra</title>
+  <meta name="description" content="Instalación interactiva para pantalla táctil en CIVICAN. Cuatro experiencias educativas sobre sostenibilidad, acción comunitaria y detección de desinformación.">
+
+  <!-- Estilos Dedicados de la Experiencia Quiosco CIVICAN -->
+  <link rel="stylesheet" href="css/civican.css">
+  <link rel="stylesheet" href="css/civican-gamification.css">
+  
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="app-viewport">
+
+    <!-- CABECERA DE QUIOSCO SUPERIOR -->
+    <header class="kiosk-header" role="banner">
+      <div class="kiosk-brand">
+        <!-- Logo Institucional CIVICAN / Fundación Caja Navarra -->
+        <div class="logo-frame" title="Fundación Caja Navarra - CIVICAN">
+          <img src="assets/civican-logo.png" alt="Fundación Caja Navarra - Civican" class="civican-logo-img">
+        </div>
+
+        <div class="brand-divider hide-mobile"></div>
+
+        <div class="header-meta hide-mobile">
+          <span class="tag-kicker">Exposición Interactiva · Videowall Atrio</span>
+          <span class="header-event-title">Tu impacto en juego</span>
+          <span class="header-event-subtitle">CIVICAN · Fundación Caja Navarra</span>
+        </div>
+      </div>
+
+      <!-- Acciones de Navegación del Quiosco y Accesibilidad -->
+      <nav class="kiosk-header-actions" aria-label="Navegación general">
+        <!-- Enlace a la pantalla videowall para ordenadores de presentación -->
+        <a href="pantalla.html" class="header-btn hide-mobile" title="Ver pantalla Atrio CIVICAN (Videowall)">
+          <i class="fa-solid fa-tv"></i>
+          <span>Pantalla Atrio</span>
+        </a>
+
+        <!-- Botón de Accesibilidad para Mayores: Tamaño de Letra -->
+        <button class="header-btn" id="btn-toggle-font" aria-label="Cambiar tamaño de letra para lectura cómoda">
+          <i class="fa-solid fa-text-height"></i>
+          <span>Letra grande</span>
+        </button>
+
+        <button class="header-btn hide-mobile" id="btn-open-sources" aria-label="Ver fuentes y curaduría">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Fuentes</span>
+        </button>
+
+        <!-- Botón permanente de volver al inicio -->
+        <button class="header-btn header-btn-home" id="btn-global-home" aria-label="Volver al menú de inicio">
+          <i class="fa-solid fa-house"></i>
+          <span>Inicio</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- ====================================================================
+         BARRA SELECTORA DE MODO (MÓVIL Y DESKTOP: TRIVIAL vs JUEGO)
+         ==================================================================== -->
+    <nav class="mode-navigation-bar" aria-label="Elegir modo de participación">
+      <div class="mode-navigation-inner">
+        <a href="index.html" class="mode-pill-btn active" id="tab-mode-trivial" aria-label="Modo Trivial">
+          <i class="fa-solid fa-circle-question"></i>
+          <span class="mode-name">Modo Trivial</span>
+          <span class="mode-sub">Preguntas &amp; Datos</span>
+        </a>
+        <a href="prototipo2.html" class="mode-pill-btn" id="tab-mode-juego" aria-label="Modo Juego">
+          <i class="fa-solid fa-gamepad"></i>
+          <span class="mode-name">Modo Juego</span>
+          <span class="mode-sub">Simuladores</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ====================================================================
+         VISTA 1: PORTADA / LANDING (MODO TRIVIAL: 4 PREGUNTAS CLAVE)
+         ==================================================================== -->
+    <main id="view-landing" class="view-container active">
+      <div class="landing-hero">
+        <div class="hero-pill-badge">
+          <i class="fa-solid fa-circle-question"></i> Modo Trivial: Preguntas &amp; Reflexión
+        </div>
+        <h1 class="landing-title">Tu impacto en juego</h1>
+        <p class="landing-subtitle">
+          Pon a prueba lo que sabes sobre reciclaje, ropa y bulos climáticos con 4 preguntas interactivas basadas en la ciencia.
+        </p>
+        <div class="touch-invitation-strip">
+          <i class="fa-solid fa-hand-pointer"></i> Toca una tarjeta para responder:
+        </div>
+      </div>
+
+      <!-- Cuadrícula 2x2 de Experiencias con Tipología Destacada -->
+      <section class="experiences-grid" id="landing-experiences-grid" aria-label="Experiencias disponibles">
+        <!-- Renderizado dinámico desde civican-app.js -->
+      </section>
+
+      <!-- Pie de Portada: Colaboración y Fuentes -->
+      <footer class="landing-footer-sources">
+        <div class="sources-teaser">
+          <div class="sources-logos-group">
+            <img src="assets/civican-logo.png" alt="CIVICAN · Fundación Caja Navarra" class="footer-partner-logo">
+          </div>
+          <div class="sources-teaser-text">
+            <h4>Una iniciativa de pensamiento crítico y cultura ciudadana</h4>
+            <p>Concebida para el espacio <strong>CIVICAN (Fundación Caja Navarra)</strong>, basada en las investigaciones ecosociales de <strong>Andreu Escrivà</strong> y las herramientas periodísticas de <strong>Verificat / Desfake</strong>.</p>
+          </div>
+        </div>
+        <button class="header-btn" id="btn-open-sources-landing">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Curaduría y Fuentes</span>
+        </button>
+      </footer>
+    </main>
+
+    <!-- ====================================================================
+         VISTA 2: PANTALLA DE JUEGO ACTIVO (A, B, C, D)
+         ==================================================================== -->
+    <section id="view-game" class="view-container">
+      <div class="game-play-area" id="game-dynamic-content">
+        <!-- Renderizado dinámico del paso del juego actual -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VISTA 3: PANTALLA DE RESULTADOS / CIERRE
+         ==================================================================== -->
+    <section id="view-results" class="view-container">
+      <div id="results-dynamic-content">
+        <!-- Renderizado dinámico de resultados y conclusiones -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ======================================================================
+       MODAL 1: TEMPORIZADOR DE INACTIVIDAD (¿SIGUES AHÍ?)
+       ====================================================================== -->
+  <div class="modal-overlay" id="idle-modal" role="dialog" aria-modal="true" aria-labelledby="idle-title">
+    <div class="modal-content-box">
+      <div class="modal-icon-alert">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+      </div>
+      <h3 class="modal-title" id="idle-title">¿Sigues ahí?</h3>
+      <p class="modal-body-text">
+        La pantalla táctil detecta inactividad. Si nadie continúa interactuando, la sesión se reiniciará automáticamente para el siguiente visitante en:
+      </p>
+      <!-- Cuenta atrás circular visual e interactiva -->
+      <div class="idle-countdown-wrap" role="timer" aria-live="polite">
+        <svg class="idle-countdown-svg" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="idle-circle-bg" cx="80" cy="80" r="68"></circle>
+          <circle class="idle-circle-bar" id="idle-progress-circle" cx="80" cy="80" r="68"></circle>
+        </svg>
+        <div class="idle-countdown-core">
+          <span class="idle-countdown-num" id="idle-seconds">15</span>
+          <span class="idle-countdown-label">segundos</span>
+        </div>
+      </div>
+      <div class="modal-actions-pair">
+        <button class="btn-modal-action primary" id="btn-keep-playing">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Seguir jugando</span>
+        </button>
+        <button class="btn-modal-action secondary" id="btn-exit-idle">
+          <i class="fa-solid fa-house"></i>
+          <span>Volver al inicio</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 2: CONFIRMACIÓN DE REGRESO AL INICIO
+       ====================================================================== -->
+  <div class="modal-overlay" id="exit-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="exit-title">
+    <div class="modal-content-box">
+      <div class="modal-icon-alert" style="color:var(--azul-detectives);">
+        <i class="fa-solid fa-circle-question"></i>
+      </div>
+      <h3 class="modal-title" id="exit-title">¿Quieres terminar esta partida?</h3>
+      <p class="modal-body-text">
+        Si vuelves al inicio ahora, el progreso de la partida actual se reiniciará para permitir a otro usuario comenzar una nueva experiencia desde cero.
+      </p>
+      <div class="modal-actions-pair">
+        <button class="btn-modal-action primary" id="btn-cancel-exit">
+          <i class="fa-solid fa-play"></i>
+          <span>Seguir jugando</span>
+        </button>
+        <button class="btn-modal-action secondary" id="btn-confirm-exit">
+          <i class="fa-solid fa-house"></i>
+          <span>Volver al inicio</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 3: FUENTES Y CRÉDITOS DE LA CHARLA (ANDREU ESCRIVÀ Y VERIFICAT)
+       ====================================================================== -->
+  <div class="modal-overlay" id="sources-modal" role="dialog" aria-modal="true" aria-labelledby="sources-modal-title">
+    <div class="modal-content-box sources-modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 class="modal-title" id="sources-modal-title" style="margin-bottom:0;">
+          <i class="fa-solid fa-graduation-cap"></i> Fuentes y Metodología
+        </h3>
+        <button class="header-btn" id="btn-close-sources" aria-label="Cerrar ventana de fuentes">
+          <i class="fa-solid fa-xmark"></i> Cerrar
+        </button>
+      </div>
+
+      <p class="modal-body-text" style="margin-bottom:20px;">
+        Esta exposición interactiva ha sido concebida como un recurso pedagógico riguroso. Su contenido se sustenta en dos pilares fundamentales:
+      </p>
+
+      <!-- Fuente 1: Andreu Escrivà -->
+      <div class="sources-source-card andreu">
+        <h4>Andreu Escrivà</h4>
+        <div class="sources-role">Ambientólogo, doctor en Biodiversidad y divulgador científico</div>
+        <p class="sources-desc">
+          Aporta el marco científico y social sobre <strong>los límites reales de los materiales</strong>, el debate sobre el <strong>PIB frente al bienestar humano</strong> y la fuerza de la <strong>acción comunitaria</strong> para transformar nuestros barrios en lugares más habitables y saludables.
+        </p>
+      </div>
+
+      <!-- Fuente 2: Verificat / Desfake -->
+      <div class="sources-source-card">
+        <h4>Verificat / Desfake</h4>
+        <div class="sources-role">Asociación periodística de verificación y educación mediática</div>
+        <p class="sources-desc">
+          Aporta el método de <strong>alfabetización crítica frente a los bulos</strong>: el análisis de titulares sobre cosechas y mapas del tiempo, las <strong>4 preguntas de verificación</strong>, las tácticas de manipulación (E.F.E.C.T.), la investigación real con rastreadores GPS sobre el reciclaje textil y las claves para detectar el <em>greenwashing</em>.
+        </p>
+      </div>
+
+      <!-- Fuente 3: CIVICAN -->
+      <div class="sources-source-card" style="border-left-color:var(--forest);">
+        <h4>CIVICAN (Fundación Caja Navarra)</h4>
+        <div class="sources-role">Centro cultural, social y de pensamiento</div>
+        <p class="sources-desc">
+          Instalación pedagógica concebida para el <strong>Videowall del Atrio de CIVICAN</strong> (Pamplona). Una iniciativa abierta a toda la ciudadanía para fomentar el pensamiento crítico, la cultura científica y la convivencia en el espacio público.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts de la Aplicación -->
+  <script src="js/civican-data.js"></script>
+  <script src="js/civican-kiosk.js"></script>
+  <script src="js/civican-app.js"></script>
+
+</body>
+</html>

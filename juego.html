@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tu impacto en juego | Prototipo 2: Gamificación Táctil | CIVICAN</title>
+  <meta name="description" content="Prototipo interactivo gamificado para videowall táctil en CIVICAN: simulador de barrio con palancas, estampador de noticias y rastreador GPS por satélite.">
+
+  <!-- Estilos Base y Estilos de Gamificación -->
+  <link rel="stylesheet" href="css/civican.css">
+  <link rel="stylesheet" href="css/civican-gamification.css">
+  
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="app-viewport">
+
+    <!-- CABECERA DE QUIOSCO SUPERIOR -->
+    <header class="kiosk-header" role="banner">
+      <div class="kiosk-brand">
+        <!-- Logo Institucional CIVICAN / Fundación Caja Navarra -->
+        <div class="logo-frame" title="Fundación Caja Navarra - CIVICAN">
+          <img src="assets/civican-logo.png" alt="Fundación Caja Navarra - Civican" class="civican-logo-img">
+        </div>
+
+        <div class="brand-divider hide-mobile"></div>
+
+        <div class="header-meta hide-mobile">
+          <span class="tag-kicker">Exposición Interactiva · Videowall Atrio</span>
+          <span class="header-event-title">Tu impacto en juego</span>
+          <span class="header-event-subtitle">CIVICAN · Fundación Caja Navarra</span>
+        </div>
+      </div>
+
+      <!-- Acciones de Navegación del Quiosco y Accesibilidad -->
+      <nav class="kiosk-header-actions" aria-label="Navegación general">
+        <!-- Enlace a la pantalla videowall para ordenadores de presentación -->
+        <a href="pantalla.html" class="header-btn hide-mobile" title="Ver pantalla Atrio CIVICAN (Videowall)">
+          <i class="fa-solid fa-tv"></i>
+          <span>Pantalla Atrio</span>
+        </a>
+
+        <!-- Botón de Accesibilidad para Mayores: Tamaño de Letra -->
+        <button class="header-btn" id="btn-toggle-font" aria-label="Cambiar tamaño de letra para lectura cómoda">
+          <i class="fa-solid fa-text-height"></i>
+          <span>Letra grande</span>
+        </button>
+
+        <button class="header-btn hide-mobile" id="btn-open-sources" aria-label="Ver fuentes y curaduría">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Fuentes</span>
+        </button>
+
+        <button class="header-btn header-btn-home" id="btn-global-home" aria-label="Volver al menú de inicio">
+          <i class="fa-solid fa-house"></i>
+          <span>Inicio</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- ====================================================================
+         BARRA SELECTORA DE MODO (MÓVIL Y DESKTOP: TRIVIAL vs JUEGO)
+         ==================================================================== -->
+    <nav class="mode-navigation-bar" aria-label="Elegir modo de participación">
+      <div class="mode-navigation-inner">
+        <a href="index.html" class="mode-pill-btn" id="tab-mode-trivial" aria-label="Modo Trivial">
+          <i class="fa-solid fa-circle-question"></i>
+          <span class="mode-name">Modo Trivial</span>
+          <span class="mode-sub">Preguntas &amp; Datos</span>
+        </a>
+        <a href="prototipo2.html" class="mode-pill-btn active" id="tab-mode-juego" aria-label="Modo Juego">
+          <i class="fa-solid fa-gamepad"></i>
+          <span class="mode-name">Modo Juego</span>
+          <span class="mode-sub">Simuladores</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ====================================================================
+         VISTA 1: PORTADA / SELECTOR DE RETOS GAMIFICADOS (MODO JUEGO)
+         ==================================================================== -->
+    <main id="view-landing" class="view-container active">
+      <div class="landing-hero">
+        <div class="hero-pill-badge" style="background:var(--amber-soft); color:var(--amber); border-color:var(--amber-border);">
+          <i class="fa-solid fa-gamepad"></i> Modo Juego: Simuladores Interactivos
+        </div>
+        <h1 class="landing-title">Tu impacto en juego</h1>
+        <p class="landing-subtitle">
+          Acciona palancas urbanas, rastrea ropa por satélite y caza bulos en 4 simuladores táctiles.
+        </p>
+        <div class="touch-invitation-strip">
+          <i class="fa-solid fa-hand-pointer"></i> Toca un simulador para empezar:
+        </div>
+      </div>
+
+      <!-- Cuadrícula 2x2 de Simuladores Interactivos -->
+      <section class="experiences-grid" aria-label="Simuladores disponibles">
+        <!-- Reto 1: Simulador con Palancas -->
+        <article class="experience-card" data-id="juego-a">
+          <div class="card-top-bar">
+            <span style="font-family:var(--font-display); font-size:1.2rem; font-weight:900; color:var(--ink-muted);">Reto 01</span>
+            <span class="duration-tag"><i class="fa-regular fa-clock"></i> 2-3 min</span>
+          </div>
+          <div class="card-main-info">
+            <div class="card-icon-bubble" style="background:var(--forest); color:#FFF;">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+            <div class="card-titles">
+              <h3 class="card-title">Simulador de barrio</h3>
+            </div>
+          </div>
+          <p class="card-summary">Acciona palancas y transforma el barrio.</p>
+          <div class="card-footer-action">
+            <button class="btn-card-cta btn-launch-module" data-module="mod-simulador" style="background:var(--forest); box-shadow:0 4px 0 #103C2B;">
+              <span>Activar palancas</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Reto 2: Estampador de Noticias -->
+        <article class="experience-card" data-id="juego-b">
+          <div class="card-top-bar">
+            <span style="font-family:var(--font-display); font-size:1.2rem; font-weight:900; color:var(--ink-muted);">Reto 02</span>
+            <span class="duration-tag"><i class="fa-regular fa-clock"></i> 2-3 min</span>
+          </div>
+          <div class="card-main-info">
+            <div class="card-icon-bubble" style="background:var(--cyanotype); color:#FFF;">
+              <i class="fa-solid fa-stamp"></i>
+            </div>
+            <div class="card-titles">
+              <h3 class="card-title">Estampador de noticias</h3>
+            </div>
+          </div>
+          <p class="card-summary">Estampa veredictos de rigor o bulo.</p>
+          <div class="card-footer-action">
+            <button class="btn-card-cta btn-launch-module" data-module="mod-estampador" style="background:var(--cyanotype); box-shadow:0 4px 0 #103058;">
+              <span>Mesa de estampado</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Reto 3: Rastreador Satelital GPS -->
+        <article class="experience-card" data-id="juego-c">
+          <div class="card-top-bar">
+            <span style="font-family:var(--font-display); font-size:1.2rem; font-weight:900; color:var(--ink-muted);">Reto 03</span>
+            <span class="duration-tag"><i class="fa-regular fa-clock"></i> 2 min</span>
+          </div>
+          <div class="card-main-info">
+            <div class="card-icon-bubble" style="background:var(--terracotta); color:#FFF;">
+              <i class="fa-solid fa-satellite-dish"></i>
+            </div>
+            <div class="card-titles">
+              <h3 class="card-title">Rastreador satelital GPS</h3>
+            </div>
+          </div>
+          <p class="card-summary">Rastrea la ropa por satélite.</p>
+          <div class="card-footer-action">
+            <button class="btn-card-cta btn-launch-module" data-module="mod-gps" style="background:var(--terracotta); box-shadow:0 4px 0 #7A2E19;">
+              <span>Rastrear señal GPS</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Reto 4: Rompecadenas del Retardismo -->
+        <article class="experience-card" data-id="juego-d">
+          <div class="card-top-bar">
+            <span style="font-family:var(--font-display); font-size:1.2rem; font-weight:900; color:var(--ink-muted);">Reto 04</span>
+            <span class="duration-tag"><i class="fa-regular fa-clock"></i> 2-3 min</span>
+          </div>
+          <div class="card-main-info">
+            <div class="card-icon-bubble" style="background:var(--ink); color:#FFF;">
+              <i class="fa-solid fa-link-slash"></i>
+            </div>
+            <div class="card-titles">
+              <h3 class="card-title">Rompecadenas</h3>
+            </div>
+          </div>
+          <p class="card-summary">Desactiva excusas con llaves críticas.</p>
+          <div class="card-footer-action">
+            <button class="btn-card-cta btn-launch-module" data-module="mod-rompecadenas" style="background:var(--ink); box-shadow:0 4px 0 #000000;">
+              <span>Romper candados</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <!-- Pie de Portada: Fuentes -->
+      <footer class="landing-footer-sources">
+        <div class="sources-teaser">
+          <div class="sources-logos-group">
+            <img src="assets/civican-logo.png" alt="CIVICAN · Fundación Caja Navarra" class="footer-partner-logo">
+          </div>
+          <div class="sources-teaser-text">
+            <h4>Prototipo 2: Enfoque de Gamificación e Interacción Táctil Directa</h4>
+            <p>Concebido para el espacio <strong>CIVICAN (Fundación Caja Navarra)</strong>, basado en los marcos ecosociales de <strong>Andreu Escrivà</strong> y las investigaciones de <strong>Verificat / Desfake</strong>.</p>
+          </div>
+        </div>
+        <button class="header-btn" id="btn-open-sources-landing">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Curaduría y Fuentes</span>
+        </button>
+      </footer>
+    </main>
+
+    <!-- ====================================================================
+         VISTA 2: ESPACIO DE JUEGO / SIMULADOR ACTIVO
+         ==================================================================== -->
+    <section id="view-game" class="view-container">
+      <div class="game-play-area" id="game-dynamic-content">
+        <!-- Renderizado dinámico desde civican-gamification.js -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ======================================================================
+       MODAL 1: TEMPORIZADOR DE INACTIVIDAD CON CUENTA ATRÁS CIRCULAR
+       ====================================================================== -->
+  <div class="modal-overlay" id="idle-modal" role="dialog" aria-modal="true" aria-labelledby="idle-title">
+    <div class="modal-content-box">
+      <div class="modal-icon-alert">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+      </div>
+      <h3 class="modal-title" id="idle-title">¿Sigues ahí?</h3>
+      <p class="modal-body-text">
+        La pantalla táctil detecta inactividad. Si nadie continúa interactuando, la sesión se reiniciará automáticamente para el siguiente visitante en:
+      </p>
+      
+      <!-- Cuenta atrás circular visual e interactiva -->
+      <div class="idle-countdown-wrap" role="timer" aria-live="polite">
+        <svg class="idle-countdown-svg" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="idle-circle-bg" cx="80" cy="80" r="68"></circle>
+          <circle class="idle-circle-bar" id="idle-progress-circle" cx="80" cy="80" r="68"></circle>
+        </svg>
+        <div class="idle-countdown-core">
+          <span class="idle-countdown-num" id="idle-seconds">15</span>
+          <span class="idle-countdown-label">segundos</span>
+        </div>
+      </div>
+
+      <div class="modal-actions-pair">
+        <button class="btn-modal-action primary" id="btn-keep-playing">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Seguir jugando</span>
+        </button>
+        <button class="btn-modal-action secondary" id="btn-exit-idle">
+          <i class="fa-solid fa-house"></i>
+          <span>Volver al inicio</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 2: CONFIRMAR SALIDA
+       ====================================================================== -->
+  <div class="modal-overlay" id="exit-confirm-modal" role="dialog" aria-modal="true">
+    <div class="modal-content-box">
+      <div class="modal-icon-alert" style="color:var(--forest);">
+        <i class="fa-solid fa-house"></i>
+      </div>
+      <h3 class="modal-title">¿Volver al menú principal?</h3>
+      <p class="modal-body-text">
+        El progreso actual se restablecerá para que el siguiente visitante pueda empezar desde el principio.
+      </p>
+      <div class="modal-actions-pair">
+        <button class="btn-modal-action primary" id="btn-cancel-exit">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Continuar aquí</span>
+        </button>
+        <button class="btn-modal-action secondary" id="btn-confirm-exit">
+          <i class="fa-solid fa-house"></i>
+          <span>Volver al inicio</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 3: FUENTES Y CURADURÍA
+       ====================================================================== -->
+  <div class="modal-overlay" id="sources-modal" role="dialog" aria-modal="true" aria-labelledby="sources-modal-title">
+    <div class="modal-content-box sources-modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 class="modal-title" id="sources-modal-title" style="margin-bottom:0;">
+          <i class="fa-solid fa-graduation-cap"></i> Fuentes y Metodología
+        </h3>
+        <button class="header-btn" id="btn-close-sources" aria-label="Cerrar ventana de fuentes">
+          <i class="fa-solid fa-xmark"></i> Cerrar
+        </button>
+      </div>
+
+      <p class="modal-body-text" style="margin-bottom:20px;">
+        Esta exposición interactiva ha sido concebida como un recurso pedagógico riguroso. Su contenido se sustenta en dos pilares fundamentales:
+      </p>
+
+      <!-- Fuente 1: Andreu Escrivà -->
+      <div class="sources-source-card andreu">
+        <h4>Andreu Escrivà</h4>
+        <div class="sources-role">Ambientólogo, doctor en Biodiversidad y divulgador científico</div>
+        <p class="sources-desc">
+          Aporta el marco científico y social sobre <strong>los límites reales de los materiales</strong>, el debate sobre el <strong>PIB frente al bienestar humano</strong> y la fuerza de la <strong>acción comunitaria</strong> para transformar nuestros barrios en lugares más habitables y saludables.
+        </p>
+      </div>
+
+      <!-- Fuente 2: Verificat / Desfake -->
+      <div class="sources-source-card">
+        <h4>Verificat / Desfake</h4>
+        <div class="sources-role">Asociación periodística de verificación y educación mediática</div>
+        <p class="sources-desc">
+          Aporta el método de <strong>alfabetización crítica frente a los bulos</strong>: el análisis de titulares sobre cosechas y mapas del tiempo, las <strong>4 preguntas de verificación</strong>, las tácticas de manipulación (E.F.E.C.T.), la investigación real con rastreadores GPS sobre el reciclaje textil y las claves para detectar el <em>greenwashing</em>.
+        </p>
+      </div>
+
+      <!-- Fuente 3: CIVICAN -->
+      <div class="sources-source-card" style="border-left-color:var(--forest);">
+        <h4>CIVICAN (Fundación Caja Navarra)</h4>
+        <div class="sources-role">Centro cultural, social y de pensamiento</div>
+        <p class="sources-desc">
+          Instalación pedagógica concebida para el <strong>Videowall del Atrio de CIVICAN</strong> (Pamplona). Una iniciativa abierta a toda la ciudadanía para fomentar el pensamiento crítico, la cultura científica y la convivencia en el espacio público.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/civican-kiosk.js"></script>
+  <script src="js/civican-gamification.js"></script>
+
+</body>
+</html>

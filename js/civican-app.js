@@ -191,9 +191,10 @@ class CivicanApp {
           <div style="margin-top:18px; font-weight:800; color:var(--forest); font-size:1.15rem; font-family:var(--font-display);">
             <i class="fa-solid fa-seedling"></i> ${round.badge}
           </div>
+          ${round.originalQuestion ? `
           <div style="font-size:0.95rem; color:var(--ink-secondary); font-style:italic; margin-top:4px; text-align:center;">
             «${round.originalQuestion}»
-          </div>
+          </div>` : ''}
         </div>
 
         <!-- Panel de Elección y Reflexión -->
