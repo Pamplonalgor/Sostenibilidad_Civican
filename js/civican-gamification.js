@@ -661,7 +661,9 @@ class CivicanGamificationApp {
     const handleStamp = (verdictUser) => {
       const isCorrect = verdictUser === item.correctVerdict;
       stampBadge.className = `stamp-seal-badge stamped ${verdictUser === 'verified' ? 'verified' : 'hoax'}`;
-      stampBadge.textContent = verdictUser === 'verified' ? 'INFORMACIÓN RIGUROSA' : 'ALERTA BULO';
+      stampBadge.innerHTML = verdictUser === 'verified'
+        ? '<i class="fa-solid fa-circle-check"></i> INFORMACIÓN RIGUROSA'
+        : '<i class="fa-solid fa-triangle-exclamation"></i> ALERTA BULO';
 
       forensicTitle.textContent = isCorrect ? item.analysisTitle : (item.correctVerdict === 'verified' ? '¡Ojo! Este dato sí es riguroso' : '¡Cuidado! Se trata de una manipulación');
       forensicText.textContent = item.analysisText;
@@ -669,6 +671,12 @@ class CivicanGamificationApp {
 
       document.getElementById('btn-stamp-verified').disabled = true;
       document.getElementById('btn-stamp-hoax').disabled = true;
+
+      if (window.innerWidth <= 900) {
+        setTimeout(() => {
+          forensicBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 120);
+      }
     };
 
     document.getElementById('btn-stamp-verified').addEventListener('click', () => handleStamp('verified'));
@@ -781,23 +789,24 @@ class CivicanGamificationApp {
             </text>
           </svg>
 
-          <div style="color:#BDC3C7; font-size:0.86rem; font-family:monospace; margin-top:8px;">
-            COORDENADAS: ${wp.signal} | DISTANCIA ACUMULADA: ${this.currentWaypoint * 2500} km
+          <div class="satellite-coords-bar">
+            <span>COORDENADAS: ${wp.signal}</span>
+            <span>DISTANCIA: ${this.currentWaypoint * 2500} km</span>
           </div>
 
           <!-- Tira de Datos Forenses del Sector Textil -->
           <div class="textile-facts-strip">
             <div class="textile-fact-item">
               <strong>2.700 L</strong>
-              <span>Agua por camiseta</span>
+              <span>Agua/camiseta</span>
             </div>
             <div class="textile-fact-item">
-              <strong>< 1%</strong>
-              <span>Ropa reciclada en tela</span>
+              <strong>&lt; 1%</strong>
+              <span>Ropa reciclada</span>
             </div>
             <div class="textile-fact-item">
               <strong>7.500 km</strong>
-              <span>Ruta hasta vertedero</span>
+              <span>A vertedero</span>
             </div>
           </div>
         </div>
@@ -805,11 +814,11 @@ class CivicanGamificationApp {
         <!-- Línea Temporal Interactiva y Compacta -->
         <div class="gps-route-steps">
           <div>
-            <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:800; color:var(--ink); margin-bottom:2px;">
+            <h3 class="gps-route-title">
               Ruta del Rastreador Satelital
             </h3>
-            <p style="font-size:0.88rem; color:var(--ink-secondary); margin-bottom:10px;">
-              Investigación real de periodistas con 10 localizadores GPS en ropa.
+            <p class="gps-route-subtitle">
+              Investigación periodística con 10 localizadores GPS en ropa.
             </p>
           </div>
 
