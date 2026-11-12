@@ -363,13 +363,13 @@ class CivicanApp {
           <!-- 3 Pistas Metodológicas -->
           <div class="detective-tools-bar">
             <button class="btn-tool" data-tool="queVeo">
-              <i class="fa-solid fa-eye"></i> Qué veo
+              <i class="fa-solid fa-eye"></i> <span>Qué veo</span>
             </button>
             <button class="btn-tool" data-tool="quePuedoComprobar">
-              <i class="fa-solid fa-magnifying-glass"></i> Qué comprobar
+              <i class="fa-solid fa-magnifying-glass"></i> <span>Comprobar</span>
             </button>
             <button class="btn-tool" data-tool="queFaltaSaber">
-              <i class="fa-solid fa-circle-question"></i> Qué falta saber
+              <i class="fa-solid fa-circle-question"></i> <span>Falta saber</span>
             </button>
           </div>
 
@@ -503,21 +503,21 @@ class CivicanApp {
           Las 4 preguntas maestras de verificación periodística:
         </p>
 
-        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; margin-bottom:28px;">
+        <div class="method-builder-grid">
           ${currentCase.questions.map(q => `
-            <div class="option-card-touch" style="flex-direction:column; align-items:flex-start; min-height:130px; cursor:default;">
+            <div class="option-card-touch" style="flex-direction:column; align-items:flex-start; min-height:110px; cursor:default;">
               <div style="display:flex; justify-content:space-between; width:100%; margin-bottom:8px;">
                 <span style="font-family:var(--font-display); font-weight:900; color:var(--cyanotype); font-size:1.3rem;">#${q.number}</span>
                 <span class="typology-tag" style="background:var(--cyanotype-soft); color:var(--cyanotype);">${q.focus}</span>
               </div>
-              <h4 style="font-family:var(--font-display); font-size:1.25rem; font-weight:800; color:var(--ink); margin-bottom:6px;">${q.text}</h4>
-              <p style="font-size:0.98rem; color:var(--ink-secondary); line-height:1.4;">${q.desc}</p>
+              <h4 style="font-family:var(--font-display); font-size:1.15rem; font-weight:800; color:var(--ink); margin-bottom:6px;">${q.text}</h4>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); line-height:1.4;">${q.desc}</p>
             </div>
           `).join('')}
         </div>
 
         <div style="display:flex; justify-content:center;">
-          <button class="btn-confirm-choice" id="btn-finish-method-b" style="padding:0 52px; background:var(--cyanotype); box-shadow:0 4px 0 #103058;">
+          <button class="btn-confirm-choice" id="btn-finish-method-b" style="background:var(--cyanotype); box-shadow:0 4px 0 #103058;">
             <span>Incorporar método y ver conclusiones</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>

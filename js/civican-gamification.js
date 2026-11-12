@@ -760,7 +760,7 @@ class CivicanGamificationApp {
         <!-- Mapa Satelital Interactivo -->
         <div class="satellite-map-box">
           <div class="satellite-screen-header">
-            <span>Satélite Sentinel-3 · Rastreo Forense</span>
+            <span class="sat-name-tag"><i class="fa-solid fa-satellite"></i> Sentinel-3 · Satélite</span>
             <span class="satellite-status-live">GPS ACTIVO</span>
           </div>
 
@@ -790,8 +790,8 @@ class CivicanGamificationApp {
           </svg>
 
           <div class="satellite-coords-bar">
-            <span>COORDENADAS: ${wp.signal}</span>
-            <span>DISTANCIA: ${this.currentWaypoint * 2500} km</span>
+            <span><i class="fa-solid fa-location-crosshairs"></i> ${wp.signal}</span>
+            <span><i class="fa-solid fa-route"></i> ${this.currentWaypoint * 2500} km</span>
           </div>
 
           <!-- Tira de Datos Forenses del Sector Textil -->
@@ -827,7 +827,7 @@ class CivicanGamificationApp {
             ${this.waypoints.map((item, idx) => `
               <button class="gps-step-tab ${idx === this.currentWaypoint ? 'active' : ''}" data-idx="${idx}" aria-label="${item.title}">
                 <span class="step-badge">${item.num}</span>
-                <span class="step-name">${item.title.split(':')[1]?.replace('Tienda en ', '').replace('Puerto marítimo de ', '').replace('Barco en el ', '').replace('Vertedero en ', '').trim() || item.title}</span>
+                <span class="step-name">${item.title.split(':')[1]?.replace('Tienda en ', '').replace('Puerto marítimo de ', '').replace('Barco en el Océano ', '').replace('Barco en el ', '').replace('Vertedero en Accra (Ghana)', 'Ghana').replace('Vertedero en ', '').trim() || item.title}</span>
               </button>
             `).join('')}
           </div>

@@ -1236,30 +1236,48 @@
      ======================================================================== */
   .gps-satellite-workspace {
     grid-template-columns: 1fr !important;
-    padding: 10px 10px !important;
+    padding: 10px 8px !important;
     border-radius: 16px !important;
-    gap: 10px !important;
+    gap: 8px !important;
     border: 1.5px solid var(--rule) !important;
     box-shadow: 0 2px 10px rgba(19, 34, 46, 0.05) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .satellite-map-box {
-    padding: 8px 10px !important;
+    padding: 8px 8px !important;
     border-radius: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .satellite-screen-header {
-    font-size: 0.72rem !important;
+    font-size: 0.70rem !important;
     margin-bottom: 4px !important;
     padding-bottom: 4px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .sat-name-tag {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
 
   .satellite-map-box svg {
-    height: 110px !important;
-    max-height: 110px !important;
+    height: 100px !important;
+    max-height: 100px !important;
     width: 100% !important;
-    display: block;
-    margin: 0 auto;
+    max-width: 100% !important;
+    display: block !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
   }
 
   .satellite-coords-bar {
@@ -1267,48 +1285,67 @@
     justify-content: space-between !important;
     align-items: center !important;
     color: #BDC3C7 !important;
-    font-size: 0.72rem !important;
-    font-family: monospace !important;
+    font-size: 0.70rem !important;
+    font-family: var(--font-sans) !important;
     margin-top: 4px !important;
-    flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
     gap: 4px !important;
+  }
+
+  .satellite-coords-bar span {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .textile-facts-strip {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 4px !important;
     margin-top: 6px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .textile-fact-item {
-    padding: 4px 2px !important;
+    padding: 3px 2px !important;
     border-radius: 6px !important;
     text-align: center !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .textile-fact-item strong {
-    font-size: 0.85rem !important;
+    font-size: 0.80rem !important;
     display: block !important;
   }
 
   .textile-fact-item span {
-    font-size: 0.65rem !important;
+    font-size: 0.60rem !important;
     line-height: 1.1 !important;
     display: block !important;
   }
 
   .gps-route-steps {
     gap: 6px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
   }
 
   .gps-route-title {
-    font-size: 1.05rem !important;
+    font-size: 1.02rem !important;
     margin-bottom: 1px !important;
     font-weight: 800 !important;
   }
 
   .gps-route-subtitle {
-    font-size: 0.78rem !important;
+    font-size: 0.75rem !important;
     color: var(--ink-secondary) !important;
     margin-bottom: 6px !important;
     line-height: 1.3 !important;
@@ -1319,23 +1356,29 @@
     gap: 4px !important;
     padding: 2px 0 4px 0 !important;
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
 
   .gps-step-tab {
     flex: 1 1 0 !important;
     min-width: 0 !important;
-    padding: 5px 3px !important;
-    font-size: 0.72rem !important;
+    max-width: 100% !important;
+    padding: 5px 2px !important;
+    font-size: 0.70rem !important;
     gap: 3px !important;
     border-radius: 999px !important;
     justify-content: center !important;
     text-align: center !important;
+    box-sizing: border-box !important;
   }
 
   .gps-step-tab .step-badge {
-    width: 16px !important;
-    height: 16px !important;
-    font-size: 0.65rem !important;
+    width: 15px !important;
+    height: 15px !important;
+    font-size: 0.62rem !important;
     flex-shrink: 0 !important;
   }
 
@@ -1343,13 +1386,18 @@
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
-    font-size: 0.72rem !important;
+    font-size: 0.68rem !important;
+    max-width: 54px !important;
   }
 
   .gps-active-card {
     padding: 10px 10px !important;
     border-radius: 12px !important;
     margin-top: 2px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .gps-badge-stop {
@@ -1358,21 +1406,21 @@
   }
 
   .gps-active-title {
-    font-size: 0.98rem !important;
+    font-size: 0.96rem !important;
     line-height: 1.25 !important;
     margin-bottom: 3px !important;
   }
 
   .gps-active-desc {
-    font-size: 0.82rem !important;
-    line-height: 1.36 !important;
+    font-size: 0.80rem !important;
+    line-height: 1.34 !important;
     margin-bottom: 6px !important;
   }
 
   .gps-active-note {
     padding: 6px 8px !important;
-    font-size: 0.78rem !important;
-    line-height: 1.35 !important;
+    font-size: 0.76rem !important;
+    line-height: 1.32 !important;
     border-radius: 8px !important;
   }
 
@@ -1385,6 +1433,7 @@
     font-weight: 800 !important;
     margin-top: 8px !important;
     border-radius: 12px !important;
+    box-sizing: border-box !important;
   }
 
   /* 4. MÓDULO: ROMPECADENAS */

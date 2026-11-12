@@ -970,6 +970,14 @@ body.senior-large-font .mode-pill-btn i {
   line-height: 1.45;
 }
 
+.method-builder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
 /* ==========================================================================
    PANTALLA DE RESULTADOS / CIERRE
    ========================================================================== */
@@ -1584,17 +1592,111 @@ body.senior-large-font .card-title {
   .game-layout-split {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .visual-scene-box {
-    max-height: 180px !important;
     padding: 10px !important;
     border-radius: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  .visual-scene-box:not(:has(.news-mock-card)) {
+    max-height: 180px !important;
   }
 
   .visual-scene-box svg {
     max-height: 140px !important;
     width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Ajustes específicos para Detectives del Clima en móvil */
+  .news-mock-card {
+    padding: 12px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .news-mock-header {
+    gap: 10px !important;
+  }
+
+  .news-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 1rem !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .news-claim-headline {
+    font-size: 1.05rem !important;
+    line-height: 1.35 !important;
+    margin-top: 6px !important;
+  }
+
+  .detective-tools-bar {
+    display: flex !important;
+    gap: 4px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .btn-tool {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 38px !important;
+    padding: 6px 3px !important;
+    font-size: 0.74rem !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+  }
+
+  .btn-tool i {
+    font-size: 0.8rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .btn-tool span {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 0.72rem !important;
+  }
+
+  .tool-preview-content {
+    padding: 8px 10px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+    margin-top: 8px !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .method-builder-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .situation-heading {
