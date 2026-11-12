@@ -50,6 +50,22 @@
   color: var(--ink);
 }
 
+/* Optimización táctil para dispositivos móviles y pantallas */
+.tactile-lever-card,
+.experience-card,
+.btn-launch-module,
+.btn-card-cta,
+.mode-pill-btn,
+.header-btn,
+.gps-step-tab,
+.key-card-touch,
+.stamp-control-btn,
+.btn-stamp-action {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
 /* ==========================================================================
    MÓDULO 1: SIMULADOR DE BARRIO CON CASOS REALES Y BENEFICIOS
    ========================================================================== */

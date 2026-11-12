@@ -27,11 +27,23 @@ class CivicanGamificationApp {
   }
 
   initEvents() {
-    // Escuchar botones de lanzamiento de módulos en la portada de Prototipo 2
+    // Escuchar tanto la tarjeta completa como el botón directo de lanzamiento
+    document.querySelectorAll('.experience-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const btn = card.querySelector('.btn-launch-module');
+        if (btn && btn.dataset.module) {
+          this.startModule(btn.dataset.module);
+        }
+      });
+    });
+
     document.querySelectorAll('.btn-launch-module').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const modId = btn.dataset.module;
-        this.startModule(modId);
+        if (modId) {
+          this.startModule(modId);
+        }
       });
     });
 
@@ -848,7 +860,6 @@ class CivicanGamificationApp {
         this.renderGpsCurrentView();
       });
     });
-    });
   }
 
   /* ========================================================================
@@ -985,6 +996,14 @@ class CivicanGamificationApp {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.civicanGamificationApp = new CivicanGamificationApp();
-});
+function initCivicanGamificationApp() {
+  if (!window.civicanGamificationApp) {
+    window.civicanGamificationApp = new CivicanGamificationApp();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCivicanGamificationApp);
+} else {
+  initCivicanGamificationApp();
+}

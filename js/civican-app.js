@@ -964,7 +964,7 @@ class CivicanApp {
           <text x="230" y="152" font-size="10" font-weight="800" fill="#13222E" text-anchor="middle">DISPUESTOS</text>
 
           <circle cx="140" cy="110" r="18" fill="#FFF" stroke="#1A5E44" stroke-width="2"/>
-          <text x="140" y="114" font-size="11" font-weight="bold" fill="#1A5E44" text-anchor="middle"><i class="fa-solid fa-user"></i></text>
+          <text x="140" y="115" font-size="11" font-weight="bold" fill="#1A5E44" text-anchor="middle">TÚ</text>
           
           <circle cx="320" cy="100" r="18" fill="#FFF" stroke="#1A5E44" stroke-width="2"/>
           <circle cx="160" cy="210" r="18" fill="#FFF" stroke="#1A5E44" stroke-width="2"/>
@@ -978,6 +978,14 @@ class CivicanApp {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.civicanApp = new CivicanApp();
-});
+function initCivicanApp() {
+  if (!window.civicanApp) {
+    window.civicanApp = new CivicanApp();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCivicanApp);
+} else {
+  initCivicanApp();
+}
