@@ -556,26 +556,24 @@ class CivicanApp {
 
       <div class="game-layout-split">
         <!-- Ficha de la Campaña Analizada -->
-        <div class="visual-scene-box" style="justify-content:flex-start;">
-          <div style="background:var(--terracotta-soft); border-radius:var(--radius-md); padding:18px; width:100%; margin-bottom:18px; border-left:6px solid var(--terracotta); border:1px solid var(--terracotta-border); border-left-width:6px;">
-            <span style="font-size:0.85rem; font-weight:800; color:var(--terracotta); text-transform:uppercase; letter-spacing:1px;">Caso de Estudio Real</span>
-            <h3 style="font-family:var(--font-display); font-size:1.45rem; font-weight:800; color:var(--ink); margin-top:4px;">${layer.subtitle}</h3>
+        <div class="visual-scene-box game-c-scene-box" style="justify-content:flex-start;">
+          <div class="game-c-case-banner">
+            <span class="game-c-case-tag">Caso de Estudio Real</span>
+            <h3 class="game-c-case-title">${layer.subtitle}</h3>
           </div>
 
           ${layer.claimPresented ? `
-            <div style="background:#FFF; border:2px dashed var(--terracotta); border-radius:var(--radius-md); padding:20px; width:100%; margin-bottom:18px;">
-              <span style="font-size:0.88rem; font-weight:800; color:var(--ink-secondary);"><i class="fa-solid fa-bullhorn"></i> Mensaje del Anuncio:</span>
-              <p style="font-family:var(--font-display); font-size:1.25rem; font-weight:700; color:var(--ink); margin-top:8px; font-style:italic; line-height:1.4;">
+            <div class="game-c-claim-box">
+              <span class="game-c-claim-label"><i class="fa-solid fa-bullhorn"></i> Mensaje del Anuncio:</span>
+              <p class="game-c-claim-text">
                 ${layer.claimPresented}
               </p>
             </div>
           ` : ''}
 
-          <div style="text-align:center; padding:24px; width:100%; background:var(--canvas); border-radius:var(--radius-md); border:1px solid var(--rule);">
-            <i class="fa-solid fa-shirt" style="font-size:4.5rem; color:var(--terracotta); opacity:0.9; margin-bottom:12px;"></i>
-            <p style="font-size:1.02rem; font-weight:700; color:var(--ink);">
-              Auditoría de recogida textil y trazabilidad independiente
-            </p>
+          <div class="game-c-icon-badge">
+            <i class="fa-solid fa-shirt"></i>
+            <p>Auditoría de recogida textil y trazabilidad independiente</p>
           </div>
         </div>
 
@@ -637,7 +635,7 @@ class CivicanApp {
         </h3>
         <p class="explanation-body">${layer.feedbackBody}</p>
         
-        <div style="background:var(--terracotta-soft); padding:16px 20px; border-radius:var(--radius-sm); margin-bottom:22px; border-left:5px solid var(--terracotta);">
+        <div class="game-c-feedback-clue">
           <h4 style="font-weight:800; color:var(--terracotta); margin-bottom:4px; font-family:var(--font-display); font-size:1.1rem;">
             <i class="fa-solid fa-compass"></i> Clave Crítica:
           </h4>
@@ -665,6 +663,12 @@ class CivicanApp {
         }
       });
     });
+
+    if (window.innerWidth <= 900) {
+      setTimeout(() => {
+        decisionPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
   }
 
   /* ==========================================================================
@@ -691,8 +695,8 @@ class CivicanApp {
 
       <div class="game-layout-split">
         <!-- Visual y Llaves del Escape Room -->
-        <div class="visual-scene-box" style="justify-content:flex-start;">
-          <div style="display:flex; gap:12px; width:100%; margin-bottom:20px;">
+        <div class="visual-scene-box game-d-scene-box" style="justify-content:flex-start;">
+          <div class="game-d-keys-bar">
             <div class="escape-key-pill ${this.currentRoundIndex >= 1 ? 'unlocked' : ''}">
               <i class="fa-solid fa-key"></i> 1. Pruebas
             </div>
@@ -704,23 +708,23 @@ class CivicanApp {
             </div>
           </div>
 
-          <div style="background:#13222E; border-radius:var(--radius-md); padding:22px; width:100%; color:#FFF; margin-bottom:18px; border:1px solid var(--rule-strong);">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-              <span style="background:var(--terracotta); padding:4px 12px; border-radius:var(--radius-pill); font-size:0.82rem; font-weight:800; letter-spacing:0.8px;">
+          <div class="game-d-dark-card">
+            <div class="game-d-dark-header">
+              <span class="game-d-dark-badge">
                 CADENA DE RETARDISMO
               </span>
-              <span style="font-size:0.88rem; color:#A8B8C6;">Discursos que frenan la acción</span>
+              <span class="game-d-dark-sub">Discursos que frenan la acción</span>
             </div>
-            <p style="font-family:var(--font-display); font-size:1.22rem; font-weight:700; color:#F4CE91; line-height:1.4;">
+            <p class="game-d-dark-claim">
               ${trial.narrativeClaim || trial.pairingTask?.questionGiven || trial.efectChallenge?.definition}
             </p>
           </div>
 
-          <div style="background:var(--canvas); border-radius:var(--radius-md); padding:18px; width:100%; border:1px solid var(--rule);">
-            <h4 style="font-weight:800; margin-bottom:4px; color:var(--ink); font-family:var(--font-display); font-size:1.1rem;">
+          <div class="game-d-enigma-card">
+            <h4 class="game-d-enigma-title">
               <i class="fa-solid fa-puzzle-piece" style="color:var(--amber);"></i> Misión del Enigma:
             </h4>
-            <p style="font-size:0.98rem; color:var(--ink-secondary); line-height:1.45;">${trial.situation}</p>
+            <p class="game-d-enigma-desc">${trial.situation}</p>
           </div>
         </div>
 
@@ -784,7 +788,7 @@ class CivicanApp {
         <p class="explanation-body">${trial.feedbackBody}</p>
         
         ${trial.takeaway ? `
-          <div style="background:var(--forest-soft); padding:16px 20px; border-radius:var(--radius-sm); margin-bottom:22px; border-left:5px solid var(--forest);">
+          <div class="game-d-feedback-action">
             <h4 style="font-weight:800; color:var(--forest); margin-bottom:4px; font-family:var(--font-display); font-size:1.1rem;">
               <i class="fa-solid fa-users-rays"></i> Acción en Común (Andreu Escrivà):
             </h4>
@@ -813,6 +817,12 @@ class CivicanApp {
         }
       });
     });
+
+    if (window.innerWidth <= 900) {
+      setTimeout(() => {
+        decisionPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
   }
 
   /* ==========================================================================
